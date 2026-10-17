@@ -1,8 +1,11 @@
-SUPER CAPONE WORLD™ — versione v1.06 (17 ottobre 2026)
+SUPER CAPONE WORLD™ — versione v1.07 (17 ottobre 2026)
 =======================================================
 Il mondo online di Super Capone: entri con un avatar (il Capone o altri 10), scrivi il nome e giri
 insieme agli altri giocatori. Chat pubblica e privata, vetrine dei negozi, gallerie fra le città.
 
+NOVITÀ v1.07: nuovi edifici Manulab (Villaggio Mosè → manulab.it) e Il Capone Quiz 3.0 (accanto ad Alberto, l'insegna è la facciata → ilcaponequiz.win).
+Link attivi: Alberto Seminerio → albertoseminerio.com, Municipio → comune.agrigento.it, Rifugio Hope → ricerca Google. I cartelloni pubblicitari ora sono
+cliccabili (pulsante «Cartellone»): quiz → ilcaponequiz.win, karaoke → albertoseminerio.com.
 NOVITÀ v1.06: corretto il bug «lui mi vede e io no»: se il telefono perde un attimo la rete, il giocatore ora si ripubblica da solo appena torna online.
 NOVITÀ v1.05: locali riassegnati ai quartieri. Denise Eventi → San Leone; Frank&Saro e Il Centesimo → Villaggio Mosè (con targa quartiere);
 Capotavola, Posta e Animazione di Alberto Seminerio restano ad Agrigento centro. Mappa più compatta (620 caselle).
@@ -25,8 +28,8 @@ PUBBLICAZIONE — vedi la guida passo per passo che ti ho scritto in chat. In si
 
 CONTENUTO DEL MONDO
 - AGRIGENTO, per quartiere: San Leone (Oceanomare, Denise Eventi) · Montaperto (Gabbia di Matti) · Agrigento centro (Municipio, Ristorante
-  Capotavola, Ufficio Postale, Animazione e Spettacoli di Alberto → albertoseminerio.com, Pizzeria Mary 2.0) · Villaggio Mosè (Cose Toste,
-  Doimos, Frank&Saro, Il Centesimo, Pala Congressi) · Fontanelle (Cartapesta) · Quadrivio Spina Santa (FuoriKapa) · Monserrato (Rifugio Hope) ·
+  Capotavola, Ufficio Postale, Animazione e Spettacoli di Alberto → albertoseminerio.com, Il Capone Quiz 3.0, Pizzeria Mary 2.0) · Villaggio Mosè (Cose Toste,
+  Doimos, Frank&Saro, Il Centesimo, Manulab, Pala Congressi) · Fontanelle (Cartapesta) · Quadrivio Spina Santa (FuoriKapa) · Monserrato (Rifugio Hope) ·
   Villaseta (Centro Commerciale Città dei Templi) · Villaggio Peruzzo (in arrivo).
 - Gallerie: ARAGONA (Naselli Pub), FAVARA (Melamangio da Paolo), PORTO EMPEDOCLE (Pizzette da Forte),
   GROTTE (Caffè Marconi e Central Bar).
