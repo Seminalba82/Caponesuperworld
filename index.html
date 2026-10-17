@@ -1335,7 +1335,7 @@ function scDrawFavaraSign(c, x, T, name, sub) {
   }
 }
 // ===================== SUPER CAPONE WORLD · arte (avatar, negozi, terreno) =====================
-const WORLD_VERSION = "v1.05";
+const WORLD_VERSION = "v1.06";
 const T0 = 1; // unità: tutto è disegnato in "caselle" (come in Super Capone), i piedi sono in (0,0)
 
 // ---------- 11 avatar: il Capone + 10 personaggi ----------
@@ -2158,9 +2158,13 @@ function netStart() {
   const mine = Net.ref("players/" + ME.uid);
   const fbErr = (e) => { const t = String((e && (e.code || e.message)) || e); netProblem(/permission|PERMISSION/.test(t) ? "Il database rifiuta l'accesso: controlla le REGOLE e l'accesso ANONIMO su Firebase" : "Errore Firebase: " + t.slice(0, 80)); };
   Net.fbErr = fbErr;
-  mine.set({ n: ME.name, a: ME.av, z: ME.zone, t: Date.now() }).catch(fbErr);
-  mine.onDisconnect().remove();
-  setInterval(() => mine.update({ t: Date.now(), z: ME.zone }), 20000);
+  const rec = () => ({ n: ME.name, a: ME.av, z: ME.zone, t: Date.now() });
+  // ad ogni (ri)connessione ripubblica la presenza COMPLETA: se il telefono perde la rete, il server cancella il giocatore
+  // (onDisconnect) e senza questo passaggio gli altri non lo vedrebbero più
+  const goOnline = () => { mine.set(rec()).catch(fbErr); mine.onDisconnect().remove(); if (posRef) { posRef.onDisconnect().remove(); lastSig = ""; sendPos(true); } };
+  Net.db.ref(".info/connected").on("value", (s) => { if (s.val() === true) goOnline(); });
+  setInterval(() => mine.set(rec()).catch(() => {}), 20000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) { mine.set(rec()).catch(() => {}); lastSig = ""; sendPos(true); } });
   const onP = (s) => { const v = s.val(); if (!v) return; roster.set(s.key, v); updateOnline(); chatRefresh(); };
   Net.ref("players").on("child_added", onP, fbErr);
   Net.ref("players").on("child_changed", onP);

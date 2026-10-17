@@ -1,8 +1,9 @@
-SUPER CAPONE WORLD™ — versione v1.05 (17 ottobre 2026)
+SUPER CAPONE WORLD™ — versione v1.06 (17 ottobre 2026)
 =======================================================
 Il mondo online di Super Capone: entri con un avatar (il Capone o altri 10), scrivi il nome e giri
 insieme agli altri giocatori. Chat pubblica e privata, vetrine dei negozi, gallerie fra le città.
 
+NOVITÀ v1.06: corretto il bug «lui mi vede e io no»: se il telefono perde un attimo la rete, il giocatore ora si ripubblica da solo appena torna online.
 NOVITÀ v1.05: locali riassegnati ai quartieri. Denise Eventi → San Leone; Frank&Saro e Il Centesimo → Villaggio Mosè (con targa quartiere);
 Capotavola, Posta e Animazione di Alberto Seminerio restano ad Agrigento centro. Mappa più compatta (620 caselle).
 NOVITÀ v1.04: QUARTIERI DI AGRIGENTO. Barra «Quartieri di Agrigento» sotto il gioco con i pulsanti San Leone, Montaperto,
