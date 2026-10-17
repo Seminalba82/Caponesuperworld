@@ -1,0 +1,47 @@
+REGOLE FIREBASE per il progetto "CaponeSuperworld" (Realtime Database > Regole)
+================================================================================
+Cancella tutto quello che c'è nella scheda Regole e incolla ESATTAMENTE questo, poi premi «Pubblica».
+(Funzionano solo con l'Accesso anonimo attivo: Authentication > Metodo di accesso > Anonimo > Abilita.)
+
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "world": {
+      "players": {
+        ".read": "auth != null",
+        "$uid": {
+          ".write": "auth != null && auth.uid === $uid",
+          ".validate": "newData.hasChildren(['n','a','z','t']) && newData.child('n').isString() && newData.child('n').val().length <= 14"
+        }
+      },
+      "pos": {
+        ".read": "auth != null",
+        "$zone": { "$uid": { ".write": "auth != null && auth.uid === $uid" } }
+      },
+      "chatSeq": { ".read": "auth != null", ".write": "auth != null", ".validate": "newData.isNumber()" },
+      "chat": {
+        ".read": "auth != null",
+        "$slot": {
+          ".write": "auth != null",
+          ".validate": "newData.child('u').val() === auth.uid && newData.child('m').isString() && newData.child('m').val().length <= 140 && newData.child('n').val().length <= 14"
+        }
+      },
+      "dm": {
+        "$to": {
+          ".read": "auth != null && auth.uid === $to",
+          "$id": {
+            ".write": "auth != null && ((!newData.exists() && auth.uid === $to) || (newData.exists() && !data.exists() && newData.child('f').val() === auth.uid))",
+            ".validate": "newData.child('m').isString() && newData.child('m').val().length <= 160"
+          }
+        }
+      }
+    }
+  }
+}
+
+COSA PROTEGGONO
+- Solo chi è entrato nel gioco (accesso anonimo) può leggere/scrivere.
+- Ognuno può scrivere solo la propria presenza e la propria posizione.
+- I messaggi privati li può LEGGERE solo il destinatario (vera privacy) e li scrive solo il mittente vero.
+- Lunghezza massima dei messaggi controllata anche dal database.
