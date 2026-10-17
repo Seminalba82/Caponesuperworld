@@ -1,0 +1,39 @@
+SUPER CAPONE WORLD™ — versione v1.04 (17 ottobre 2026)
+=======================================================
+Il mondo online di Super Capone: entri con un avatar (il Capone o altri 10), scrivi il nome e giri
+insieme agli altri giocatori. Chat pubblica e privata, vetrine dei negozi, gallerie fra le città.
+
+NOVITÀ v1.04: QUARTIERI DI AGRIGENTO. Barra «Quartieri di Agrigento» sotto il gioco con i pulsanti San Leone, Montaperto,
+Agrigento centro, Villaggio Mosè, Fontanelle, Quadrivio Spina Santa, Monserrato, Villaseta, Villaggio Peruzzo: premendo, il
+personaggio salta al volo nel quartiere. I locali di uno stesso quartiere sono tutti vicini. Nuove strutture: Municipio,
+Ristorante Capotavola e Ufficio Postale (Agrigento centro), Pala Congressi (Villaggio Mosè), Rifugio Hope con i cani
+(Monserrato), Centro Commerciale Città dei Templi (Villaseta). Villaggio Peruzzo è un cantiere «in arrivo». Agrigento è ora lunga 680 caselle.
+NOVITÀ v1.03: se c’è un problema di collegamento a Firebase (regole, accesso anonimo) il gioco ora lo scrive in alto per 9 secondi.
+NOVITÀ v1.02: progetto Firebase SEPARATO (CaponeSuperworld). I dati del progetto si scrivono nel file
+firebase-config.js (non più dentro il gioco). Accesso anonimo automatico: le chat private ora sono vere
+(le legge solo il destinatario). Regole nuove in FIREBASE_REGOLE_WORLD.txt.
+(v1.01: Denise Eventi, Oceanomare grande con logo, Cose Toste con logo, Cartapesta/FuoriKapa distanziati.)
+
+PUBBLICAZIONE — vedi la guida passo per passo che ti ho scritto in chat. In sintesi:
+1. Firebase: crea il progetto CaponeSuperworld, Realtime Database (Belgio), regole (file
+   FIREBASE_REGOLE_WORLD.txt), Authentication > Anonimo abilitato.
+2. Copia la configurazione web di Firebase dentro firebase-config.js.
+3. Carica tutto su GitHub (repo nuovo) e collega a Vercel.
+
+CONTENUTO DEL MONDO
+- AGRIGENTO, per quartiere: San Leone (Oceanomare) · Montaperto (Gabbia di Matti) · Agrigento centro (Municipio, Ristorante
+  Capotavola, Ufficio Postale, Animazione e Spettacoli di Alberto → albertoseminerio.com, Frank&Saro, Il Centesimo, Mary 2.0, Denise
+  Eventi) · Villaggio Mosè (Cose Toste, Doimos, Pala Congressi) · Fontanelle (Cartapesta) · Quadrivio Spina Santa (FuoriKapa) ·
+  Monserrato (Rifugio Hope) · Villaseta (Centro Commerciale Città dei Templi) · Villaggio Peruzzo (in arrivo).
+- Gallerie: ARAGONA (Naselli Pub), FAVARA (Melamangio da Paolo), PORTO EMPEDOCLE (Pizzette da Forte),
+  GROTTE (Caffè Marconi e Central Bar).
+- Cartelloni pubblicitari sparsi in tutte le città. Sotto il gioco: frecce, SALTA, CHAT e pulsanti galleria.
+
+COME SI MODIFICANO LE VETRINE
+Nel KIT (src/world2_game.js, oggetto SHOPS): titolo, sottotitolo, testo e link
+(links: [{ t: "testo pulsante", u: "https://..." }]); poi «python3 tools/build.py» e ricarichi la cartella out/.
+
+LIMITI NOTI
+- Nessun suono per ora.
+- Test fatto con un Firebase simulato: prova col database vero dopo la pubblicazione.
+- Piano gratuito Firebase (Spark): massimo 100 persone collegate insieme. Per più utenti serve il piano Blaze.

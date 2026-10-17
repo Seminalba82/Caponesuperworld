@@ -30,6 +30,11 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
 #bJump{width:104px;background:linear-gradient(#ff7a5c,#e53935);box-shadow:0 4px 0 #8e1a17;font-size:15px}
 #bChat{flex:1;max-width:210px;background:linear-gradient(#29d17d,#0e9c55);box-shadow:0 4px 0 #086b3a;font-size:14px;position:relative}
 #bChat .bd{position:absolute;top:-8px;right:-6px;background:#ff1744;border:2px solid #fff;border-radius:12px;min-width:24px;height:24px;font:900 13px Arial;line-height:20px;display:none}
+#qbar{margin-bottom:8px}.ql{font:8px "Press Start 2P",monospace;color:var(--gold);margin:0 2px 6px;letter-spacing:.5px}
+#qrow{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}#qrow::-webkit-scrollbar{display:none}
+#qrow button{flex:none;font:700 13px Arial;color:#fff;background:#14452a;border:2px solid #66bb6a;border-radius:20px;padding:7px 12px;cursor:pointer;white-space:nowrap}
+#qrow button.cur{background:#2e7d32;border-color:#ffd54f;color:#ffeb3b}
+#zoneChip{max-width:calc(100% - 120px);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 #row2{display:flex;gap:6px;margin-top:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 #row2::-webkit-scrollbar{display:none}
 #row2 button{flex:none;font:700 13px Arial;color:#fff;background:var(--panel2);border:2px solid #7e57c2;border-radius:20px;padding:8px 13px;cursor:pointer;white-space:nowrap}
@@ -98,6 +103,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
     <div id="pmenu"></div>
   </div>
   <div id="bar">
+    <div id="qbar"><div class="ql">QUARTIERI DI AGRIGENTO</div><div id="qrow"></div></div>
     <div id="row1">
       <button class="pad" id="bL" aria-label="Sinistra">◀</button>
       <button class="pad" id="bR" aria-label="Destra">▶</button>
@@ -1329,7 +1335,7 @@ function scDrawFavaraSign(c, x, T, name, sub) {
   }
 }
 // ===================== SUPER CAPONE WORLD · arte (avatar, negozi, terreno) =====================
-const WORLD_VERSION = "v1.02";
+const WORLD_VERSION = "v1.04";
 const T0 = 1; // unità: tutto è disegnato in "caselle" (come in Super Capone), i piedi sono in (0,0)
 
 // ---------- 11 avatar: il Capone + 10 personaggi ----------
@@ -1604,7 +1610,11 @@ const inWinPizza = (c, x, y, w, h) => { c.save(); c.translate(x + w * 0.3, y + h
 const inWinCakes = (c, x, y, w, h) => { for (let i = 0; i < 4; i++) { c.fillStyle = ["#f8bbd0", "#d7a86e", "#fff3e0", "#a1887f"][i]; c.fillRect(x + 0.2 + i * (w - 0.4) / 4, y + h - 0.75, 0.38, 0.35); c.fillStyle = "#e53935"; c.beginPath(); c.arc(x + 0.39 + i * (w - 0.4) / 4, y + h - 0.78, 0.07, 0, 7); c.fill(); } };
 const icoCandy = (c) => { c.fillStyle = "#ff4081"; c.beginPath(); c.arc(0, 0, 0.3, 0, 7); c.fill(); c.fillStyle = "#fff"; c.beginPath(); c.arc(-0.08, -0.08, 0.1, 0, 7); c.fill(); c.fillStyle = "#ffeb3b"; c.beginPath(); c.moveTo(0.28, 0); c.lineTo(0.62, -0.28); c.lineTo(0.62, 0.28); c.fill(); c.beginPath(); c.moveTo(-0.28, 0); c.lineTo(-0.62, -0.28); c.lineTo(-0.62, 0.28); c.fill(); };
 const inWinCandy = (c, x, y, w, h) => { for (let i = 0; i < 4; i++) { const cx = x + 0.4 + i * (w - 0.8) / 3; c.fillStyle = "rgba(255,255,255,.55)"; trfRR(c, cx - 0.22, y + h - 0.95, 0.44, 0.65, 0.1); c.fill(); for (let k = 0; k < 6; k++) { c.fillStyle = ["#ff4081", "#ffeb3b", "#40c4ff", "#69f0ae", "#ff9100", "#e040fb"][(i + k) % 6]; c.beginPath(); c.arc(cx - 0.1 + (k % 3) * 0.1, y + h - 0.45 - Math.floor(k / 3) * 0.15, 0.06, 0, 7); c.fill(); } } const bc = ["#f44336", "#2196f3", "#ffeb3b"]; for (let i = 0; i < 3; i++) { c.fillStyle = bc[i]; c.beginPath(); c.ellipse(x + 0.5 + i * 0.5, y + 0.45, 0.22, 0.28, 0, 0, 7); c.fill(); c.strokeStyle = "rgba(255,255,255,.7)"; c.lineWidth = 0.02; c.beginPath(); c.moveTo(x + 0.5 + i * 0.5, y + 0.73); c.lineTo(x + 0.5 + i * 0.5, y + 1.0); c.stroke(); } };
-const SHOP_DIM = { oceanomare: [4.8, 6.2], denise: [5.4, 9.0], cose: [5.4, 8.2], animazione: [5.6, 9.6], doimos: [5.4, 8.1], fuori: [5.4, 8.5], carta: [7.0, 6.5], centesimo: [6.4, 7.2] };
+const icoEnv = (c) => { c.fillStyle = "#fff"; trfRR(c, -0.5, -0.32, 1.0, 0.68, 0.06); c.fill(); c.strokeStyle = "#0d47a1"; c.lineWidth = 0.06; c.beginPath(); c.moveTo(-0.5, -0.3); c.lineTo(0, 0.1); c.lineTo(0.5, -0.3); c.stroke(); };
+const icoPlate = (c) => { c.fillStyle = "#fff"; c.beginPath(); c.arc(0, 0, 0.36, 0, 7); c.fill(); c.strokeStyle = "#d7b56d"; c.lineWidth = 0.05; c.beginPath(); c.arc(0, 0, 0.22, 0, 7); c.stroke(); c.strokeStyle = "#fff"; c.lineWidth = 0.07; c.beginPath(); c.moveTo(-0.6, -0.4); c.lineTo(-0.6, 0.4); c.moveTo(0.6, -0.4); c.lineTo(0.6, 0.4); c.stroke(); };
+const inWinTable = (c, x, y, w, h) => { for (let i = 0; i < 2; i++) { const cx = x + w * (0.3 + i * 0.4); c.fillStyle = "#fff"; c.fillRect(cx - 0.5, y + h - 0.7, 1.0, 0.1); c.fillStyle = "#6d4c41"; c.fillRect(cx - 0.05, y + h - 0.6, 0.1, 0.5); c.fillStyle = "#fff59d"; c.fillRect(cx - 0.04, y + h - 1.0, 0.08, 0.3); c.fillStyle = "#ff9800"; c.beginPath(); c.arc(cx, y + h - 1.07, 0.07, 0, 7); c.fill(); } };
+const inWinMail = (c, x, y, w, h) => { for (let i = 0; i < 4; i++) { c.fillStyle = "#fff"; trfRR(c, x + 0.25 + i * (w - 0.5) / 4, y + h - 0.95 + (i % 2) * 0.12, 0.42, 0.3, 0.04); c.fill(); c.fillStyle = "#ffd600"; c.fillRect(x + 0.3 + i * (w - 0.5) / 4, y + h - 0.88 + (i % 2) * 0.12, 0.32, 0.06); } c.fillStyle = "#c8a46a"; c.fillRect(x + w / 2 - 0.35, y + h - 0.6, 0.7, 0.5); };
+const SHOP_DIM = { municipio: [8.5, 10.2], palacongressi: [11.5, 9.4], rifugio: [10, 7.6], cittatempi: [16.5, 9.4], capotavola: [5.6, 7.2], posta: [5.6, 7.2], oceanomare: [4.8, 6.2], denise: [5.4, 9.0], cose: [5.4, 8.2], animazione: [5.6, 9.6], doimos: [5.4, 8.1], fuori: [5.4, 8.5], carta: [7.0, 6.5], centesimo: [6.4, 7.2] };
 const SHOP_DEF = {
   denise: { name: "DENISE EVENTI", logo: "denise", logoDark: true, sh: 3.2, signW: 4.4, h: 8.4, hw: 5.0, wall: "#22222c", trim: "#ff4081", signBg: "#000", signFg: "#fff", awn: ["#ff4081", "#00bcd4"], glow: ["#fff3b0", "#ff9f43"], base: "rgba(255,64,129,.35)", inWin: inWinCandy },
   doimos: { name: "DOIMOS", logo: "doimos", sh: 2.1, h: 7.4, wall: "#eef1f2", trim: "#455a64", signBg: "#fff", signFg: "#000", awn: ["#90a4ae", "#eceff1"], glow: ["#e8f4f8", "#b3d4e0"], base: "rgba(60,80,90,.35)",
@@ -1614,6 +1624,10 @@ const SHOP_DEF = {
     deco: (c, t, hw) => { [[-hw - 0.5, "#f44336"], [hw + 0.5, "#2196f3"], [hw + 1.0, "#ffeb3b"]].forEach(([x, col], i) => { const y = -5.2 + Math.sin(t * 2 + i) * 0.1; c.strokeStyle = "rgba(0,0,0,.35)"; c.lineWidth = 0.02; c.beginPath(); c.moveTo(x, y + 0.5); c.lineTo(x, -0.1); c.stroke(); c.fillStyle = col; c.beginPath(); c.ellipse(x, y, 0.36, 0.46, 0, 0, 7); c.fill(); }); } },
   mary: { name: "MARY 2.0", sub: "PIZZERIA", wall: "#f3e1c8", trim: "#b71c1c", signBg: "#b71c1c", signFg: "#fff", subFg: "#ffe0b2", awn: ["#c62828", "#fff"], glow: ["#ffdca8", "#ff9f43"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(120,30,20,.5)" },
   centesimo: { name: "IL CENTESIMO", sub: "SUPERMERCATO", hw: 6, h: 6.6, win: 3.0, door: 2.0, sliding: true, wall: "#fff8e1", trim: "#2e7d32", signBg: "#2e7d32", signFg: "#ffeb3b", subFg: "#fff", awn: ["#2e7d32", "#ffeb3b"], glow: ["#e8f5e9", "#a5d6a7"], icon: icoCoin, iconW: 1.0, inWin: inWinGoods, base: "rgba(30,90,40,.45)" },
+  capotavola: { name: "CAPOTAVOLA", sub: "RISTORANTE", hw: 5.2, h: 6.8, wall: "#f5ead7", trim: "#8d6e2a", signBg: "#3e1414", signFg: "#f5d28a", subFg: "#e6c9a0", awn: ["#7b1e1e", "#f5ead7"], glow: ["#ffe7b3", "#ff9f43"], icon: icoPlate, iconW: 0.9, inWin: inWinTable, base: "rgba(80,20,20,.45)",
+    deco: (c, t, hw) => { [-hw - 0.7, hw + 0.7].forEach((x) => { c.fillStyle = "#6d4c41"; c.fillRect(x - 0.28, -0.7, 0.56, 0.7); c.fillStyle = "#2e7d32"; c.beginPath(); c.ellipse(x, -1.5, 0.45, 0.85, 0, 0, 7); c.fill(); }); } },
+  posta: { name: "POSTA", sub: "UFFICIO POSTALE", hw: 4.6, h: 6.4, wall: "#fff8d6", trim: "#0d47a1", signBg: "#ffd600", signFg: "#0d47a1", subFg: "#0d47a1", awn: ["#0d47a1", "#ffd600"], glow: ["#e3f2fd", "#bbdefb"], icon: icoEnv, iconW: 0.9, inWin: inWinMail, base: "rgba(13,50,120,.35)",
+    deco: (c, t, hw) => { const x = hw + 0.9; c.fillStyle = "#37474f"; c.fillRect(x - 0.06, -0.9, 0.12, 0.9); c.fillStyle = "#d32f2f"; trfRR(c, x - 0.4, -1.8, 0.8, 0.95, 0.35); c.fill(); c.fillStyle = "#111"; c.fillRect(x - 0.25, -1.45, 0.5, 0.07); } },
   gabbia: { name: "GABBIA DI MATTI", sub: "BAR", wall: "#4a2c63", trim: "#ffc107", signBg: "#1d1030", signFg: "#ffd54f", subFg: "#ce93d8", awn: ["#7b1fa2", "#ffc107"], glow: ["#ffe9b0", "#ff8a65"], icon: icoCage, iconW: 0.9, inWin: inWinBottles, base: "rgba(20,5,40,.5)" },
   forte: { name: "PIZZETTE DA FORTE", hw: 5.2, wall: "#ffe0b2", trim: "#e65100", signBg: "#e65100", signFg: "#fff8e1", awn: ["#e65100", "#fff3e0"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(150,70,10,.45)" },
   marconi: { name: "CAFFÈ MARCONI", sub: "DAL 1950", wall: "#e8dfcc", trim: "#c9a227", signBg: "#1b4d3e", signFg: "#f5e6a8", subFg: "#cfe8d8", awn: ["#1b4d3e", "#f5e6a8"], glow: ["#fff1c9", "#e0b36a"], icon: icoCup, iconW: 0.9, inWin: inWinCakes, base: "rgba(27,77,62,.45)" },
@@ -1623,6 +1637,10 @@ function drawShopArt(c, id, t, q) {
   if (id === "oceanomare") { scDrawOceanomare(c, t); return q && drawPlaque(c, q, -2.9); }
   if (id === "animazione") { drawAnimazione(c, t); return drawRoofLogo(c, t); }
   if (id === "carta") { drawParco(c, t); return q && drawPlaque(c, q, -3.3); }
+  if (id === "municipio") return drawMunicipio(c, t);
+  if (id === "palacongressi") return drawPalaCongressi(c, t, q);
+  if (id === "rifugio") return drawRifugio(c, t, q);
+  if (id === "cittatempi") return drawCentroComm(c, t, q);
   if (id === "frank") return drawFrankSaro(c, t);
   if (id === "naselli") return drawNaselli(c, t);
   if (SHOP_DEF[id]) return drawGenericShop(c, t, { ...SHOP_DEF[id], q });
@@ -1692,7 +1710,7 @@ function drawBillboard(c, t, img, w) {
     const gg = c.createLinearGradient(0, y0 - 0.55, 0, y0 + bh * 0.4); gg.addColorStop(0, "rgba(255,245,160,.28)"); gg.addColorStop(1, "rgba(255,245,160,0)"); c.fillStyle = gg; c.beginPath(); c.moveTo(x, y0 - 0.55); c.lineTo(x - 0.9, y0 + bh * 0.4); c.lineTo(x + 0.9, y0 + bh * 0.4); c.fill(); }
 }
 const BILLBOARDS = [
-  { zone: "agrigento", x: 233.5, img: "karaoke", w: 5.6 }, { zone: "agrigento", x: 304, img: "quiz", w: 3.6 },
+  { zone: "agrigento", x: 400, img: "karaoke", w: 5.6 }, { zone: "agrigento", x: 457.5, img: "quiz", w: 3.6 }, { zone: "agrigento", x: 495, img: "karaoke", w: 5.6 }, { zone: "agrigento", x: 560, img: "quiz", w: 3.6 }, { zone: "agrigento", x: 613, img: "karaoke", w: 5.6 },
   { zone: "aragona", x: 32, img: "karaoke", w: 5.6 }, { zone: "aragona", x: 85, img: "quiz", w: 3.6 },
   { zone: "favara", x: 33, img: "quiz", w: 3.6 }, { zone: "favara", x: 84, img: "karaoke", w: 5.6 },
   { zone: "porto_empedocle", x: 32, img: "karaoke", w: 5.6 }, { zone: "porto_empedocle", x: 84, img: "quiz", w: 3.6 },
@@ -1705,6 +1723,187 @@ function drawOceanoSign(c, t) { // insegna col logo Oceanomare Beach Club, sopra
   c.save(); trfRR(c, -w / 2, y, w, h, 0.1); c.clip(); if (WIMG.oceano.complete && WIMG.oceano.naturalWidth) c.drawImage(WIMG.oceano, -w / 2, y, w, h); c.restore();
 }
 
+// ===== Nuove strutture: Municipio, Pala Congressi, Rifugio Hope, Centro Commerciale, cartelli dei quartieri =====
+function bandText(c, txt, px, maxW, y, col, font) { fitText(c, txt, px, maxW, font); c.fillStyle = col; c.textAlign = "center"; c.fillText(txt, 0, y); }
+function drawFlag(c, t, x, top, kind, i) {
+  c.fillStyle = "#cfd8dc"; c.fillRect(x - 0.05, top, 0.1, -top); c.fillStyle = "#ffd54f"; c.beginPath(); c.arc(x, top, 0.09, 0, 7); c.fill();
+  const w = 1.5, h = 0.95, n = 8;
+  for (let k = 0; k < n; k++) {
+    const x0 = x + 0.05 + k * w / n, wv = Math.sin(t * 3 + k * 0.7 + i) * 0.07 * (k + 1) / n * 2;
+    if (kind === "it") { c.fillStyle = k < 3 ? "#2e9e4f" : k < 5 ? "#fff" : "#d32f2f"; c.fillRect(x0, top + 0.1 + wv, w / n + 0.02, h); }
+    else if (kind === "sic") { c.fillStyle = "#f9c80e"; c.fillRect(x0, top + 0.1 + wv, w / n + 0.02, h); c.fillStyle = "#d32f2f"; c.beginPath(); c.moveTo(x0, top + 0.1 + wv); c.lineTo(x0 + w / n + 0.02, top + 0.1 + wv); c.lineTo(x0 + w / n + 0.02, top + 0.1 + wv + h * (1 - (k + 1) / n)); c.lineTo(x0, top + 0.1 + wv + h * (1 - k / n)); c.fill(); }
+    else { c.fillStyle = "#1565c0"; c.fillRect(x0, top + 0.1 + wv, w / n + 0.02, h); }
+  }
+  if (kind === "eu") { c.fillStyle = "#ffeb3b"; for (let k = 0; k < 8; k++) { const a = k * Math.PI / 4; c.beginPath(); c.arc(x + 0.8 + Math.cos(a) * 0.3, top + 0.58 + Math.sin(a) * 0.3, 0.04, 0, 7); c.fill(); } }
+}
+function column(c, x, y0, y1, w) {
+  const g = c.createLinearGradient(x - w / 2, 0, x + w / 2, 0); g.addColorStop(0, "#d8c9a6"); g.addColorStop(0.45, "#fff7e2"); g.addColorStop(1, "#cdbd96");
+  c.fillStyle = g; c.fillRect(x - w / 2, y1, w, y0 - y1);
+  c.fillStyle = "#e9dcc0"; c.fillRect(x - w * 0.75, y1 - 0.18, w * 1.5, 0.22); c.fillRect(x - w * 0.7, y0 - 0.14, w * 1.4, 0.16);
+  c.fillStyle = "rgba(120,100,60,.22)"; for (let i = -1; i <= 1; i++) c.fillRect(x + i * w * 0.25 - 0.01, y1, 0.02, y0 - y1);
+}
+
+// ---- Municipio di Agrigento ----
+function drawMunicipio(c, t) {
+  const hw = 7.4;
+  c.fillStyle = "#c8c4ba"; c.fillRect(-hw - 0.6, -0.12, hw * 2 + 1.2, 0.12);
+  // torre dell'orologio dietro
+  c.fillStyle = "#d8c9a6"; c.fillRect(-1.25, -8.9, 2.5, 4); c.fillStyle = "#c1ae82"; c.fillRect(-1.45, -8.95, 2.9, 0.25);
+  c.fillStyle = "#8e3b2f"; c.beginPath(); c.moveTo(-1.5, -8.95); c.lineTo(0, -10.0); c.lineTo(1.5, -8.95); c.fill();
+  c.fillStyle = "#fff"; c.beginPath(); c.arc(0, -7.7, 0.75, 0, 7); c.fill(); c.strokeStyle = "#5d4037"; c.lineWidth = 0.1; c.stroke();
+  const ang = t * 0.4; c.strokeStyle = "#222"; c.lineWidth = 0.07; c.beginPath(); c.moveTo(0, -7.7); c.lineTo(Math.sin(ang) * 0.5, -7.7 - Math.cos(ang) * 0.5); c.moveTo(0, -7.7); c.lineTo(Math.sin(ang * 12) * 0.38, -7.7 - Math.cos(ang * 12) * 0.38); c.stroke();
+  // corpo
+  const g = c.createLinearGradient(0, -5.3, 0, 0); g.addColorStop(0, "#efe3c8"); g.addColorStop(1, "#dccfae");
+  c.fillStyle = g; c.fillRect(-hw, -5.3, hw * 2, 5.3);
+  c.fillStyle = "rgba(120,100,60,.12)"; for (let i = 0; i < 10; i++) c.fillRect(-hw, -5.0 + i * 0.5, hw * 2, 0.03);
+  // finestre laterali
+  [-1, 1].forEach((s) => { for (let k = 0; k < 2; k++) { const x = s * (5.0 + k * 1.15) - 0.35; c.fillStyle = "#4e342e"; trfRR(c, x - 0.07, -4.1, 0.84, 2.1, 0.35); c.fill(); c.fillStyle = "#ffe9a8"; trfRR(c, x, -4.03, 0.7, 1.95, 0.3); c.fill(); } });
+  // fregio + scritta
+  c.fillStyle = "#b8963e"; c.fillRect(-hw - 0.3, -5.75, hw * 2 + 0.6, 0.45);
+  c.fillStyle = "#0d47a1"; trfRR(c, -4.2, -5.7, 8.4, 0.9, 0.12); c.fill();
+  bandText(c, "COMUNE DI AGRIGENTO", 0.62, 7.8, -5.02, "#fff");
+  // frontone
+  c.fillStyle = "#e6d8b6"; c.beginPath(); c.moveTo(-5.4, -5.75); c.lineTo(5.4, -5.75); c.lineTo(0, -7.1); c.fill();
+  c.strokeStyle = "#b8963e"; c.lineWidth = 0.1; c.beginPath(); c.moveTo(-5.4, -5.75); c.lineTo(0, -7.1); c.lineTo(5.4, -5.75); c.stroke();
+  c.fillStyle = "#fbc02d"; c.beginPath(); c.arc(0, -6.15, 0.42, 0, 7); c.fill(); c.fillStyle = "#1565c0"; c.beginPath(); c.arc(0, -6.15, 0.3, 0, 7); c.fill();
+  c.fillStyle = "#fff"; c.fillRect(-0.05, -6.38, 0.1, 0.46); c.fillRect(-0.23, -6.2, 0.46, 0.1);
+  // colonne + porta
+  for (let i = 0; i < 6; i++) column(c, -4.5 + i * 1.8, -0.35, -4.65, 0.55);
+  c.fillStyle = "#3e2a1a"; trfRR(c, -0.95, -3.6, 1.9, 3.3, 0.9); c.fill(); c.fillStyle = "rgba(255,226,160,.85)"; trfRR(c, -0.82, -3.45, 1.64, 3.15, 0.8); c.fill();
+  c.fillStyle = "#2b2118"; c.fillRect(-0.03, -3.45, 0.06, 3.15);
+  // scalinata
+  for (let s = 0; s < 3; s++) { c.fillStyle = ["#d9d2c0", "#cfc7b2", "#c4bba3"][s]; c.fillRect(-5.4 - s * 0.3, -0.35 + s * 0.12 + 0.12, 10.8 + s * 0.6, 0.12); }
+  drawFlag(c, t, -6.9, -8.4, "it", 0); drawFlag(c, t, 6.9, -8.4, "sic", 1);
+}
+
+// ---- Pala Congressi ----
+function drawPalaCongressi(c, t, q) {
+  const hw = 10.6;
+  c.fillStyle = "#c8c4ba"; c.fillRect(-hw - 0.6, -0.12, hw * 2 + 1.2, 0.12);
+  // corpo basso con vetrata
+  c.fillStyle = "#f4f1ea"; c.fillRect(-hw, -5.4, hw * 2, 5.4);
+  c.fillStyle = "#cfd8dc"; c.fillRect(-hw, -0.7, hw * 2, 0.7);
+  const gl = c.createLinearGradient(0, -4.0, 0, -0.7); gl.addColorStop(0, "#7fd0ee"); gl.addColorStop(0.55, "#3d8fc7"); gl.addColorStop(1, "#1d5f8f");
+  c.fillStyle = gl; c.fillRect(-8.6, -4.0, 17.2, 3.3);
+  c.fillStyle = "rgba(255,255,255,.22)"; c.beginPath(); c.moveTo(-8.6, -4.0); c.lineTo(-5.4, -4.0); c.lineTo(-8.6, -0.7); c.fill(); c.beginPath(); c.moveTo(-1, -4.0); c.lineTo(2.2, -4.0); c.lineTo(-1.6, -0.7); c.lineTo(-4.8, -0.7); c.fill();
+  c.fillStyle = "#37474f"; for (let i = 0; i <= 14; i++) c.fillRect(-8.6 + i * 17.2 / 14 - 0.04, -4.0, 0.08, 3.3); c.fillRect(-8.6, -2.5, 17.2, 0.07);
+  // ingresso con pensilina
+  c.fillStyle = "#b71c1c"; trfRR(c, -3.4, -3.95, 6.8, 0.38, 0.1); c.fill(); c.fillStyle = "#455a64"; c.fillRect(-3.1, -3.6, 0.14, 2.9); c.fillRect(2.96, -3.6, 0.14, 2.9);
+  c.fillStyle = "#ffe9a8"; c.fillRect(-2.6, -2.9, 5.2, 2.2); c.fillStyle = "#2b2118"; c.fillRect(-0.04, -2.9, 0.08, 2.2); c.fillRect(-1.3, -2.9, 0.05, 2.2); c.fillRect(1.25, -2.9, 0.05, 2.2);
+  // tetto ad arco
+  const rg = c.createLinearGradient(-hw, 0, hw, 0); rg.addColorStop(0, "#b0bec5"); rg.addColorStop(0.5, "#f5f7f8"); rg.addColorStop(1, "#b0bec5");
+  c.fillStyle = rg; c.beginPath(); c.moveTo(-hw - 0.4, -5.4); c.quadraticCurveTo(0, -9.2, hw + 0.4, -5.4); c.lineTo(hw + 0.4, -4.95); c.quadraticCurveTo(0, -8.5, -hw - 0.4, -4.95); c.fill();
+  c.fillStyle = "#e0e6e9"; c.beginPath(); c.moveTo(-hw, -5.0); c.quadraticCurveTo(0, -8.4, hw, -5.0); c.lineTo(hw, -5.4); c.lineTo(-hw, -5.4); c.fill();
+  // insegna sul tetto
+  c.fillStyle = "#455a64"; c.fillRect(-3.3, -7.35, 0.14, 0.9); c.fillRect(3.16, -7.35, 0.14, 0.9);
+  c.fillStyle = "#0d2a5c"; trfRR(c, -4.4, -8.8, 8.8, 1.55, 0.2); c.fill(); c.strokeStyle = "#ffc107"; c.lineWidth = 0.1; trfRR(c, -4.4, -8.8, 8.8, 1.55, 0.2); c.stroke();
+  bandText(c, "PALA CONGRESSI", 0.9, 8.0, -7.78, "#fff");
+  q && drawPlaque(c, q, -4.62);
+  drawFlag(c, t, -9.6, -7.6, "it", 0); drawFlag(c, t, 8.1, -7.6, "sic", 2);
+  // aiuole
+  [-9.3, 9.3].forEach((x) => { c.fillStyle = "#8d5a2b"; c.fillRect(x - 0.25, -0.6, 0.5, 0.6); c.fillStyle = "#43a047"; for (let i = 0; i < 5; i++) { c.beginPath(); c.ellipse(x + Math.sin(i * 1.7) * 0.18, -0.9 - i * 0.2, 0.3, 0.12, i - 2, 0, 7); c.fill(); } });
+}
+
+// ---- Rifugio Hope (cani dietro una mega recinzione) ----
+function drawDog(c, t, x, i, col, mode) {
+  const sw = mode === 0 ? Math.sin(t * 1.1 + i * 2) : 0, dir = mode === 0 ? (Math.cos(t * 1.1 + i * 2) >= 0 ? 1 : -1) : (i % 2 ? -1 : 1);
+  const px = x + (mode === 0 ? sw * 1.6 : 0), jump = mode === 1 ? Math.abs(Math.sin(t * 3.2 + i)) * 0.8 : 0;
+  const wag = Math.sin(t * 14 + i) * 0.5;
+  c.save(); c.translate(px, -0.12 - jump); c.scale(dir * 1.35, 1.35);
+  const leg = mode === 0 ? Math.sin(t * 9 + i) * 0.18 : 0;
+  c.fillStyle = col[1]; [[-0.25, leg], [-0.1, -leg], [0.2, leg], [0.33, -leg]].forEach(([lx, o]) => c.fillRect(lx - 0.05 + o, -0.38, 0.1, 0.38));
+  c.save(); c.translate(-0.45, -0.7); c.rotate(-0.8 + wag); c.fillStyle = col[0]; trfRR(c, 0, -0.06, 0.38, 0.12, 0.06); c.fill(); c.restore();
+  c.fillStyle = col[0]; c.beginPath(); c.ellipse(0, -0.6, 0.5, 0.28, 0, 0, 7); c.fill();
+  if (mode === 2) { c.fillStyle = col[0]; c.beginPath(); c.ellipse(0.1, -0.5, 0.4, 0.35, 0, 0, 7); c.fill(); }
+  c.beginPath(); c.arc(0.5, -0.95, 0.24, 0, 7); c.fill(); c.fillStyle = col[1]; c.beginPath(); c.ellipse(0.72, -0.9, 0.16, 0.11, 0, 0, 7); c.fill();
+  c.beginPath(); c.ellipse(0.4, -1.12, 0.09, 0.2, 0.4 + Math.sin(t * 2 + i) * 0.08, 0, 7); c.fill();
+  c.fillStyle = "#111"; c.beginPath(); c.arc(0.58, -1.0, 0.04, 0, 7); c.arc(0.84, -0.93, 0.04, 0, 7); c.fill();
+  c.restore();
+}
+function drawRifugio(c, t, q) {
+  const hw = 9.3;
+  c.fillStyle = "#9ccc65"; c.fillRect(-hw, -0.14, hw * 2, 0.14);
+  // casetta del rifugio
+  c.fillStyle = "#fff3e0"; c.fillRect(-3.4, -4.6, 6.8, 4.6); c.fillStyle = "#e8d5b5"; for (let i = 0; i < 8; i++) c.fillRect(-3.4, -4.4 + i * 0.5, 6.8, 0.03);
+  c.fillStyle = "#c0623b"; c.beginPath(); c.moveTo(-4.0, -4.6); c.lineTo(0, -6.5); c.lineTo(4.0, -4.6); c.fill();
+  c.fillStyle = "#a54f2c"; c.beginPath(); c.moveTo(-4.0, -4.6); c.lineTo(4.0, -4.6); c.lineTo(3.7, -4.35); c.lineTo(-3.7, -4.35); c.fill();
+  c.fillStyle = "#fff"; trfRR(c, -3.0, -6.0, 6.0, 1.45, 0.2); c.fill(); c.strokeStyle = "#e57373"; c.lineWidth = 0.1; trfRR(c, -3.0, -6.0, 6.0, 1.45, 0.2); c.stroke();
+  c.fillStyle = "#e53935"; c.beginPath(); c.arc(-2.4, -5.35, 0.28, 0, 7); c.arc(-1.84, -5.35, 0.28, 0, 7); c.fill(); c.beginPath(); c.moveTo(-2.7, -5.2); c.lineTo(-1.54, -5.2); c.lineTo(-2.12, -4.7); c.fill();
+  c.save(); c.translate(0.6, 0); bandText(c, "RIFUGIO HOPE", 0.7, 4.0, -5.0, "#b71c1c"); c.restore();
+  c.fillStyle = "#4e342e"; trfRR(c, -0.7, -2.7, 1.4, 2.6, 0.12); c.fill(); c.fillStyle = "#ffcc80"; c.fillRect(-0.58, -2.58, 1.16, 2.45);
+  [-2.3, 2.3].forEach((x) => { c.fillStyle = "#4e342e"; trfRR(c, x - 0.62, -3.5, 1.24, 1.5, 0.1); c.fill(); c.fillStyle = "#b3e5fc"; c.fillRect(x - 0.52, -3.4, 1.04, 1.3); c.fillStyle = "#4e342e"; c.fillRect(x - 0.02, -3.4, 0.04, 1.3); });
+  // cani liberi nel recinto
+  const cols = [["#c68642", "#8d5a2b"], ["#f5f5f5", "#cfcfcf"], ["#37474f", "#212121"], ["#e0a96d", "#b57a3a"], ["#8d6e63", "#5d4037"], ["#ffd180", "#e0a050"], ["#bcaaa4", "#8d6e63"]];
+  [[-7.3, 0], [-5.2, 1], [-1.0, 2], [5.4, 0], [7.4, 1], [-4.5, 2], [2.8, 1]].forEach(([x, m], i) => drawDog(c, t, x, i, cols[i % cols.length], m));
+  // ciotola
+  c.fillStyle = "#e53935"; c.beginPath(); c.moveTo(1.8, -0.28); c.lineTo(2.6, -0.28); c.lineTo(2.45, -0.02); c.lineTo(1.95, -0.02); c.fill();
+  // mega recinzione: rete + pali + cancello
+  c.strokeStyle = "rgba(180,190,200,.75)"; c.lineWidth = 0.025;
+  for (let x = -hw; x <= hw; x += 0.35) { c.beginPath(); c.moveTo(x, -0.1); c.lineTo(x + 1.0, -2.6); c.stroke(); c.beginPath(); c.moveTo(x, -0.1); c.lineTo(x - 1.0, -2.6); c.stroke(); }
+  c.fillStyle = "#eceff1"; for (let x = -hw; x <= hw + 0.01; x += 2.325) c.fillRect(x - 0.08, -2.7, 0.16, 2.7);
+  c.fillStyle = "#90a4ae"; c.fillRect(-hw, -2.75, hw * 2, 0.14); c.fillRect(-hw, -0.14, hw * 2, 0.1);
+  c.fillStyle = "#1e88e5"; trfRR(c, -1.25, -2.65, 2.5, 2.55, 0.1); c.fill(); c.fillStyle = "#fff"; for (let k = 0; k < 6; k++) c.fillRect(-1.1 + k * 0.4, -2.5, 0.12, 2.25);
+  c.fillStyle = "#fff"; trfRR(c, -1.05, -3.45, 2.1, 0.55, 0.12); c.fill(); c.fillStyle = "#1e88e5"; c.font = "800 0.3px Arial"; c.textAlign = "center"; c.fillText("ADOTTA UN AMICO", 0, -3.07);
+  q && drawPlaque(c, q, -6.95);
+}
+
+// ---- Centro Commerciale Città dei Templi ----
+function drawCentroComm(c, t, q) {
+  const hw = 14.2;
+  c.fillStyle = "#c8c4ba"; c.fillRect(-hw - 1.0, -0.12, hw * 2 + 2.0, 0.12);
+  // corpo
+  const g = c.createLinearGradient(0, -6.2, 0, 0); g.addColorStop(0, "#f5e9cf"); g.addColorStop(1, "#e2d3b0");
+  c.fillStyle = g; c.fillRect(-hw, -6.2, hw * 2, 6.2);
+  c.fillStyle = "rgba(120,100,60,.1)"; for (let i = 0; i < 12; i++) c.fillRect(-hw, -5.8 + i * 0.5, hw * 2, 0.03);
+  // ali con insegne di negozi (colori generici)
+  const wing = (x0, dir) => {
+    const cl = ["#e53935", "#1e88e5", "#43a047", "#fb8c00", "#8e24aa"];
+    for (let k = 0; k < 3; k++) { const x = x0 + dir * k * 2.9; c.fillStyle = cl[(k * 2 + (dir > 0 ? 0 : 1)) % 5]; trfRR(c, Math.min(x, x + dir * 2.5), -4.9, 2.5, 0.65, 0.08); c.fill(); c.fillStyle = "rgba(255,255,255,.85)"; c.fillRect(Math.min(x, x + dir * 2.5) + 0.3, -4.65, 1.9, 0.1);
+      c.fillStyle = "#2b2118"; trfRR(c, Math.min(x, x + dir * 2.5) - 0.05, -3.9, 2.6, 2.6, 0.08); c.fill(); const gg = c.createLinearGradient(0, -3.8, 0, -1.4); gg.addColorStop(0, "#fff3b0"); gg.addColorStop(1, "#ffb74d"); c.fillStyle = gg; c.fillRect(Math.min(x, x + dir * 2.5), -3.85, 2.5, 2.5);
+      c.fillStyle = "rgba(0,0,0,.25)"; for (let m = 0; m < 3; m++) c.fillRect(Math.min(x, x + dir * 2.5) + 0.25 + m * 0.75, -2.5, 0.35, 1.1); }
+  };
+  wing(-7.4, -1); wing(7.4, 1);
+  // portico a tempio
+  c.fillStyle = "#3b2f25"; c.fillRect(-6.4, -5.0, 12.8, 5.0); c.fillStyle = "#ffe9a8"; c.fillRect(-4.2, -3.6, 8.4, 3.3);
+  c.fillStyle = "#37474f"; for (let k = 0; k < 3; k++) c.fillRect(-4.2 + k * 2.8 - 0.03, -3.6, 0.06, 3.3); c.fillStyle = "rgba(255,255,255,.4)"; c.fillRect(-4.2, -3.6, 2.8, 3.3);
+  for (let i = 0; i < 8; i++) column(c, -6.1 + i * (12.2 / 7), -0.3, -5.0, 0.62);
+  // trabeazione + frontone
+  c.fillStyle = "#b8963e"; c.fillRect(-7.0, -5.95, 14.0, 0.95); c.fillStyle = "#0d47a1"; trfRR(c, -6.7, -5.9, 13.4, 0.82, 0.1); c.fill();
+  bandText(c, "CITTÀ DEI TEMPI", 0.6, 12.4, -5.3, "#ffd54f");
+  c.fillStyle = "#e8dab8"; c.beginPath(); c.moveTo(-7.2, -5.95); c.lineTo(7.2, -5.95); c.lineTo(0, -8.0); c.fill();
+  c.strokeStyle = "#b8963e"; c.lineWidth = 0.12; c.beginPath(); c.moveTo(-7.2, -5.95); c.lineTo(0, -8.0); c.lineTo(7.2, -5.95); c.stroke();
+  c.fillStyle = "#0d47a1"; trfRR(c, -4.1, -7.5, 8.2, 1.15, 0.18); c.fill(); c.strokeStyle = "#ffd54f"; c.lineWidth = 0.07; trfRR(c, -4.1, -7.5, 8.2, 1.15, 0.18); c.stroke();
+  bandText(c, "CENTRO COMMERCIALE", 0.52, 7.6, -6.75, "#fff");
+  q && drawPlaque(c, q, -8.75);
+  // pilone parcheggio + bandiere
+  c.fillStyle = "#1565c0"; trfRR(c, -hw - 1.2, -3.6, 1.5, 1.5, 0.15); c.fill(); c.fillStyle = "#fff"; c.font = "900 1.1px Arial"; c.textAlign = "center"; c.fillText("P", -hw - 0.45, -2.45); c.fillStyle = "#78909c"; c.fillRect(-hw - 0.5, -2.1, 0.1, 2.1);
+  drawFlag(c, t, hw - 0.4, -8.0, "it", 0); drawFlag(c, t, -hw + 2.6, -8.0, "sic", 2);
+  // carrelli
+  [hw + 0.2, hw + 0.8].forEach((x, i) => { c.strokeStyle = "#90a4ae"; c.lineWidth = 0.05; c.beginPath(); c.moveTo(x - 0.3, -0.9); c.lineTo(x + 0.3, -0.9); c.lineTo(x + 0.2, -0.45); c.lineTo(x - 0.2, -0.45); c.closePath(); c.stroke(); c.beginPath(); c.arc(x - 0.15, -0.2, 0.08, 0, 7); c.arc(x + 0.15, -0.2, 0.08, 0, 7); c.stroke(); });
+}
+
+// ---- cartello del quartiere (palo con targa) ----
+function drawQuartiereSign(c, t, name) {
+  c.fillStyle = "#455a64"; c.fillRect(-0.09, -4.3, 0.18, 4.3); c.fillRect(-2.9, -4.35, 5.8, 0.12);
+  c.fillStyle = "#37474f"; c.fillRect(-2.7, -4.25, 0.07, 0.35); c.fillRect(2.63, -4.25, 0.07, 0.35);
+  c.fillStyle = "#0d47a1"; trfRR(c, -3.2, -4.0 - 1.4, 6.4, 1.5, 0.2); c.fill();
+  c.strokeStyle = "#fff"; c.lineWidth = 0.07; trfRR(c, -3.1, -4.0 - 1.3, 6.2, 1.3, 0.16); c.stroke();
+  c.fillStyle = "#ffd54f"; c.font = "800 0.3px Arial"; c.textAlign = "center"; c.fillText("QUARTIERE", 0, -4.76);
+  bandText(c, name.toUpperCase(), 0.62, 5.7, -4.18, "#fff");
+  c.fillStyle = "#fff"; c.fillRect(-0.1, -1.8, 0.2, 0.0);
+}
+// ---- cantiere: Villaggio Peruzzo, in arrivo ----
+function drawCantiere(c, t) {
+  const hw = 5.6;
+  c.fillStyle = "#c8c4ba"; c.fillRect(-hw - 0.4, -0.12, hw * 2 + 0.8, 0.12);
+  for (let k = 0; k < 4; k++) { const x = -hw + k * 3.0; c.fillStyle = "#fff"; c.fillRect(x, -1.35, 2.6, 0.75); c.fillStyle = "#ef6c00"; for (let s = 0; s < 4; s++) { c.beginPath(); c.moveTo(x + s * 0.65, -1.35); c.lineTo(x + s * 0.65 + 0.33, -1.35); c.lineTo(x + s * 0.65 + 0.0, -0.6); c.lineTo(x + s * 0.65 - 0.33, -0.6); c.fill(); } c.fillStyle = "#546e7a"; c.fillRect(x + 0.1, -1.5, 0.1, 1.5); c.fillRect(x + 2.4, -1.5, 0.1, 1.5); }
+  c.fillStyle = "#ffca28"; trfRR(c, -3.4, -4.6, 6.8, 2.2, 0.2); c.fill(); c.strokeStyle = "#37474f"; c.lineWidth = 0.1; trfRR(c, -3.4, -4.6, 6.8, 2.2, 0.2); c.stroke();
+  c.fillStyle = "#37474f"; c.fillRect(-2.9, -2.4, 0.14, 2.4); c.fillRect(2.76, -2.4, 0.14, 2.4);
+  bandText(c, "IN ARRIVO", 0.95, 6.0, -3.6, "#212121"); c.fillStyle = "#37474f"; c.font = "800 0.34px Arial"; c.textAlign = "center"; c.fillText("nuovi locali a Villaggio Peruzzo", 0, -2.8);
+  [-hw - 0.2, hw + 0.2].forEach((x) => { c.fillStyle = "#ff6f00"; c.beginPath(); c.moveTo(x - 0.3, -0.12); c.lineTo(x + 0.3, -0.12); c.lineTo(x + 0.1, -1.1); c.lineTo(x - 0.1, -1.1); c.fill(); c.fillStyle = "#fff"; c.fillRect(x - 0.2, -0.65, 0.4, 0.14); });
+  const sw = Math.sin(t * 1.5) * 0.3; c.strokeStyle = "#ffa000"; c.lineWidth = 0.12; c.beginPath(); c.moveTo(4.6, -0.12); c.lineTo(4.6, -6.0); c.lineTo(1.4 + sw, -6.0); c.stroke(); c.lineWidth = 0.04; c.beginPath(); c.moveTo(1.4 + sw, -6.0); c.lineTo(1.4 + sw, -4.9); c.stroke(); c.fillStyle = "#37474f"; c.fillRect(1.2 + sw, -4.9, 0.4, 0.3);
+}
+
 // ===================== SUPER CAPONE WORLD · mondo, zone, negozi, gallerie =====================
 const $ = (id) => document.getElementById(id);
 const FB_CFG = window.SCW_FIREBASE || {}; // i dati del progetto Firebase stanno nel file firebase-config.js
@@ -1714,40 +1913,60 @@ const GROUND = 12;
 // ---- vetrine dei negozi: TESTI E LINK SI MODIFICANO QUI (titolo, sottotitolo, testo, link) ----
 const SHOPS = {
   oceanomare: { zone: "agrigento", x: 18, name: "Oceanomare", icon: "🏖", sub: "Il chiosco sulla spiaggia · San Leone", q: "SAN LEONE", text: "La vetrina di Oceanomare è in arrivo: qui troverai presto promozioni, novità e tutto quello che c'è da sapere sul chiosco sulla spiaggia.", links: [] },
-  animazione: { zone: "agrigento", x: 62, name: "Animazione e Spettacoli", icon: "🎪", sub: "di Alberto Seminerio", text: "Animazione e spettacoli per ogni occasione: quiz, karaoke e piano bar, feste di compleanno e per bambini, matrimoni, eventi e feste di comunità.", links: [{ t: "🌐 Vai al sito albertoseminerio.com", u: "https://albertoseminerio.com", main: true }, { t: "Linktree", u: "https://linktr.ee/Albertoseminerio" }] },
-  frank: { zone: "agrigento", x: 84, name: "Frank&Saro", icon: "💍", sub: "Artigianato orafo · Agrigento", text: "Frank&Saro S.r.l. · artigianato orafo. La vetrina è in arrivo: qui troverai presto gioielli, creazioni su misura e novità del laboratorio.", links: [] },
-  gabbia: { zone: "agrigento", x: 40, name: "Gabbia di Matti", icon: "🦜", sub: "Bar · Montaperto", q: "MONTAPERTO", text: "La vetrina del bar Gabbia di Matti è in arrivo: qui troverai presto serate, eventi e novità del locale.", links: [] },
-  cose: { zone: "agrigento", x: 50.5, name: "Cose Toste", icon: "🍬", sub: "Caramelle e articoli per feste · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Cose Toste è in arrivo: qui troverai presto caramelle, idee e articoli per le tue feste.", links: [] },
-  centesimo: { zone: "agrigento", x: 122, name: "Il Centesimo", icon: "🛒", sub: "Supermercato · Agrigento", text: "La vetrina del supermercato Il Centesimo è in arrivo: qui troverai presto offerte e volantino.", links: [] },
-  mary: { zone: "agrigento", x: 166, name: "Pizzeria Mary 2.0", icon: "🍕", sub: "Pizzeria · Via Imera", q: "VIA IMERA", text: "La vetrina della pizzeria Mary 2.0 è in arrivo: qui troverai presto menù, offerte e novità.", links: [] },
+  animazione: { zone: "agrigento", x: 200, name: "Animazione e Spettacoli", icon: "🎪", sub: "di Alberto Seminerio", text: "Animazione e spettacoli per ogni occasione: quiz, karaoke e piano bar, feste di compleanno e per bambini, matrimoni, eventi e feste di comunità.", links: [{ t: "🌐 Vai al sito albertoseminerio.com", u: "https://albertoseminerio.com", main: true }, { t: "Linktree", u: "https://linktr.ee/Albertoseminerio" }] },
+  frank: { zone: "agrigento", x: 218, name: "Frank&Saro", icon: "💍", sub: "Artigianato orafo · Agrigento", text: "Frank&Saro S.r.l. · artigianato orafo. La vetrina è in arrivo: qui troverai presto gioielli, creazioni su misura e novità del laboratorio.", links: [] },
+  gabbia: { zone: "agrigento", x: 80, name: "Gabbia di Matti", icon: "🦜", sub: "Bar · Montaperto", q: "MONTAPERTO", text: "La vetrina del bar Gabbia di Matti è in arrivo: qui troverai presto serate, eventi e novità del locale.", links: [] },
+  cose: { zone: "agrigento", x: 335, name: "Cose Toste", icon: "🍬", sub: "Caramelle e articoli per feste · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Cose Toste è in arrivo: qui troverai presto caramelle, idee e articoli per le tue feste.", links: [] },
+  centesimo: { zone: "agrigento", x: 237, name: "Il Centesimo", icon: "🛒", sub: "Supermercato · Agrigento", text: "La vetrina del supermercato Il Centesimo è in arrivo: qui troverai presto offerte e volantino.", links: [] },
+  mary: { zone: "agrigento", x: 256, name: "Pizzeria Mary 2.0", icon: "🍕", sub: "Pizzeria · Via Imera", q: "VIA IMERA", text: "La vetrina della pizzeria Mary 2.0 è in arrivo: qui troverai presto menù, offerte e novità.", links: [] },
+  municipio: { zone: "agrigento", x: 144, r: 8.5, name: "Municipio di Agrigento", icon: "🏛", sub: "Comune · Agrigento centro", text: "La vetrina del Municipio di Agrigento è in arrivo: qui troverai presto servizi, avvisi e collegamenti al sito del Comune.", links: [] },
+  capotavola: { zone: "agrigento", x: 163, name: "Ristorante Capotavola", icon: "🍽", sub: "Ristorante · Agrigento centro", text: "La vetrina del ristorante Capotavola è in arrivo: qui troverai presto menù, prenotazioni e novità.", links: [] },
+  posta: { zone: "agrigento", x: 180, name: "Ufficio Postale", icon: "✉️", sub: "Posta · Agrigento centro", text: "La vetrina dell'ufficio postale è in arrivo: qui troverai presto orari e collegamenti ai servizi online.", links: [] },
+  palacongressi: { zone: "agrigento", x: 380, r: 12.5, name: "Pala Congressi", icon: "🏟", sub: "Eventi e congressi · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina del Pala Congressi è in arrivo: qui troverai presto eventi, spettacoli e informazioni.", links: [] },
+  rifugio: { zone: "agrigento", x: 545, r: 10.5, name: "Rifugio Hope", icon: "🐶", sub: "Rifugio per cani · Monserrato", q: "MONSERRATO", text: "La vetrina del Rifugio Hope è in arrivo: qui troverai presto i cani da adottare e come aiutarli.", links: [] },
+  cittatempi: { zone: "agrigento", x: 592, r: 15.5, name: "Centro Commerciale Città dei Templi", icon: "🛍", sub: "Centro commerciale · Villaseta", q: "VILLASETA", text: "La vetrina del Centro Commerciale Città dei Templi è in arrivo: qui troverai presto negozi, orari e promozioni.", links: [] },
   forte: { zone: "porto_empedocle", x: 55, name: "Pizzette da Forte", icon: "🍕", sub: "Porto Empedocle", text: "La vetrina di Pizzette da Forte è in arrivo: qui troverai presto il menù e le novità.", links: [] },
   marconi: { zone: "grotte", x: 52, name: "Caffè Marconi", icon: "☕", sub: "Bar · Grotte", text: "La vetrina del Caffè Marconi è in arrivo: qui troverai presto novità e orari.", links: [] },
   central: { zone: "grotte", x: 62, name: "Central Bar", icon: "☕", sub: "Bar · Grotte", text: "La vetrina del Central Bar è in arrivo: qui troverai presto novità, aperitivi ed eventi.", links: [] },
-  doimos: { zone: "agrigento", x: 201.5, name: "Doimos", icon: "🏥", sub: "Residenza riabilitativa · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Doimos, residenza riabilitativa, è in arrivo: qui troverai presto informazioni e contatti.", links: [] },
-  carta: { zone: "agrigento", x: 246, name: "Cartapesta", icon: "🎡", sub: "Family entertainment · parco giochi · Fontanelle", q: "FONTANELLE", text: "La vetrina di Cartapesta Family Entertainment è in arrivo: qui troverai presto giochi, eventi e informazioni sul parco.", links: [] },
-  denise: { zone: "agrigento", x: 264, name: "Denise Eventi", icon: "🎉", sub: "Eventi e animazione", text: "La vetrina di Denise Eventi è in arrivo: qui troverai presto eventi, feste e novità.", links: [] },
-  fuori: { zone: "agrigento", x: 284, name: "FuoriKapa", icon: "🎈", sub: "Partyroom · Quadrivio Spina Santa", q: "QUADRIVIO SPINA SANTA", text: "La vetrina di FuoriKapa Partyroom è in arrivo: qui troverai presto feste, pacchetti e informazioni.", links: [] },
+  doimos: { zone: "agrigento", x: 351, name: "Doimos", icon: "🏥", sub: "Residenza riabilitativa · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Doimos, residenza riabilitativa, è in arrivo: qui troverai presto informazioni e contatti.", links: [] },
+  carta: { zone: "agrigento", x: 447, name: "Cartapesta", icon: "🎡", sub: "Family entertainment · parco giochi · Fontanelle", q: "FONTANELLE", text: "La vetrina di Cartapesta Family Entertainment è in arrivo: qui troverai presto giochi, eventi e informazioni sul parco.", links: [] },
+  denise: { zone: "agrigento", x: 275, name: "Denise Eventi", icon: "🎉", sub: "Eventi e animazione", text: "La vetrina di Denise Eventi è in arrivo: qui troverai presto eventi, feste e novità.", links: [] },
+  fuori: { zone: "agrigento", x: 478, name: "FuoriKapa", icon: "🎈", sub: "Partyroom · Quadrivio Spina Santa", q: "QUADRIVIO SPINA SANTA", text: "La vetrina di FuoriKapa Partyroom è in arrivo: qui troverai presto feste, pacchetti e informazioni.", links: [] },
   naselli: { zone: "aragona", x: 55, name: "Naselli Pub", icon: "🍺", sub: "Aragona", text: "La vetrina del Naselli Pub è in arrivo: qui troverai presto serate, eventi e promozioni del locale.", links: [] },
   paolo: { zone: "favara", x: 55, name: "Melamangio da Paolo", icon: "🍕", sub: "La pizzeria di Paolo · Favara", text: "La vetrina di Melamangio da Paolo è in arrivo: qui troverai presto il menù, le offerte e le novità della pizzeria.", links: [] },
 };
 // ---- gallerie: portali fra le zone ----
 const TUNNELS = [
-  { id: "t_ara", zone: "agrigento", x: 104, to: "aragona", label: "ARAGONA", stand: 101.5 },
-  { id: "t_fav", zone: "agrigento", x: 144, to: "favara", label: "FAVARA", stand: 141.5 },
-  { id: "t_por", zone: "agrigento", x: 186, to: "porto_empedocle", label: "PORTO EMPEDOCLE", stand: 183.5 },
-  { id: "t_gro", zone: "agrigento", x: 220, to: "grotte", label: "GROTTE", stand: 217.5 },
+  { id: "t_ara", zone: "agrigento", x: 117, to: "aragona", label: "ARAGONA", stand: 114.5 },
+  { id: "t_fav", zone: "agrigento", x: 306, to: "favara", label: "FAVARA", stand: 303.5 },
+  { id: "t_por", zone: "agrigento", x: 420, to: "porto_empedocle", label: "PORTO EMPEDOCLE", stand: 417.5 },
+  { id: "t_gro", zone: "agrigento", x: 515, to: "grotte", label: "GROTTE", stand: 512.5 },
   { id: "t_agA", zone: "aragona", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_ara" },
   { id: "t_agF", zone: "favara", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_fav" },
   { id: "t_agP", zone: "porto_empedocle", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_por" },
   { id: "t_agG", zone: "grotte", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_gro" },
 ];
 const ZONES = {
-  agrigento: { name: "AGRIGENTO", W: 320, spawn: 26 },
+  agrigento: { name: "AGRIGENTO", W: 680, spawn: 26 },
   aragona: { name: "ARAGONA", W: 100, spawn: 20 },
   favara: { name: "FAVARA", W: 100, spawn: 20 },
   porto_empedocle: { name: "PORTO EMPEDOCLE", W: 100, spawn: 20 },
   grotte: { name: "GROTTE", W: 100, spawn: 20 },
 };
+// ---- quartieri di Agrigento: from = dove inizia, sign = cartello, jump = dove atterra il pulsante ----
+const QUARTIERI = [
+  { id: "sanleone", name: "San Leone", from: 0, sign: 40, jump: 26 },
+  { id: "montaperto", name: "Montaperto", from: 62, sign: 70, jump: 67.5 },
+  { id: "centro", name: "Agrigento centro", from: 99, sign: 131, jump: 128.5 },
+  { id: "mose", name: "Villaggio Mosè", from: 316, sign: 322, jump: 319.5 },
+  { id: "fontanelle", name: "Fontanelle", from: 430, sign: 434, jump: 431.5 },
+  { id: "quadrivio", name: "Quadrivio Spina Santa", from: 462, sign: 466, jump: 463.5 },
+  { id: "monserrato", name: "Monserrato", from: 526, sign: 530, jump: 527.5 },
+  { id: "villaseta", name: "Villaseta", from: 566, sign: 570, jump: 567.5 },
+  { id: "peruzzo", name: "Villaggio Peruzzo", from: 612, sign: 624, jump: 621.5 },
+];
+const quartiereAt = (x) => { let q = QUARTIERI[0]; QUARTIERI.forEach((k) => { if (x >= k.from) q = k; }); return q; };
+const CANTIERE_X = 640;
 const tunnelFrom = (zone, to) => TUNNELS.find((t) => t.zone === zone && t.to === to);
 const tunnelAt = (zone) => TUNNELS.filter((t) => t.zone === zone);
 
@@ -1833,14 +2052,14 @@ function drawGround(c, zone, x0, x1, T) {
   };
   if (zone === "agrigento") {
     seg(-2, sandEnd, "#f0d9a0", "#e3c27c", "rgba(150,110,50,.25)");
-    seg(sandEnd, 400, "#6fb445", "#b07a3e", "rgba(60,30,10,.3)");
+    seg(sandEnd, 900, "#6fb445", "#b07a3e", "rgba(60,30,10,.3)");
     // piazza lastricata dopo la spiaggia
-    const a = Math.max(sandEnd + 4, x0), b = Math.min(400, x1);
+    const a = Math.max(sandEnd + 4, x0), b = Math.min(900, x1);
     if (b > a) { c.fillStyle = "#cfc6b4"; c.fillRect(a * T, g, (b - a) * T, T * 0.45); c.strokeStyle = "rgba(90,80,60,.35)"; c.lineWidth = Math.max(1, T * 0.03); for (let x = Math.floor(a); x < b; x++) { c.beginPath(); c.moveTo(x * T, g); c.lineTo(x * T, g + T * 0.45); c.stroke(); } }
-  } else if (zone === "porto_empedocle") { seg(-2, 400, "#b9b3a6", "#8a8579", "rgba(0,0,0,.22)"); }
-  else if (zone === "grotte") seg(-2, 400, "#e6dcc3", "#b59a66", "rgba(60,30,10,.25)");
-  else if (zone === "aragona") seg(-2, 400, "#c9b98d", "#9c7a4a", "rgba(60,30,10,.28)");
-  else seg(-2, 400, "#8d8f91", "#6d6b68", "rgba(0,0,0,.22)");
+  } else if (zone === "porto_empedocle") { seg(-2, 900, "#b9b3a6", "#8a8579", "rgba(0,0,0,.22)"); }
+  else if (zone === "grotte") seg(-2, 900, "#e6dcc3", "#b59a66", "rgba(60,30,10,.25)");
+  else if (zone === "aragona") seg(-2, 900, "#c9b98d", "#9c7a4a", "rgba(60,30,10,.28)");
+  else seg(-2, 900, "#8d8f91", "#6d6b68", "rgba(0,0,0,.22)");
 }
 function drawBench(c, x, T) { const g = GROUND * T; c.fillStyle = "#6d4c41"; c.fillRect((x - 0.9) * T, g - T * 0.55, T * 1.8, T * 0.12); c.fillRect((x - 0.9) * T, g - T * 0.95, T * 1.8, T * 0.1); c.fillStyle = "#37474f"; c.fillRect((x - 0.8) * T, g - T * 0.45, T * 0.1, T * 0.45); c.fillRect((x + 0.7) * T, g - T * 0.45, T * 0.1, T * 0.45); c.fillRect((x - 0.8) * T, g - T * 0.95, T * 0.1, T * 0.5); c.fillRect((x + 0.7) * T, g - T * 0.95, T * 0.1, T * 0.5); }
 function drawPalm(c, x, T, t) {
@@ -1852,21 +2071,25 @@ function drawWorldObjects(c, zone, x0, x1, T, t) {
   const g = GROUND * T;
   if (zone === "agrigento") {
     [6, 11, 30, 35].forEach((x) => { if (x > x0 - 3 && x < x1 + 3) drawPalm(c, x, T, t); });
-    [78, 90, 110, 132, 160, 176, 214, 232, 256, 274, 296, 312].forEach((x) => { if (x > x0 - 2 && x < x1 + 2) drawBench(c, x, T); });
-    for (let x = 48; x < 316; x += 14) if (x > x0 - 2 && x < x1 + 2) scDrawLamp(c, x, GROUND, T);
+    [60, 97, 363, 394.5].forEach((x) => { if (x > x0 - 2 && x < x1 + 2) drawBench(c, x, T); });
+    for (let x = 48; x < 676; x += 14) if (x > x0 - 2 && x < x1 + 2) scDrawLamp(c, x, GROUND, T);
   } else {
     for (let x = 28; x < 95; x += 15) if (x > x0 - 2 && x < x1 + 2) scDrawLamp(c, x, GROUND, T);
     [38, 72, 84].forEach((x) => { if (x > x0 - 2 && x < x1 + 2) drawBench(c, x, T); });
   }
   // negozi
   Object.entries(SHOPS).forEach(([id, s]) => {
-    if (s.zone !== zone || s.x < x0 - 8 || s.x > x1 + 8) return;
+    if (s.zone !== zone || s.x < x0 - 18 || s.x > x1 + 18) return;
     c.save();
     if (id === "oceanomare") { c.translate(s.x * T, g); c.scale(T * 1.5, T * 1.5); drawShopArt(c, id, t, s.q); }
     else { c.translate(s.x * T, g); c.scale(T, T); drawShopArt(c, id, t, s.q); }
     c.restore();
   });
   BILLBOARDS.forEach((b) => { if (b.zone !== zone || b.x < x0 - 6 || b.x > x1 + 6) return; c.save(); c.translate(b.x * T, g); c.scale(T, T); drawBillboard(c, t, WIMG[b.img], b.w); c.restore(); });
+  if (zone === "agrigento") {
+    QUARTIERI.forEach((q) => { if (q.sign < x0 - 5 || q.sign > x1 + 5) return; c.save(); c.translate(q.sign * T, g); c.scale(T, T); drawQuartiereSign(c, t, q.name); c.restore(); });
+    if (CANTIERE_X > x0 - 8 && CANTIERE_X < x1 + 8) { c.save(); c.translate(CANTIERE_X * T, g); c.scale(T, T); drawCantiere(c, t); c.restore(); }
+  }
   // gallerie con cartello
   tunnelAt(zone).forEach((tn) => {
     if (tn.x < x0 - 14 || tn.x > x1 + 10) return;
@@ -1911,7 +2134,7 @@ const K = { l: false, r: false, j: false };
 let started = false, cam = 0, fade = 0, fadeDir = 0, fadeCb = null, posRef = null, posListen = null, lastSent = 0, lastSig = "", chatSeqSeen = -1, chatInitDone = false, lastChatAt = 0;
 const chat = { open: false, tab: "all", dm: null, unreadAll: 0 };
 
-function toast(m) { const t = $("toast"); t.textContent = m; t.style.display = "block"; clearTimeout(toast.h); toast.h = setTimeout(() => (t.style.display = "none"), 2600); }
+function toast(m, ms) { const t = $("toast"); t.textContent = m; t.style.display = "block"; clearTimeout(toast.h); toast.h = setTimeout(() => (t.style.display = "none"), ms || 2600); }
 
 // ---------- schermata d'ingresso ----------
 function avThumb(k, w) {
@@ -1933,11 +2156,13 @@ function buildJoin() {
 function netStart() {
   if (!Net.ok) return;
   const mine = Net.ref("players/" + ME.uid);
-  mine.set({ n: ME.name, a: ME.av, z: ME.zone, t: Date.now() });
+  const fbErr = (e) => { const t = String((e && (e.code || e.message)) || e); netProblem(/permission|PERMISSION/.test(t) ? "Il database rifiuta l'accesso: controlla le REGOLE e l'accesso ANONIMO su Firebase" : "Errore Firebase: " + t.slice(0, 80)); };
+  Net.fbErr = fbErr;
+  mine.set({ n: ME.name, a: ME.av, z: ME.zone, t: Date.now() }).catch(fbErr);
   mine.onDisconnect().remove();
   setInterval(() => mine.update({ t: Date.now(), z: ME.zone }), 20000);
   const onP = (s) => { const v = s.val(); if (!v) return; roster.set(s.key, v); updateOnline(); chatRefresh(); };
-  Net.ref("players").on("child_added", onP);
+  Net.ref("players").on("child_added", onP, fbErr);
   Net.ref("players").on("child_changed", onP);
   Net.ref("players").on("child_removed", (s) => { roster.delete(s.key); others.delete(s.key); updateOnline(); chatRefresh(); });
   // chat pubblica a 200 "caselle" che si riscrivono: il database non cresce mai
@@ -1947,7 +2172,7 @@ function netStart() {
     if (!chatInitDone) { chatLog.push(m); return; }
     chatSeqSeen = Math.max(chatSeqSeen, m.s); addPublic(m);
   };
-  Net.ref("chat").on("child_added", onC);
+  Net.ref("chat").on("child_added", onC, fbErr);
   Net.ref("chat").on("child_changed", onC);
   setTimeout(() => {
     chatLog.sort((a, b) => a.s - b.s); const keep = chatLog.splice(0, Math.max(0, chatLog.length - 40)); void keep;
@@ -2014,6 +2239,10 @@ function addPublic(m) {
 }
 function onlineList() { const now = Date.now(); return [...roster.entries()].filter(([u, r]) => now - (r.t || 0) < 90000 || u === ME.uid); }
 function updateOnline() { $("onChip").textContent = "👥 " + Math.max(1, onlineList().length); }
+
+// segnala (una volta ogni tanto) un problema di collegamento: così si capisce subito cosa non va
+let lastProblem = 0;
+function netProblem(txt) { if (Date.now() - lastProblem < 15000) return; lastProblem = Date.now(); toast("⚠ " + txt, 9000); const c = $("onChip"); if (c) c.style.borderColor = "#ff5252"; }
 
 // ===================== SUPER CAPONE WORLD · chat, comandi, ciclo di gioco =====================
 function badges() {
@@ -2111,7 +2340,25 @@ function openShop(id) {
 $("shop").onclick = (e) => { if (e.target === $("shop")) $("shop").classList.remove("open"); };
 
 // ---------- pulsanti sotto il gioco: scorciatoie davanti a gallerie e negozi ----------
+function buildQuartieri() {
+  const q = $("qrow"); q.textContent = ""; $("qbar").style.display = ME.zone === "agrigento" ? "block" : "none";
+  QUARTIERI.forEach((k) => { const b = document.createElement("button"); b.textContent = (k.id === "centro" ? "🏛 " : "📍 ") + k.name; b.dataset.q = k.id; b.onclick = () => jumpQuartiere(k); q.appendChild(b); });
+  markQuartiere(true);
+}
+function jumpQuartiere(k) {
+  if (fadeDir || ME.zone !== "agrigento") return;
+  fadeDir = 1; fadeCb = () => { goTo(k.jump, 1); cam = Math.max(0, ME.x - 10); toast("📍 " + k.name); markQuartiere(true); updatePrompt(); };
+}
+let lastQ = "";
+function markQuartiere(force) {
+  if (ME.zone !== "agrigento") { if (lastQ !== "z") { lastQ = "z"; $("zoneChip").textContent = zoneLabel(ME.zone); $("zoneChip").style.fontSize = ""; } return; }
+  const k = quartiereAt(ME.x); if (!force && lastQ === k.id) return; lastQ = k.id;
+  $("zoneChip").textContent = k.id === "centro" ? "AGRIGENTO CENTRO" : k.name.toUpperCase(); $("zoneChip").style.fontSize = "9px";
+  document.querySelectorAll("#qrow button").forEach((b) => b.classList.toggle("cur", b.dataset.q === k.id));
+  const cb = document.querySelector("#qrow button.cur"); if (cb && cb.scrollIntoView) { const r = $("qrow"); r.scrollLeft = cb.offsetLeft - r.clientWidth / 2 + cb.clientWidth / 2; }
+}
 function buildShortcuts() {
+  buildQuartieri();
   const r = $("row2"); r.textContent = "";
   const add = (txt, cls, fn) => { const b = document.createElement("button"); b.textContent = txt; b.className = cls; b.onclick = fn; r.appendChild(b); };
   tunnelAt(ME.zone).forEach((t) => add("🚇 Galleria " + (t.zone === "agrigento" ? t.label.toLowerCase().replace(/(^|\s)\S/g, (m) => m.toUpperCase()) : "Agrigento"), "tun", () => goTo(t.stand, 1)));
@@ -2119,7 +2366,7 @@ function buildShortcuts() {
 }
 function goTo(x, f) { if (chat.open) closeChat(); ME.x = x; ME.y = GROUND; ME.vx = 0; ME.vy = 0; ME.f = f || 1; sendPos(true); }
 function nearTunnel() { return tunnelAt(ME.zone).find((t) => Math.abs(ME.x - t.x) < 3.4); }
-function nearShop() { return Object.entries(SHOPS).find(([id, s]) => s.zone === ME.zone && Math.abs(ME.x - s.x) < (id === "oceanomare" ? 6.5 : 5)); }
+function nearShop() { return Object.entries(SHOPS).find(([id, s]) => s.zone === ME.zone && Math.abs(ME.x - s.x) < (s.r || (id === "oceanomare" ? 6.5 : 5))); }
 function enterTunnel(t, skipAnim) {
   if (!t || fadeDir) return;
   fadeDir = 1; fadeCb = () => {
@@ -2208,7 +2455,7 @@ function draw() {
 function frame(ts) {
   requestAnimationFrame(frame); if (!started) return;
   const dt = Math.min(0.05, lastTs ? (ts - lastTs) / 1000 : 0.016); lastTs = ts; tsec += dt; step(dt); draw();
-  if (((ts / 200) | 0) !== frame.q) { frame.q = (ts / 200) | 0; updatePrompt(); }
+  if (((ts / 200) | 0) !== frame.q) { frame.q = (ts / 200) | 0; updatePrompt(); markQuartiere(); }
 }
 cv.addEventListener("pointerdown", (e) => {
   $("pmenu").style.display = "none"; const r = cv.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top;
@@ -2224,7 +2471,7 @@ function start() {
   ME.name = name; lsSet("scw_name", name); lsSet("scw_av", String(ME.av)); ME.zone = "agrigento"; ME.x = ZONES.agrigento.spawn;
   $("join").style.display = "none"; started = true; resize(); cam = Math.max(0, ME.x - 10);
   $("zoneChip").textContent = zoneLabel(ME.zone); buildShortcuts(); updateOnline();
-  if (!Net.ok) toast("Modalità offline: nessun altro giocatore collegato"); else Net.signin().then((okAuth) => { if (!okAuth) toast("Accesso anonimo non attivo: chat in modalità base"); netStart(); });
+  if (!Net.ok) toast("Modalità offline: nessun altro giocatore collegato"); else Net.signin().then((okAuth) => { if (!okAuth) netProblem("Accesso anonimo NON attivo su Firebase (Authentication > Metodo di accesso > Anonimo)"); netStart(); });
 }
 $("jgo").onclick = start;
 $("jname").addEventListener("keydown", (e) => { if (e.key === "Enter") start(); });
@@ -2232,7 +2479,7 @@ $("jname").addEventListener("keydown", (e) => { if (e.key === "Enter") start(); 
   $("jname").value = lsGet("scw_name", ""); ME.av = Math.max(0, Math.min(AVATARS.length - 1, parseInt(lsGet("scw_av", "0")) || 0));
   buildJoin(); Net.init(); $("jst").textContent = Net.ok ? "" : "Connessione online non disponibile: potrai girare da solo.";
   requestAnimationFrame(frame);
-  window.__world = { ME, others, roster, threads, chatLog, K, Net, enterTunnel, nearTunnel, openChat, goTo, SHOPS, TUNNELS };
+  window.__world = { ME, others, roster, threads, chatLog, K, Net, enterTunnel, nearTunnel, openChat, goTo, SHOPS, TUNNELS, QUARTIERI, jumpQuartiere };
 })();
 
 </script>
