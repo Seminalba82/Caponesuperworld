@@ -1335,7 +1335,7 @@ function scDrawFavaraSign(c, x, T, name, sub) {
   }
 }
 // ===================== SUPER CAPONE WORLD · arte (avatar, negozi, terreno) =====================
-const WORLD_VERSION = "v1.04";
+const WORLD_VERSION = "v1.05";
 const T0 = 1; // unità: tutto è disegnato in "caselle" (come in Super Capone), i piedi sono in (0,0)
 
 // ---------- 11 avatar: il Capone + 10 personaggi ----------
@@ -1641,7 +1641,7 @@ function drawShopArt(c, id, t, q) {
   if (id === "palacongressi") return drawPalaCongressi(c, t, q);
   if (id === "rifugio") return drawRifugio(c, t, q);
   if (id === "cittatempi") return drawCentroComm(c, t, q);
-  if (id === "frank") return drawFrankSaro(c, t);
+  if (id === "frank") { drawFrankSaro(c, t); return q && drawPlaque(c, q, -3.45); }
   if (id === "naselli") return drawNaselli(c, t);
   if (SHOP_DEF[id]) return drawGenericShop(c, t, { ...SHOP_DEF[id], q });
   return scDrawPizzeria(c, t);
@@ -1710,7 +1710,7 @@ function drawBillboard(c, t, img, w) {
     const gg = c.createLinearGradient(0, y0 - 0.55, 0, y0 + bh * 0.4); gg.addColorStop(0, "rgba(255,245,160,.28)"); gg.addColorStop(1, "rgba(255,245,160,0)"); c.fillStyle = gg; c.beginPath(); c.moveTo(x, y0 - 0.55); c.lineTo(x - 0.9, y0 + bh * 0.4); c.lineTo(x + 0.9, y0 + bh * 0.4); c.fill(); }
 }
 const BILLBOARDS = [
-  { zone: "agrigento", x: 400, img: "karaoke", w: 5.6 }, { zone: "agrigento", x: 457.5, img: "quiz", w: 3.6 }, { zone: "agrigento", x: 495, img: "karaoke", w: 5.6 }, { zone: "agrigento", x: 560, img: "quiz", w: 3.6 }, { zone: "agrigento", x: 613, img: "karaoke", w: 5.6 },
+  { zone: "agrigento", x: 94, img: "karaoke", w: 5.6 }, { zone: "agrigento", x: 368.5, img: "karaoke", w: 5.6 }, { zone: "agrigento", x: 428.5, img: "quiz", w: 3.6 }, { zone: "agrigento", x: 515, img: "quiz", w: 3.6 }, { zone: "agrigento", x: 570, img: "karaoke", w: 5.6 },
   { zone: "aragona", x: 32, img: "karaoke", w: 5.6 }, { zone: "aragona", x: 85, img: "quiz", w: 3.6 },
   { zone: "favara", x: 33, img: "quiz", w: 3.6 }, { zone: "favara", x: 84, img: "karaoke", w: 5.6 },
   { zone: "porto_empedocle", x: 32, img: "karaoke", w: 5.6 }, { zone: "porto_empedocle", x: 84, img: "quiz", w: 3.6 },
@@ -1914,40 +1914,40 @@ const GROUND = 12;
 const SHOPS = {
   oceanomare: { zone: "agrigento", x: 18, name: "Oceanomare", icon: "🏖", sub: "Il chiosco sulla spiaggia · San Leone", q: "SAN LEONE", text: "La vetrina di Oceanomare è in arrivo: qui troverai presto promozioni, novità e tutto quello che c'è da sapere sul chiosco sulla spiaggia.", links: [] },
   animazione: { zone: "agrigento", x: 200, name: "Animazione e Spettacoli", icon: "🎪", sub: "di Alberto Seminerio", text: "Animazione e spettacoli per ogni occasione: quiz, karaoke e piano bar, feste di compleanno e per bambini, matrimoni, eventi e feste di comunità.", links: [{ t: "🌐 Vai al sito albertoseminerio.com", u: "https://albertoseminerio.com", main: true }, { t: "Linktree", u: "https://linktr.ee/Albertoseminerio" }] },
-  frank: { zone: "agrigento", x: 218, name: "Frank&Saro", icon: "💍", sub: "Artigianato orafo · Agrigento", text: "Frank&Saro S.r.l. · artigianato orafo. La vetrina è in arrivo: qui troverai presto gioielli, creazioni su misura e novità del laboratorio.", links: [] },
+  frank: { zone: "agrigento", x: 306, name: "Frank&Saro", icon: "💍", sub: "Artigianato orafo · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "Frank&Saro S.r.l. · artigianato orafo. La vetrina è in arrivo: qui troverai presto gioielli, creazioni su misura e novità del laboratorio.", links: [] },
   gabbia: { zone: "agrigento", x: 80, name: "Gabbia di Matti", icon: "🦜", sub: "Bar · Montaperto", q: "MONTAPERTO", text: "La vetrina del bar Gabbia di Matti è in arrivo: qui troverai presto serate, eventi e novità del locale.", links: [] },
-  cose: { zone: "agrigento", x: 335, name: "Cose Toste", icon: "🍬", sub: "Caramelle e articoli per feste · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Cose Toste è in arrivo: qui troverai presto caramelle, idee e articoli per le tue feste.", links: [] },
-  centesimo: { zone: "agrigento", x: 237, name: "Il Centesimo", icon: "🛒", sub: "Supermercato · Agrigento", text: "La vetrina del supermercato Il Centesimo è in arrivo: qui troverai presto offerte e volantino.", links: [] },
-  mary: { zone: "agrigento", x: 256, name: "Pizzeria Mary 2.0", icon: "🍕", sub: "Pizzeria · Via Imera", q: "VIA IMERA", text: "La vetrina della pizzeria Mary 2.0 è in arrivo: qui troverai presto menù, offerte e novità.", links: [] },
+  cose: { zone: "agrigento", x: 273, name: "Cose Toste", icon: "🍬", sub: "Caramelle e articoli per feste · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Cose Toste è in arrivo: qui troverai presto caramelle, idee e articoli per le tue feste.", links: [] },
+  centesimo: { zone: "agrigento", x: 324, name: "Il Centesimo", icon: "🛒", sub: "Supermercato · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina del supermercato Il Centesimo è in arrivo: qui troverai presto offerte e volantino.", links: [] },
+  mary: { zone: "agrigento", x: 219, name: "Pizzeria Mary 2.0", icon: "🍕", sub: "Pizzeria · Via Imera", q: "VIA IMERA", text: "La vetrina della pizzeria Mary 2.0 è in arrivo: qui troverai presto menù, offerte e novità.", links: [] },
   municipio: { zone: "agrigento", x: 144, r: 8.5, name: "Municipio di Agrigento", icon: "🏛", sub: "Comune · Agrigento centro", text: "La vetrina del Municipio di Agrigento è in arrivo: qui troverai presto servizi, avvisi e collegamenti al sito del Comune.", links: [] },
   capotavola: { zone: "agrigento", x: 163, name: "Ristorante Capotavola", icon: "🍽", sub: "Ristorante · Agrigento centro", text: "La vetrina del ristorante Capotavola è in arrivo: qui troverai presto menù, prenotazioni e novità.", links: [] },
   posta: { zone: "agrigento", x: 180, name: "Ufficio Postale", icon: "✉️", sub: "Posta · Agrigento centro", text: "La vetrina dell'ufficio postale è in arrivo: qui troverai presto orari e collegamenti ai servizi online.", links: [] },
-  palacongressi: { zone: "agrigento", x: 380, r: 12.5, name: "Pala Congressi", icon: "🏟", sub: "Eventi e congressi · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina del Pala Congressi è in arrivo: qui troverai presto eventi, spettacoli e informazioni.", links: [] },
-  rifugio: { zone: "agrigento", x: 545, r: 10.5, name: "Rifugio Hope", icon: "🐶", sub: "Rifugio per cani · Monserrato", q: "MONSERRATO", text: "La vetrina del Rifugio Hope è in arrivo: qui troverai presto i cani da adottare e come aiutarli.", links: [] },
-  cittatempi: { zone: "agrigento", x: 592, r: 15.5, name: "Centro Commerciale Città dei Templi", icon: "🛍", sub: "Centro commerciale · Villaseta", q: "VILLASETA", text: "La vetrina del Centro Commerciale Città dei Templi è in arrivo: qui troverai presto negozi, orari e promozioni.", links: [] },
+  palacongressi: { zone: "agrigento", x: 351, r: 12.5, name: "Pala Congressi", icon: "🏟", sub: "Eventi e congressi · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina del Pala Congressi è in arrivo: qui troverai presto eventi, spettacoli e informazioni.", links: [] },
+  rifugio: { zone: "agrigento", x: 501, r: 10.5, name: "Rifugio Hope", icon: "🐶", sub: "Rifugio per cani · Monserrato", q: "MONSERRATO", text: "La vetrina del Rifugio Hope è in arrivo: qui troverai presto i cani da adottare e come aiutarli.", links: [] },
+  cittatempi: { zone: "agrigento", x: 548, r: 15.5, name: "Centro Commerciale Città dei Templi", icon: "🛍", sub: "Centro commerciale · Villaseta", q: "VILLASETA", text: "La vetrina del Centro Commerciale Città dei Templi è in arrivo: qui troverai presto negozi, orari e promozioni.", links: [] },
   forte: { zone: "porto_empedocle", x: 55, name: "Pizzette da Forte", icon: "🍕", sub: "Porto Empedocle", text: "La vetrina di Pizzette da Forte è in arrivo: qui troverai presto il menù e le novità.", links: [] },
   marconi: { zone: "grotte", x: 52, name: "Caffè Marconi", icon: "☕", sub: "Bar · Grotte", text: "La vetrina del Caffè Marconi è in arrivo: qui troverai presto novità e orari.", links: [] },
   central: { zone: "grotte", x: 62, name: "Central Bar", icon: "☕", sub: "Bar · Grotte", text: "La vetrina del Central Bar è in arrivo: qui troverai presto novità, aperitivi ed eventi.", links: [] },
-  doimos: { zone: "agrigento", x: 351, name: "Doimos", icon: "🏥", sub: "Residenza riabilitativa · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Doimos, residenza riabilitativa, è in arrivo: qui troverai presto informazioni e contatti.", links: [] },
-  carta: { zone: "agrigento", x: 447, name: "Cartapesta", icon: "🎡", sub: "Family entertainment · parco giochi · Fontanelle", q: "FONTANELLE", text: "La vetrina di Cartapesta Family Entertainment è in arrivo: qui troverai presto giochi, eventi e informazioni sul parco.", links: [] },
-  denise: { zone: "agrigento", x: 275, name: "Denise Eventi", icon: "🎉", sub: "Eventi e animazione", text: "La vetrina di Denise Eventi è in arrivo: qui troverai presto eventi, feste e novità.", links: [] },
-  fuori: { zone: "agrigento", x: 478, name: "FuoriKapa", icon: "🎈", sub: "Partyroom · Quadrivio Spina Santa", q: "QUADRIVIO SPINA SANTA", text: "La vetrina di FuoriKapa Partyroom è in arrivo: qui troverai presto feste, pacchetti e informazioni.", links: [] },
+  doimos: { zone: "agrigento", x: 289, name: "Doimos", icon: "🏥", sub: "Residenza riabilitativa · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Doimos, residenza riabilitativa, è in arrivo: qui troverai presto informazioni e contatti.", links: [] },
+  carta: { zone: "agrigento", x: 416, name: "Cartapesta", icon: "🎡", sub: "Family entertainment · parco giochi · Fontanelle", q: "FONTANELLE", text: "La vetrina di Cartapesta Family Entertainment è in arrivo: qui troverai presto giochi, eventi e informazioni sul parco.", links: [] },
+  denise: { zone: "agrigento", x: 42, name: "Denise Eventi", icon: "🎉", sub: "Eventi · San Leone", q: "SAN LEONE", text: "La vetrina di Denise Eventi è in arrivo: qui troverai presto eventi, feste e novità.", links: [] },
+  fuori: { zone: "agrigento", x: 447, name: "FuoriKapa", icon: "🎈", sub: "Partyroom · Quadrivio Spina Santa", q: "QUADRIVIO SPINA SANTA", text: "La vetrina di FuoriKapa Partyroom è in arrivo: qui troverai presto feste, pacchetti e informazioni.", links: [] },
   naselli: { zone: "aragona", x: 55, name: "Naselli Pub", icon: "🍺", sub: "Aragona", text: "La vetrina del Naselli Pub è in arrivo: qui troverai presto serate, eventi e promozioni del locale.", links: [] },
   paolo: { zone: "favara", x: 55, name: "Melamangio da Paolo", icon: "🍕", sub: "La pizzeria di Paolo · Favara", text: "La vetrina di Melamangio da Paolo è in arrivo: qui troverai presto il menù, le offerte e le novità della pizzeria.", links: [] },
 };
 // ---- gallerie: portali fra le zone ----
 const TUNNELS = [
   { id: "t_ara", zone: "agrigento", x: 117, to: "aragona", label: "ARAGONA", stand: 114.5 },
-  { id: "t_fav", zone: "agrigento", x: 306, to: "favara", label: "FAVARA", stand: 303.5 },
-  { id: "t_por", zone: "agrigento", x: 420, to: "porto_empedocle", label: "PORTO EMPEDOCLE", stand: 417.5 },
-  { id: "t_gro", zone: "agrigento", x: 515, to: "grotte", label: "GROTTE", stand: 512.5 },
+  { id: "t_fav", zone: "agrigento", x: 240, to: "favara", label: "FAVARA", stand: 237.5 },
+  { id: "t_por", zone: "agrigento", x: 389, to: "porto_empedocle", label: "PORTO EMPEDOCLE", stand: 386.5 },
+  { id: "t_gro", zone: "agrigento", x: 471, to: "grotte", label: "GROTTE", stand: 468.5 },
   { id: "t_agA", zone: "aragona", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_ara" },
   { id: "t_agF", zone: "favara", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_fav" },
   { id: "t_agP", zone: "porto_empedocle", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_por" },
   { id: "t_agG", zone: "grotte", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_gro" },
 ];
 const ZONES = {
-  agrigento: { name: "AGRIGENTO", W: 680, spawn: 26 },
+  agrigento: { name: "AGRIGENTO", W: 620, spawn: 26 },
   aragona: { name: "ARAGONA", W: 100, spawn: 20 },
   favara: { name: "FAVARA", W: 100, spawn: 20 },
   porto_empedocle: { name: "PORTO EMPEDOCLE", W: 100, spawn: 20 },
@@ -1955,18 +1955,18 @@ const ZONES = {
 };
 // ---- quartieri di Agrigento: from = dove inizia, sign = cartello, jump = dove atterra il pulsante ----
 const QUARTIERI = [
-  { id: "sanleone", name: "San Leone", from: 0, sign: 40, jump: 26 },
+  { id: "sanleone", name: "San Leone", from: 0, sign: 55, jump: 26 },
   { id: "montaperto", name: "Montaperto", from: 62, sign: 70, jump: 67.5 },
   { id: "centro", name: "Agrigento centro", from: 99, sign: 131, jump: 128.5 },
-  { id: "mose", name: "Villaggio Mosè", from: 316, sign: 322, jump: 319.5 },
-  { id: "fontanelle", name: "Fontanelle", from: 430, sign: 434, jump: 431.5 },
-  { id: "quadrivio", name: "Quadrivio Spina Santa", from: 462, sign: 466, jump: 463.5 },
-  { id: "monserrato", name: "Monserrato", from: 526, sign: 530, jump: 527.5 },
-  { id: "villaseta", name: "Villaseta", from: 566, sign: 570, jump: 567.5 },
-  { id: "peruzzo", name: "Villaggio Peruzzo", from: 612, sign: 624, jump: 621.5 },
+  { id: "mose", name: "Villaggio Mosè", from: 250, sign: 256, jump: 253.5 },
+  { id: "fontanelle", name: "Fontanelle", from: 399, sign: 403, jump: 400.5 },
+  { id: "quadrivio", name: "Quadrivio Spina Santa", from: 431, sign: 435, jump: 432.5 },
+  { id: "monserrato", name: "Monserrato", from: 481, sign: 486, jump: 483.5 },
+  { id: "villaseta", name: "Villaseta", from: 518, sign: 526, jump: 523.5 },
+  { id: "peruzzo", name: "Villaggio Peruzzo", from: 566, sign: 580, jump: 577.5 },
 ];
 const quartiereAt = (x) => { let q = QUARTIERI[0]; QUARTIERI.forEach((k) => { if (x >= k.from) q = k; }); return q; };
-const CANTIERE_X = 640;
+const CANTIERE_X = 596;
 const tunnelFrom = (zone, to) => TUNNELS.find((t) => t.zone === zone && t.to === to);
 const tunnelAt = (zone) => TUNNELS.filter((t) => t.zone === zone);
 
@@ -2071,7 +2071,7 @@ function drawWorldObjects(c, zone, x0, x1, T, t) {
   const g = GROUND * T;
   if (zone === "agrigento") {
     [6, 11, 30, 35].forEach((x) => { if (x > x0 - 3 && x < x1 + 3) drawPalm(c, x, T, t); });
-    [60, 97, 363, 394.5].forEach((x) => { if (x > x0 - 2 && x < x1 + 2) drawBench(c, x, T); });
+    [62.5, 100, 190, 297.5, 335].forEach((x) => { if (x > x0 - 2 && x < x1 + 2) drawBench(c, x, T); });
     for (let x = 48; x < 676; x += 14) if (x > x0 - 2 && x < x1 + 2) scDrawLamp(c, x, GROUND, T);
   } else {
     for (let x = 28; x < 95; x += 15) if (x > x0 - 2 && x < x1 + 2) scDrawLamp(c, x, GROUND, T);
