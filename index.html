@@ -1335,7 +1335,7 @@ function scDrawFavaraSign(c, x, T, name, sub) {
   }
 }
 // ===================== SUPER CAPONE WORLD · arte (avatar, negozi, terreno) =====================
-const WORLD_VERSION = "v1.07";
+const WORLD_VERSION = "v1.08";
 const T0 = 1; // unità: tutto è disegnato in "caselle" (come in Super Capone), i piedi sono in (0,0)
 
 // ---------- 11 avatar: il Capone + 10 personaggi ----------
@@ -1556,10 +1556,10 @@ function drawFrankSaro(c, t) {
 
 // ===== negozi generici (insegna + tenda + vetrine) e cartellino del quartiere =====
 function drawPlaque(c, text, y) {
-  c.font = "800 0.34px Arial"; c.textAlign = "center"; const w = c.measureText(text).width + 0.7, h = 0.56;
+  c.font = "800 0.44px Arial"; c.textAlign = "center"; const w = c.measureText(text).width + 0.8, h = 0.72;
   c.fillStyle = "#0d47a1"; trfRR(c, -w / 2, y - h / 2, w, h, h / 2); c.fill();
   c.strokeStyle = "#fff"; c.lineWidth = 0.05; trfRR(c, -w / 2 + 0.05, y - h / 2 + 0.05, w - 0.1, h - 0.1, h / 2); c.stroke();
-  c.fillStyle = "#fff"; c.fillText(text, 0, y + 0.12);
+  c.fillStyle = "#fff"; c.fillText(text, 0, y + 0.15);
 }
 function fitText(c, txt, px, maxW, font) { c.font = `900 ${px}px ${font || "Bungee, Arial Black, Arial"}`; const w = c.measureText(txt).width; if (w > maxW) c.font = `900 ${px * maxW / w}px ${font || "Bungee, Arial Black, Arial"}`; }
 function drawGenericShop(c, t, o) {
@@ -1597,6 +1597,7 @@ function drawGenericShop(c, t, o) {
   if (o.sliding) { c.fillStyle = "rgba(255,255,255,.4)"; c.fillRect(-dw / 2 + 0.05, -2.85, dw / 2 - 0.1, 2.7); c.fillStyle = "#2b2118"; c.fillRect(-0.03, -2.9, 0.06, 2.8); }
   else { c.fillStyle = o.trim; c.beginPath(); c.arc(dw / 2 - 0.25, -1.5, 0.07, 0, 7); c.fill(); c.fillStyle = "#fff"; trfRR(c, -0.45, -2.55, 0.9, 0.4, 0.08); c.fill(); c.fillStyle = "#c62828"; c.font = "900 0.24px Arial"; c.fillText("APERTO", 0, -2.25); }
   if (o.deco) o.deco(c, t, hw);
+  if (o.flag) drawPizzaFlag(c, t, hw - 1.0, top - 0.35);
 }
 // icone semplici disegnate (niente emoji nel canvas)
 const icoPizza = (c) => { c.fillStyle = "#f4b942"; c.beginPath(); c.moveTo(-0.45, -0.4); c.lineTo(0.45, -0.4); c.lineTo(0, 0.5); c.fill(); c.fillStyle = "#c9892a"; c.fillRect(-0.45, -0.46, 0.9, 0.1); c.fillStyle = "#d32f2f"; [[-0.15, -0.15], [0.12, -0.12], [0, 0.15]].forEach(([x, y]) => { c.beginPath(); c.arc(x, y, 0.07, 0, 7); c.fill(); }); };
@@ -1615,7 +1616,7 @@ const icoPlate = (c) => { c.fillStyle = "#fff"; c.beginPath(); c.arc(0, 0, 0.36,
 const inWinTable = (c, x, y, w, h) => { for (let i = 0; i < 2; i++) { const cx = x + w * (0.3 + i * 0.4); c.fillStyle = "#fff"; c.fillRect(cx - 0.5, y + h - 0.7, 1.0, 0.1); c.fillStyle = "#6d4c41"; c.fillRect(cx - 0.05, y + h - 0.6, 0.1, 0.5); c.fillStyle = "#fff59d"; c.fillRect(cx - 0.04, y + h - 1.0, 0.08, 0.3); c.fillStyle = "#ff9800"; c.beginPath(); c.arc(cx, y + h - 1.07, 0.07, 0, 7); c.fill(); } };
 const inWinMail = (c, x, y, w, h) => { for (let i = 0; i < 4; i++) { c.fillStyle = "#fff"; trfRR(c, x + 0.25 + i * (w - 0.5) / 4, y + h - 0.95 + (i % 2) * 0.12, 0.42, 0.3, 0.04); c.fill(); c.fillStyle = "#ffd600"; c.fillRect(x + 0.3 + i * (w - 0.5) / 4, y + h - 0.88 + (i % 2) * 0.12, 0.32, 0.06); } c.fillStyle = "#c8a46a"; c.fillRect(x + w / 2 - 0.35, y + h - 0.6, 0.7, 0.5); };
 const inWinScreens = (c, x, y, w, h) => { for (let i = 0; i < 2; i++) { const mx = x + 0.2 + i * (w - 1.2) * 0.9, my = y + h - 1.0; c.fillStyle = "#263238"; trfRR(c, mx, my, 1.0, 0.65, 0.06); c.fill(); c.fillStyle = "#e8f5e9"; c.fillRect(mx + 0.07, my + 0.07, 0.86, 0.47); c.strokeStyle = "#2e7d32"; c.lineWidth = 0.06; c.beginPath(); c.moveTo(mx + 0.15, my + 0.45); c.lineTo(mx + 0.4, my + 0.28); c.lineTo(mx + 0.55, my + 0.38); c.lineTo(mx + 0.85, my + 0.14); c.stroke(); c.fillStyle = "#37474f"; c.fillRect(mx + 0.4, my + 0.65, 0.2, 0.15); } };
-const SHOP_DIM = { quiz: [9.8, 10.2], manulab: [5.8, 7.8], municipio: [8.5, 10.2], palacongressi: [11.5, 9.4], rifugio: [10, 7.6], cittatempi: [16.5, 9.4], capotavola: [5.6, 7.2], posta: [5.6, 7.2], oceanomare: [4.8, 6.2], denise: [5.4, 9.0], cose: [5.4, 8.2], animazione: [5.6, 9.6], doimos: [5.4, 8.1], fuori: [5.4, 8.5], carta: [7.0, 6.5], centesimo: [6.4, 7.2] };
+const SHOP_DIM = { p_sitari: [5.6, 10.6], p_pizzaecori: [5.6, 10.6], p_granofino: [5.6, 10.6], p_centoquindici: [5.6, 10.6], p_capriccio: [5.6, 10.6], p_gallodoro: [5.6, 10.6], p_pistritto: [5.6, 10.6], p_parcoangeli: [5.6, 10.6], p_mediterranea: [5.6, 10.6], p_focacceria: [5.6, 10.6], p_stadiomose: [5.6, 10.6], mary: [5.6, 10.6], forte: [5.6, 10.6], paolo: [5.6, 9.6], quiz: [9.8, 10.2], manulab: [5.8, 7.8], municipio: [8.5, 10.2], palacongressi: [11.5, 9.4], rifugio: [10, 7.6], cittatempi: [16.5, 9.4], capotavola: [5.6, 7.2], posta: [5.6, 7.2], oceanomare: [4.8, 6.2], denise: [5.4, 9.0], cose: [5.4, 8.2], animazione: [5.6, 9.6], doimos: [5.4, 8.1], fuori: [5.4, 8.5], carta: [7.0, 6.5], centesimo: [6.4, 7.2] };
 const SHOP_DEF = {
   denise: { name: "DENISE EVENTI", logo: "denise", logoDark: true, sh: 3.2, signW: 4.4, h: 8.4, hw: 5.0, wall: "#22222c", trim: "#ff4081", signBg: "#000", signFg: "#fff", awn: ["#ff4081", "#00bcd4"], glow: ["#fff3b0", "#ff9f43"], base: "rgba(255,64,129,.35)", inWin: inWinCandy },
   doimos: { name: "DOIMOS", logo: "doimos", sh: 2.1, h: 7.4, wall: "#eef1f2", trim: "#455a64", signBg: "#fff", signFg: "#000", awn: ["#90a4ae", "#eceff1"], glow: ["#e8f4f8", "#b3d4e0"], base: "rgba(60,80,90,.35)",
@@ -1623,15 +1624,26 @@ const SHOP_DEF = {
   fuori: { name: "FUORIKAPA", logo: "fuori", sh: 2.6, signW: 4.0, h: 7.8, hw: 5.0, wall: "#fff3e0", trim: "#9aa90b", signBg: "#fff", signFg: "#000", awn: ["#c24f64", "#9aa90b"], glow: ["#ffe0f0", "#ffd54f"], base: "rgba(150,60,70,.4)", inWin: inWinCandy },
   cose: { name: "COSE TOSTE", logo: "cose", sh: 2.5, signW: 4.8, h: 7.4, wall: "#fff0f6", trim: "#ec407a", signBg: "#00acc1", signFg: "#fff", subFg: "#ffeb3b", awn: ["#ec407a", "#fff"], glow: ["#fff9c4", "#f8bbd0"], icon: icoCandy, iconW: 1.0, inWin: inWinCandy, base: "rgba(0,120,140,.4)",
     deco: (c, t, hw) => { [[-hw - 0.5, "#f44336"], [hw + 0.5, "#2196f3"], [hw + 1.0, "#ffeb3b"]].forEach(([x, col], i) => { const y = -5.2 + Math.sin(t * 2 + i) * 0.1; c.strokeStyle = "rgba(0,0,0,.35)"; c.lineWidth = 0.02; c.beginPath(); c.moveTo(x, y + 0.5); c.lineTo(x, -0.1); c.stroke(); c.fillStyle = col; c.beginPath(); c.ellipse(x, y, 0.36, 0.46, 0, 0, 7); c.fill(); }); } },
-  mary: { name: "MARY 2.0", sub: "PIZZERIA", wall: "#f3e1c8", trim: "#b71c1c", signBg: "#b71c1c", signFg: "#fff", subFg: "#ffe0b2", awn: ["#c62828", "#fff"], glow: ["#ffdca8", "#ff9f43"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(120,30,20,.5)" },
+  mary: { flag: true, name: "MARY 2.0", sub: "PIZZERIA", wall: "#f3e1c8", trim: "#b71c1c", signBg: "#b71c1c", signFg: "#fff", subFg: "#ffe0b2", awn: ["#c62828", "#fff"], glow: ["#ffdca8", "#ff9f43"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(120,30,20,.5)" },
   centesimo: { name: "IL CENTESIMO", sub: "SUPERMERCATO", hw: 6, h: 6.6, win: 3.0, door: 2.0, sliding: true, wall: "#fff8e1", trim: "#2e7d32", signBg: "#2e7d32", signFg: "#ffeb3b", subFg: "#fff", awn: ["#2e7d32", "#ffeb3b"], glow: ["#e8f5e9", "#a5d6a7"], icon: icoCoin, iconW: 1.0, inWin: inWinGoods, base: "rgba(30,90,40,.45)" },
   manulab: { name: "MANULAB", logo: "manulab", sh: 2.7, signW: 5.8, h: 7.6, hw: 5.0, wall: "#eef6ef", trim: "#2e7d32", signBg: "#fff", signFg: "#000", awn: ["#2e7d32", "#fff"], glow: ["#e3f6e6", "#a5d6a7"], base: "rgba(30,80,40,.35)", inWin: inWinScreens },
+  p_sitari: { name: "SITÀRI", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#fff1e0", trim: "#bf360c", signBg: "#bf360c", signFg: "#fff", subFg: "#ffe0b2", awn: ["#bf360c", "#fff3e0"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
+  p_pizzaecori: { name: "PIZZA E CORI", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#e8f5e9", trim: "#1b5e20", signBg: "#1b5e20", signFg: "#fff", subFg: "#c8e6c9", awn: ["#1b5e20", "#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
+  p_granofino: { name: "GRANOFINO", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#fff8e1", trim: "#8d6e00", signBg: "#5d4037", signFg: "#ffe082", subFg: "#ffe082", awn: ["#8d6e63", "#ffe082"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
+  p_centoquindici: { name: "AL CENTOQUINDICI", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#e3f2fd", trim: "#0d47a1", signBg: "#0d47a1", signFg: "#fff", subFg: "#bbdefb", awn: ["#0d47a1", "#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
+  p_capriccio: { name: "CAPRICCIO DI MARE", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#e0f7fa", trim: "#006064", signBg: "#00838f", signFg: "#fff", subFg: "#b2ebf2", awn: ["#00838f", "#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
+  p_gallodoro: { name: "IL GALLO D'ORO", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#fff3e0", trim: "#e65100", signBg: "#212121", signFg: "#ffca28", subFg: "#ffe082", awn: ["#212121", "#ffca28"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
+  p_pistritto: { name: "PISTRITTO", sub: "PIZZERIA E BISTROT", hw: 4.8, h: 6.5, flag: true, wall: "#efebe9", trim: "#4e342e", signBg: "#3e2723", signFg: "#ffcc80", subFg: "#d7ccc8", awn: ["#3e2723", "#ffcc80"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
+  p_parcoangeli: { name: "PARCO DEGLI ANGELI", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#f3e5f5", trim: "#6a1b9a", signBg: "#6a1b9a", signFg: "#fff", subFg: "#e1bee7", awn: ["#6a1b9a", "#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
+  p_mediterranea: { name: "MEDITERRANEA", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#e1f5fe", trim: "#01579b", signBg: "#0277bd", signFg: "#fff", subFg: "#b3e5fc", awn: ["#0277bd", "#fff59d"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
+  p_focacceria: { name: "LA FOCACCERIA", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#fffde7", trim: "#f57f17", signBg: "#f57f17", signFg: "#fff", subFg: "#fff59d", awn: ["#f57f17", "#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
+  p_stadiomose: { name: "STADIO MOSÈ", sub: "PIZZA", hw: 4.8, h: 6.5, flag: true, wall: "#e8eaf6", trim: "#1a237e", signBg: "#283593", signFg: "#fff", subFg: "#c5cae9", awn: ["#283593", "#ffeb3b"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
   capotavola: { name: "CAPOTAVOLA", sub: "RISTORANTE", hw: 5.2, h: 6.8, wall: "#f5ead7", trim: "#8d6e2a", signBg: "#3e1414", signFg: "#f5d28a", subFg: "#e6c9a0", awn: ["#7b1e1e", "#f5ead7"], glow: ["#ffe7b3", "#ff9f43"], icon: icoPlate, iconW: 0.9, inWin: inWinTable, base: "rgba(80,20,20,.45)",
     deco: (c, t, hw) => { [-hw - 0.7, hw + 0.7].forEach((x) => { c.fillStyle = "#6d4c41"; c.fillRect(x - 0.28, -0.7, 0.56, 0.7); c.fillStyle = "#2e7d32"; c.beginPath(); c.ellipse(x, -1.5, 0.45, 0.85, 0, 0, 7); c.fill(); }); } },
   posta: { name: "POSTA", sub: "UFFICIO POSTALE", hw: 4.6, h: 6.4, wall: "#fff8d6", trim: "#0d47a1", signBg: "#ffd600", signFg: "#0d47a1", subFg: "#0d47a1", awn: ["#0d47a1", "#ffd600"], glow: ["#e3f2fd", "#bbdefb"], icon: icoEnv, iconW: 0.9, inWin: inWinMail, base: "rgba(13,50,120,.35)",
     deco: (c, t, hw) => { const x = hw + 0.9; c.fillStyle = "#37474f"; c.fillRect(x - 0.06, -0.9, 0.12, 0.9); c.fillStyle = "#d32f2f"; trfRR(c, x - 0.4, -1.8, 0.8, 0.95, 0.35); c.fill(); c.fillStyle = "#111"; c.fillRect(x - 0.25, -1.45, 0.5, 0.07); } },
   gabbia: { name: "GABBIA DI MATTI", sub: "BAR", wall: "#4a2c63", trim: "#ffc107", signBg: "#1d1030", signFg: "#ffd54f", subFg: "#ce93d8", awn: ["#7b1fa2", "#ffc107"], glow: ["#ffe9b0", "#ff8a65"], icon: icoCage, iconW: 0.9, inWin: inWinBottles, base: "rgba(20,5,40,.5)" },
-  forte: { name: "PIZZETTE DA FORTE", hw: 5.2, wall: "#ffe0b2", trim: "#e65100", signBg: "#e65100", signFg: "#fff8e1", awn: ["#e65100", "#fff3e0"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(150,70,10,.45)" },
+  forte: { flag: true, name: "PIZZETTE DA FORTE", hw: 5.2, wall: "#ffe0b2", trim: "#e65100", signBg: "#e65100", signFg: "#fff8e1", awn: ["#e65100", "#fff3e0"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(150,70,10,.45)" },
   marconi: { name: "CAFFÈ MARCONI", sub: "DAL 1950", wall: "#e8dfcc", trim: "#c9a227", signBg: "#1b4d3e", signFg: "#f5e6a8", subFg: "#cfe8d8", awn: ["#1b4d3e", "#f5e6a8"], glow: ["#fff1c9", "#e0b36a"], icon: icoCup, iconW: 0.9, inWin: inWinCakes, base: "rgba(27,77,62,.45)" },
   central: { name: "CENTRAL BAR", sub: "CAFFÈ · APERITIVI", wall: "#cfd8dc", trim: "#0d47a1", signBg: "#0d47a1", signFg: "#fff", subFg: "#ffcdd2", awn: ["#0d47a1", "#e53935"], glow: ["#e3f2fd", "#90caf9"], icon: icoCup, iconW: 0.9, inWin: inWinCakes, base: "rgba(13,50,120,.4)" },
 };
@@ -1647,7 +1659,7 @@ function drawShopArt(c, id, t, q) {
   if (id === "frank") { drawFrankSaro(c, t); return q && drawPlaque(c, q, -3.45); }
   if (id === "naselli") return drawNaselli(c, t);
   if (SHOP_DEF[id]) return drawGenericShop(c, t, { ...SHOP_DEF[id], q });
-  return scDrawPizzeria(c, t);
+  scDrawPizzeria(c, t); if (id === "paolo") drawPizzaFlag(c, t, 3.4, -5.55);
 }
 
 // immagini dei loghi/cartelloni forniti da Alberto (generato)
@@ -1940,6 +1952,26 @@ function drawQuiz3(c, t) {
 }
 function drawBBPreview(c, id) { const b = BBINFO[id]; drawBillboard(c, 1, WIMG[b.img], b.w); }
 
+// ---- bandiera della pizza: contraddistingue tutte le pizzerie ----
+let PIZZA_FLAG_CV = null;
+function pizzaFlagCv() {
+  if (PIZZA_FLAG_CV) return PIZZA_FLAG_CV;
+  const cv = document.createElement("canvas"); cv.width = 160; cv.height = 100; const c = cv.getContext("2d");
+  c.fillStyle = "#c62828"; c.fillRect(0, 0, 160, 100); c.strokeStyle = "#fff8e1"; c.lineWidth = 5; c.strokeRect(5, 5, 150, 90);
+  c.save(); c.translate(80, 50);
+  c.fillStyle = "#d9a441"; c.beginPath(); c.arc(0, 0, 38, 0, 7); c.fill();
+  c.fillStyle = "#e53935"; c.beginPath(); c.arc(0, 0, 31, 0, 7); c.fill();
+  c.fillStyle = "#ffd54f"; c.beginPath(); c.arc(0, 0, 27, 0, 7); c.fill();
+  c.fillStyle = "#b71c1c"; [[-12, -10], [10, -14], [14, 6], [-8, 12], [0, -1], [-20, 2]].forEach(([x, y]) => { c.beginPath(); c.arc(x, y, 5.5, 0, 7); c.fill(); });
+  c.fillStyle = "#2e7d32"; [[-4, -18], [18, -6], [-16, -14], [4, 16]].forEach(([x, y]) => { c.beginPath(); c.ellipse(x, y, 4.5, 2.4, 0.6, 0, 7); c.fill(); });
+  c.restore(); return (PIZZA_FLAG_CV = cv);
+}
+function drawPizzaFlag(c, t, px, top) {
+  const ph = 3.4; c.fillStyle = "#cfd8dc"; c.fillRect(px - 0.06, top - ph, 0.12, ph); c.fillStyle = "#ffd54f"; c.beginPath(); c.arc(px, top - ph, 0.12, 0, 7); c.fill();
+  const cv = pizzaFlagCv(), w = 2.5, h = 1.56, n = 10;
+  for (let k = 0; k < n; k++) { const wv = Math.sin(t * 3.2 + k * 0.7) * 0.09 * (k + 1) / n * 2; c.drawImage(cv, k * 16, 0, 16, 100, px + 0.06 + k * w / n, top - ph + 0.12 + wv, w / n + 0.02, h); }
+}
+
 // ===================== SUPER CAPONE WORLD · mondo, zone, negozi, gallerie =====================
 const $ = (id) => document.getElementById(id);
 const FB_CFG = window.SCW_FIREBASE || {}; // i dati del progetto Firebase stanno nel file firebase-config.js
@@ -1963,6 +1995,17 @@ const SHOPS = {
   cittatempi: { zone: "agrigento", x: 549, r: 15.5, name: "Centro Commerciale Città dei Templi", icon: "🛍", sub: "Centro commerciale · Villaseta", q: "VILLASETA", text: "La vetrina del Centro Commerciale Città dei Templi è in arrivo: qui troverai presto negozi, orari e promozioni.", links: [] },
   quiz: { zone: "agrigento", x: 212, r: 6, name: "Il Capone Quiz 3.0", icon: "🎤", sub: "Il quiz per eventi live · Agrigento centro", text: "Il Capone Quiz 3.0: il quiz con domande, punti e classifica per serate ed eventi dal vivo. Entra e scopri come giocare.", links: [{ t: "🌐 Vai al sito ilcaponequiz.win", u: "https://ilcaponequiz.win/", main: true }] },
   manulab: { zone: "agrigento", x: 346, name: "Manulab", icon: "💻", sub: "Social strategist e web designer · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "Manulab: social strategist e web designer. Strategie social, siti web e comunicazione per far crescere la tua attività.", links: [{ t: "🌐 Vai al sito manulab.it", u: "https://www.manulab.it/", main: true }] },
+  p_sitari: { zone: "agrigento", x: 0, name: "Sitàri", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Sitàri è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  p_pizzaecori: { zone: "agrigento", x: 0, name: "Pizza e Cori", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Pizza e Cori è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  p_granofino: { zone: "agrigento", x: 0, name: "Granofino", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Granofino è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  p_centoquindici: { zone: "agrigento", x: 0, name: "Al Centoquindici", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Al Centoquindici è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  p_capriccio: { zone: "agrigento", x: 0, name: "Capriccio di Mare", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Capriccio di Mare è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  p_gallodoro: { zone: "agrigento", x: 0, name: "Il Gallo d'Oro", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Il Gallo d'Oro è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  p_pistritto: { zone: "agrigento", x: 0, name: "Pistritto Pizzeria e Bistrot", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Pistritto Pizzeria e Bistrot è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  p_parcoangeli: { zone: "agrigento", x: 0, name: "Parco degli Angeli", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Parco degli Angeli è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  p_mediterranea: { zone: "agrigento", x: 0, name: "Mediterranea", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Mediterranea è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  p_focacceria: { zone: "agrigento", x: 0, name: "Pizzeria La Focacceria", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Pizzeria La Focacceria è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  p_stadiomose: { zone: "agrigento", x: 0, name: "Pizza Stadio Mosè", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Pizza Stadio Mosè è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
   forte: { zone: "porto_empedocle", x: 55, name: "Pizzette da Forte", icon: "🍕", sub: "Porto Empedocle", text: "La vetrina di Pizzette da Forte è in arrivo: qui troverai presto il menù e le novità.", links: [] },
   marconi: { zone: "grotte", x: 52, name: "Caffè Marconi", icon: "☕", sub: "Bar · Grotte", text: "La vetrina del Caffè Marconi è in arrivo: qui troverai presto novità e orari.", links: [] },
   central: { zone: "grotte", x: 62, name: "Central Bar", icon: "☕", sub: "Bar · Grotte", text: "La vetrina del Central Bar è in arrivo: qui troverai presto novità, aperitivi ed eventi.", links: [] },
@@ -1984,10 +2027,10 @@ const TUNNELS = [
   { id: "t_fav", zone: "agrigento", x: 249, to: "favara", label: "FAVARA", stand: 246.5 },
   { id: "t_por", zone: "agrigento", x: 390, to: "porto_empedocle", label: "PORTO EMPEDOCLE", stand: 387.5 },
   { id: "t_gro", zone: "agrigento", x: 472, to: "grotte", label: "GROTTE", stand: 469.5 },
-  { id: "t_agA", zone: "aragona", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_ara" },
-  { id: "t_agF", zone: "favara", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_fav" },
-  { id: "t_agP", zone: "porto_empedocle", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_por" },
-  { id: "t_agG", zone: "grotte", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.5, back: "t_gro" },
+  { id: "t_agA", zone: "aragona", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.2, back: "t_ara" },
+  { id: "t_agF", zone: "favara", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.2, back: "t_fav" },
+  { id: "t_agP", zone: "porto_empedocle", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.2, back: "t_por" },
+  { id: "t_agG", zone: "grotte", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.2, back: "t_gro" },
 ];
 const ZONES = {
   agrigento: { name: "AGRIGENTO", W: 625, spawn: 26 },
@@ -1998,18 +2041,57 @@ const ZONES = {
 };
 // ---- quartieri di Agrigento: from = dove inizia, sign = cartello, jump = dove atterra il pulsante ----
 const QUARTIERI = [
-  { id: "sanleone", name: "San Leone", from: 0, sign: 55, jump: 26 },
-  { id: "montaperto", name: "Montaperto", from: 62, sign: 70, jump: 67.5 },
-  { id: "centro", name: "Agrigento centro", from: 99, sign: 131, jump: 128.5 },
-  { id: "mose", name: "Villaggio Mosè", from: 259, sign: 265, jump: 262.5 },
-  { id: "fontanelle", name: "Fontanelle", from: 400, sign: 404, jump: 401.5 },
-  { id: "quadrivio", name: "Quadrivio Spina Santa", from: 432, sign: 436, jump: 433.5 },
-  { id: "monserrato", name: "Monserrato", from: 482, sign: 487, jump: 484.5 },
-  { id: "villaseta", name: "Villaseta", from: 519, sign: 527, jump: 524.5 },
-  { id: "peruzzo", name: "Villaggio Peruzzo", from: 567, sign: 581, jump: 578.5 },
+  { id: "sanleone", name: "San Leone" }, { id: "montaperto", name: "Montaperto" }, { id: "centro", name: "Agrigento centro" },
+  { id: "mose", name: "Villaggio Mosè" }, { id: "fontanelle", name: "Fontanelle" }, { id: "quadrivio", name: "Quadrivio Spina Santa" },
+  { id: "monserrato", name: "Monserrato" }, { id: "villaseta", name: "Villaseta" }, { id: "peruzzo", name: "Villaggio Peruzzo" },
 ];
 const quartiereAt = (x) => { let q = QUARTIERI[0]; QUARTIERI.forEach((k) => { if (x >= k.from) q = k; }); return q; };
-const CANTIERE_X = 597;
+let CANTIERE_X = 0, SAND_END = 40, BENCHES = [], PALMS = [];
+// ---- scala delle strutture: 0.5 = metà delle dimensioni originali (si cambia qui) ----
+const BLD = 0.5, BLD_SIGN = 0.75;
+const shopScale = (id) => BLD * (id === "oceanomare" ? 1.5 : 1);
+const HW = { oceanomare: 9, municipio: 8.2, capotavola: 6.6, posta: 5.9, animazione: 5.8, quiz: 4.9, frank: 5.5, centesimo: 6.5, manulab: 5, mary: 5.2, denise: 5.4, gabbia: 5, cose: 5.8, doimos: 5.4, palacongressi: 11.2, carta: 6.8, fuori: 5.5, rifugio: 9.4, cittatempi: 16.6, cantiere: 6.5 };
+const shopHW = (id) => (HW[id] || 5.3) * shopScale(id);
+const shopRadius = (id) => shopHW(id) + 0.9;
+// ---- piano di Agrigento: l'ordine dei quartieri e dei locali. Basta aggiungere l'id nel quartiere giusto: le posizioni si calcolano da sole,
+// così i locali dello stesso quartiere restano sempre vicini ----
+const PIZZERIE = ["p_sitari", "p_pizzaecori", "p_granofino", "p_centoquindici", "p_capriccio", "p_gallodoro", "p_pistritto", "p_parcoangeli", "p_mediterranea", "p_focacceria", "p_stadiomose"];
+const PLAN = [
+  { q: "sanleone", items: ["oceanomare", "denise"] },
+  { q: "montaperto", items: ["gabbia", "bb:karaoke"] },
+  { tun: "t_ara" },
+  { q: "centro", items: ["municipio", "capotavola", "posta", "animazione", "quiz", "mary"] },
+  { tun: "t_fav" },
+  { q: "mose", items: ["cose", "doimos", "frank", "centesimo", "manulab", "palacongressi", ...PIZZERIE, "bb:quiz"] },
+  { tun: "t_por" },
+  { q: "fontanelle", items: ["carta", "bb:karaoke"] },
+  { q: "quadrivio", items: ["fuori", "bb:quiz"] },
+  { tun: "t_gro" },
+  { q: "monserrato", items: ["rifugio", "bb:quiz"] },
+  { q: "villaseta", items: ["cittatempi", "bb:karaoke"] },
+  { q: "peruzzo", items: ["cantiere"] },
+];
+function layoutAgrigento() {
+  const GAP = 1.1; let cur = 2; const BBW = { karaoke: 5.6, quiz: 3.6 }; let lastQ = null, lastGroupEnd = 0;
+  for (let i = BILLBOARDS.length - 1; i >= 0; i--) if (BILLBOARDS[i].zone === "agrigento") BILLBOARDS.splice(i, 1);
+  BENCHES = [];
+  const put = (e, fn) => { const x = cur + e; fn(x); cur = x + e + GAP; };
+  PLAN.forEach((g, gi) => {
+    if (g.tun) { const t = TUNNELS.find((k) => k.id === g.tun); put(6.1, (x) => { t.x = x; t.stand = x - 2.2; }); return; }
+    const q = QUARTIERI.find((k) => k.id === g.q); lastQ = q;
+    put(2.4, (x) => { q.sign = x; q.jump = x + 0.5; q.from = x - 2.4; });
+    g.items.forEach((id) => {
+      if (id.startsWith("bb:")) { const img = id.slice(3), w = BBW[img]; put(w * BLD / 2 + 0.7, (x) => BILLBOARDS.push({ zone: "agrigento", x, img, w })); return; }
+      if (id === "cantiere") { put(shopHW("cantiere"), (x) => (CANTIERE_X = x)); return; }
+      put(shopHW(id), (x) => (SHOPS[id].x = x));
+    });
+    if (q.id === "sanleone") { SAND_END = cur - 0.4; }
+    if (gi % 3 === 1) { put(0.9, (x) => BENCHES.push(x)); }
+  });
+  ZONES.agrigento.W = Math.ceil(cur + 4); ZONES.agrigento.spawn = QUARTIERI[0].jump + 3;
+  QUARTIERI.forEach((q, i) => { q.from = i === 0 ? 0 : q.from; });
+  PALMS = [1.2, SAND_END - 3.6, SAND_END - 0.6];
+}
 const tunnelFrom = (zone, to) => TUNNELS.find((t) => t.zone === zone && t.to === to);
 const tunnelAt = (zone) => TUNNELS.filter((t) => t.zone === zone);
 
@@ -2086,7 +2168,7 @@ function drawZoneBg(zone, c, W, H, cam, T, t) {
 // ---------- terreno e oggetti fissi (coordinate del mondo: 1 casella = T pixel) ----------
 function drawGround(c, zone, x0, x1, T) {
   const g = GROUND * T;
-  const sandEnd = zone === "agrigento" ? 40 : -1;
+  const sandEnd = zone === "agrigento" ? SAND_END : -1;
   const seg = (a, b, top, soil, line) => {
     a = Math.max(a, x0); b = Math.min(b, x1); if (b <= a) return;
     c.fillStyle = top; c.fillRect(a * T, g, (b - a) * T, T * 0.45);
@@ -2097,7 +2179,7 @@ function drawGround(c, zone, x0, x1, T) {
     seg(-2, sandEnd, "#f0d9a0", "#e3c27c", "rgba(150,110,50,.25)");
     seg(sandEnd, 900, "#6fb445", "#b07a3e", "rgba(60,30,10,.3)");
     // piazza lastricata dopo la spiaggia
-    const a = Math.max(sandEnd + 4, x0), b = Math.min(900, x1);
+    const a = Math.max(sandEnd + 2, x0), b = Math.min(900, x1);
     if (b > a) { c.fillStyle = "#cfc6b4"; c.fillRect(a * T, g, (b - a) * T, T * 0.45); c.strokeStyle = "rgba(90,80,60,.35)"; c.lineWidth = Math.max(1, T * 0.03); for (let x = Math.floor(a); x < b; x++) { c.beginPath(); c.moveTo(x * T, g); c.lineTo(x * T, g + T * 0.45); c.stroke(); } }
   } else if (zone === "porto_empedocle") { seg(-2, 900, "#b9b3a6", "#8a8579", "rgba(0,0,0,.22)"); }
   else if (zone === "grotte") seg(-2, 900, "#e6dcc3", "#b59a66", "rgba(60,30,10,.25)");
@@ -2113,33 +2195,36 @@ function drawPalm(c, x, T, t) {
 function drawWorldObjects(c, zone, x0, x1, T, t) {
   const g = GROUND * T;
   if (zone === "agrigento") {
-    [6, 11, 30, 35].forEach((x) => { if (x > x0 - 3 && x < x1 + 3) drawPalm(c, x, T, t); });
-    [62.5, 100, 190, 273, 305].forEach((x) => { if (x > x0 - 2 && x < x1 + 2) drawBench(c, x, T); });
-    for (let x = 48; x < 676; x += 14) if (x > x0 - 2 && x < x1 + 2) scDrawLamp(c, x, GROUND, T);
+    PALMS.forEach((x) => { if (x > x0 - 3 && x < x1 + 3) drawPalm(c, x, T, t); });
+    BENCHES.forEach((x) => { if (x > x0 - 2 && x < x1 + 2) drawBench(c, x, T); });
+    for (let x = SAND_END + 8; x < ZONES.agrigento.W - 4; x += 14) if (x > x0 - 2 && x < x1 + 2) scDrawLamp(c, x, GROUND, T);
   } else {
     for (let x = 28; x < 95; x += 15) if (x > x0 - 2 && x < x1 + 2) scDrawLamp(c, x, GROUND, T);
     [38, 72, 84].forEach((x) => { if (x > x0 - 2 && x < x1 + 2) drawBench(c, x, T); });
   }
   // negozi
   Object.entries(SHOPS).forEach(([id, s]) => {
-    if (s.zone !== zone || s.x < x0 - 18 || s.x > x1 + 18) return;
+    if (s.zone !== zone || s.x < x0 - 12 || s.x > x1 + 12) return;
     c.save();
-    if (id === "oceanomare") { c.translate(s.x * T, g); c.scale(T * 1.5, T * 1.5); drawShopArt(c, id, t, s.q); }
-    else { c.translate(s.x * T, g); c.scale(T, T); drawShopArt(c, id, t, s.q); }
+    c.translate(s.x * T, g); c.scale(T * shopScale(id), T * shopScale(id)); drawShopArt(c, id, t, s.q);
     c.restore();
   });
-  BILLBOARDS.forEach((b) => { if (b.zone !== zone || b.x < x0 - 6 || b.x > x1 + 6) return; c.save(); c.translate(b.x * T, g); c.scale(T, T); drawBillboard(c, t, WIMG[b.img], b.w); c.restore(); });
+  BILLBOARDS.forEach((b) => { if (b.zone !== zone || b.x < x0 - 6 || b.x > x1 + 6) return; c.save(); c.translate(b.x * T, g); c.scale(T * BLD, T * BLD); drawBillboard(c, t, WIMG[b.img], b.w); c.restore(); });
   if (zone === "agrigento") {
-    QUARTIERI.forEach((q) => { if (q.sign < x0 - 5 || q.sign > x1 + 5) return; c.save(); c.translate(q.sign * T, g); c.scale(T, T); drawQuartiereSign(c, t, q.name); c.restore(); });
-    if (CANTIERE_X > x0 - 8 && CANTIERE_X < x1 + 8) { c.save(); c.translate(CANTIERE_X * T, g); c.scale(T, T); drawCantiere(c, t); c.restore(); }
+    QUARTIERI.forEach((q) => { if (q.sign < x0 - 5 || q.sign > x1 + 5) return; c.save(); c.translate(q.sign * T, g); c.scale(T * BLD_SIGN, T * BLD_SIGN); drawQuartiereSign(c, t, q.name); c.restore(); });
+    if (CANTIERE_X > x0 - 8 && CANTIERE_X < x1 + 8) { c.save(); c.translate(CANTIERE_X * T, g); c.scale(T * BLD, T * BLD); drawCantiere(c, t); c.restore(); }
   }
   // gallerie con cartello
   tunnelAt(zone).forEach((tn) => {
-    if (tn.x < x0 - 14 || tn.x > x1 + 10) return;
+    if (tn.x < x0 - 10 || tn.x > x1 + 10) return;
+    c.save(); c.translate(tn.x * T, g); c.scale(BLD, BLD); c.translate(-tn.x * T, -g);
     scDrawTunnel(c, tn.x, T, t, { label: tn.label });
     scDrawFavaraSign(c, tn.x - 12, T, tn.label, tn.zone === "agrigento" ? "GALLERIA" : "TORNA ALLA PIAZZA");
+    c.restore();
   });
 }
+
+layoutAgrigento();
 
 // ===================== SUPER CAPONE WORLD · rete (Firebase) =====================
 const Net = {
@@ -2412,9 +2497,9 @@ function buildShortcuts() {
   if (ME.zone !== "agrigento") add("🏠 Piazza di Agrigento", "tun", () => enterTunnel(tunnelAt(ME.zone)[0], true));
 }
 function goTo(x, f) { if (chat.open) closeChat(); ME.x = x; ME.y = GROUND; ME.vx = 0; ME.vy = 0; ME.f = f || 1; sendPos(true); }
-function nearTunnel() { return tunnelAt(ME.zone).find((t) => Math.abs(ME.x - t.x) < 3.4); }
-function nearBillboard() { return BILLBOARDS.find((b) => b.zone === ME.zone && Math.abs(ME.x - b.x) < b.w / 2 + 1.6); }
-function nearShop() { return Object.entries(SHOPS).find(([id, s]) => s.zone === ME.zone && Math.abs(ME.x - s.x) < (s.r || (id === "oceanomare" ? 6.5 : 5))); }
+function nearTunnel() { return tunnelAt(ME.zone).find((t) => Math.abs(ME.x - t.x) < 3.0); }
+function nearBillboard() { return BILLBOARDS.find((b) => b.zone === ME.zone && Math.abs(ME.x - b.x) < b.w * BLD / 2 + 1.6); }
+function nearShop() { return Object.entries(SHOPS).find(([id, s]) => s.zone === ME.zone && Math.abs(ME.x - s.x) < shopRadius(id)); }
 function enterTunnel(t, skipAnim) {
   if (!t || fadeDir) return;
   fadeDir = 1; fadeCb = () => {
@@ -2528,7 +2613,7 @@ $("jname").addEventListener("keydown", (e) => { if (e.key === "Enter") start(); 
   $("jname").value = lsGet("scw_name", ""); ME.av = Math.max(0, Math.min(AVATARS.length - 1, parseInt(lsGet("scw_av", "0")) || 0));
   buildJoin(); Net.init(); $("jst").textContent = Net.ok ? "" : "Connessione online non disponibile: potrai girare da solo.";
   requestAnimationFrame(frame);
-  window.__world = { ME, others, roster, threads, chatLog, K, Net, enterTunnel, nearTunnel, openChat, goTo, SHOPS, TUNNELS, QUARTIERI, jumpQuartiere };
+  window.__world = { ME, others, roster, threads, chatLog, K, Net, enterTunnel, nearTunnel, openChat, goTo, SHOPS, TUNNELS, QUARTIERI, jumpQuartiere, BILLBOARDS, ZONES, shopHW, CANTIERE_X: () => CANTIERE_X };
 })();
 
 </script>
