@@ -1335,7 +1335,7 @@ function scDrawFavaraSign(c, x, T, name, sub) {
   }
 }
 // ===================== SUPER CAPONE WORLD · arte (avatar, negozi, terreno) =====================
-const WORLD_VERSION = "v1.08";
+const WORLD_VERSION = "v1.10";
 const T0 = 1; // unità: tutto è disegnato in "caselle" (come in Super Capone), i piedi sono in (0,0)
 
 // ---------- 11 avatar: il Capone + 10 personaggi ----------
@@ -1598,6 +1598,8 @@ function drawGenericShop(c, t, o) {
   else { c.fillStyle = o.trim; c.beginPath(); c.arc(dw / 2 - 0.25, -1.5, 0.07, 0, 7); c.fill(); c.fillStyle = "#fff"; trfRR(c, -0.45, -2.55, 0.9, 0.4, 0.08); c.fill(); c.fillStyle = "#c62828"; c.font = "900 0.24px Arial"; c.fillText("APERTO", 0, -2.25); }
   if (o.deco) o.deco(c, t, hw);
   if (o.flag) drawPizzaFlag(c, t, hw - 1.0, top - 0.35);
+  if (o.cflag) drawClothesFlag(c, t, hw - 1.0, top - 0.35);
+  if (o.rflag) drawRestaurantFlag(c, t, -hw + 0.4, top - 0.35);
 }
 // icone semplici disegnate (niente emoji nel canvas)
 const icoPizza = (c) => { c.fillStyle = "#f4b942"; c.beginPath(); c.moveTo(-0.45, -0.4); c.lineTo(0.45, -0.4); c.lineTo(0, 0.5); c.fill(); c.fillStyle = "#c9892a"; c.fillRect(-0.45, -0.46, 0.9, 0.1); c.fillStyle = "#d32f2f"; [[-0.15, -0.15], [0.12, -0.12], [0, 0.15]].forEach(([x, y]) => { c.beginPath(); c.arc(x, y, 0.07, 0, 7); c.fill(); }); };
@@ -1616,7 +1618,13 @@ const icoPlate = (c) => { c.fillStyle = "#fff"; c.beginPath(); c.arc(0, 0, 0.36,
 const inWinTable = (c, x, y, w, h) => { for (let i = 0; i < 2; i++) { const cx = x + w * (0.3 + i * 0.4); c.fillStyle = "#fff"; c.fillRect(cx - 0.5, y + h - 0.7, 1.0, 0.1); c.fillStyle = "#6d4c41"; c.fillRect(cx - 0.05, y + h - 0.6, 0.1, 0.5); c.fillStyle = "#fff59d"; c.fillRect(cx - 0.04, y + h - 1.0, 0.08, 0.3); c.fillStyle = "#ff9800"; c.beginPath(); c.arc(cx, y + h - 1.07, 0.07, 0, 7); c.fill(); } };
 const inWinMail = (c, x, y, w, h) => { for (let i = 0; i < 4; i++) { c.fillStyle = "#fff"; trfRR(c, x + 0.25 + i * (w - 0.5) / 4, y + h - 0.95 + (i % 2) * 0.12, 0.42, 0.3, 0.04); c.fill(); c.fillStyle = "#ffd600"; c.fillRect(x + 0.3 + i * (w - 0.5) / 4, y + h - 0.88 + (i % 2) * 0.12, 0.32, 0.06); } c.fillStyle = "#c8a46a"; c.fillRect(x + w / 2 - 0.35, y + h - 0.6, 0.7, 0.5); };
 const inWinScreens = (c, x, y, w, h) => { for (let i = 0; i < 2; i++) { const mx = x + 0.2 + i * (w - 1.2) * 0.9, my = y + h - 1.0; c.fillStyle = "#263238"; trfRR(c, mx, my, 1.0, 0.65, 0.06); c.fill(); c.fillStyle = "#e8f5e9"; c.fillRect(mx + 0.07, my + 0.07, 0.86, 0.47); c.strokeStyle = "#2e7d32"; c.lineWidth = 0.06; c.beginPath(); c.moveTo(mx + 0.15, my + 0.45); c.lineTo(mx + 0.4, my + 0.28); c.lineTo(mx + 0.55, my + 0.38); c.lineTo(mx + 0.85, my + 0.14); c.stroke(); c.fillStyle = "#37474f"; c.fillRect(mx + 0.4, my + 0.65, 0.2, 0.15); } };
-const SHOP_DIM = { p_sitari: [5.6, 10.6], p_pizzaecori: [5.6, 10.6], p_granofino: [5.6, 10.6], p_centoquindici: [5.6, 10.6], p_capriccio: [5.6, 10.6], p_gallodoro: [5.6, 10.6], p_pistritto: [5.6, 10.6], p_parcoangeli: [5.6, 10.6], p_mediterranea: [5.6, 10.6], p_focacceria: [5.6, 10.6], p_stadiomose: [5.6, 10.6], mary: [5.6, 10.6], forte: [5.6, 10.6], paolo: [5.6, 9.6], quiz: [9.8, 10.2], manulab: [5.8, 7.8], municipio: [8.5, 10.2], palacongressi: [11.5, 9.4], rifugio: [10, 7.6], cittatempi: [16.5, 9.4], capotavola: [5.6, 7.2], posta: [5.6, 7.2], oceanomare: [4.8, 6.2], denise: [5.4, 9.0], cose: [5.4, 8.2], animazione: [5.6, 9.6], doimos: [5.4, 8.1], fuori: [5.4, 8.5], carta: [7.0, 6.5], centesimo: [6.4, 7.2] };
+const icoSushi = (c) => { c.fillStyle = "#212121"; c.beginPath(); c.arc(0, 0, 0.4, 0, 7); c.fill(); c.fillStyle = "#fff"; c.beginPath(); c.arc(0, 0, 0.3, 0, 7); c.fill(); c.fillStyle = "#ff7043"; c.beginPath(); c.arc(0, 0, 0.14, 0, 7); c.fill(); };
+const icoBurger = (c) => { c.fillStyle = "#e0a050"; c.beginPath(); c.arc(0, -0.1, 0.42, Math.PI, 0); c.fill(); c.fillStyle = "#5d4037"; c.fillRect(-0.45, -0.1, 0.9, 0.16); c.fillStyle = "#7cb342"; c.fillRect(-0.45, 0.06, 0.9, 0.08); c.fillStyle = "#e0a050"; c.fillRect(-0.42, 0.16, 0.84, 0.16); };
+const icoShirt = (c) => { c.fillStyle = "#fff"; c.beginPath(); c.moveTo(-0.5, -0.3); c.lineTo(-0.25, -0.45); c.quadraticCurveTo(0, -0.3, 0.25, -0.45); c.lineTo(0.5, -0.3); c.lineTo(0.38, -0.05); c.lineTo(0.26, -0.1); c.lineTo(0.26, 0.42); c.lineTo(-0.26, 0.42); c.lineTo(-0.26, -0.1); c.lineTo(-0.38, -0.05); c.fill(); };
+const icoShoe = (c) => { c.fillStyle = "#fff"; c.beginPath(); c.moveTo(-0.5, -0.2); c.lineTo(-0.15, -0.2); c.lineTo(-0.05, 0.05); c.quadraticCurveTo(0.35, 0.08, 0.5, 0.3); c.lineTo(0.5, 0.4); c.lineTo(-0.5, 0.4); c.fill(); };
+const icoBowl = (c) => { c.fillStyle = "#fff"; c.beginPath(); c.arc(0, -0.05, 0.45, 0, Math.PI); c.fill(); c.strokeStyle = "#ffe0b2"; c.lineWidth = 0.05; c.beginPath(); c.moveTo(-0.15, -0.1); c.lineTo(0.35, -0.5); c.moveTo(0, -0.1); c.lineTo(0.5, -0.45); c.stroke(); };
+const inWinClothes = (c, x, y, w, h) => { const cl = ["#e53935", "#1e88e5", "#43a047", "#fdd835", "#8e24aa"]; c.strokeStyle = "rgba(0,0,0,.35)"; c.lineWidth = 0.05; c.beginPath(); c.moveTo(x + 0.15, y + 0.3); c.lineTo(x + w - 0.15, y + 0.3); c.stroke(); for (let i = 0; i < 4; i++) { const cx = x + 0.35 + i * (w - 0.7) / 3; c.fillStyle = cl[(i + Math.floor(x * 3)) % 5 < 0 ? 0 : (i * 2 + 1) % 5]; c.beginPath(); c.moveTo(cx - 0.28, y + 0.45); c.lineTo(cx - 0.12, y + 0.35); c.lineTo(cx + 0.12, y + 0.35); c.lineTo(cx + 0.28, y + 0.45); c.lineTo(cx + 0.2, y + 0.62); c.lineTo(cx + 0.14, y + 0.58); c.lineTo(cx + 0.14, y + 1.05); c.lineTo(cx - 0.14, y + 1.05); c.lineTo(cx - 0.14, y + 0.58); c.lineTo(cx - 0.2, y + 0.62); c.fill(); } c.fillStyle = "rgba(255,255,255,.5)"; c.fillRect(x + 0.1, y + h - 0.35, w - 0.2, 0.05); };
+const SHOP_DIM = { r_ramen: [5.6, 10.6], c_extreme: [5.6, 10.6], c_mega: [5.6, 10.6], c_angels: [5.6, 10.6], c_ovs: [5.6, 10.6], c_upim: [5.6, 10.6], c_blukids: [5.6, 10.6], c_sciascia: [5.6, 10.6], c_vincent: [5.6, 10.6], c_peplos: [5.6, 10.6], c_citymose: [5.6, 10.6], r_corallo: [5.6, 10.6], r_gohan: [5.6, 10.6], r_moka: [5.6, 10.6], r_jd: [5.6, 10.6], r_wok: [5.6, 10.6], r_girgenti: [5.6, 10.6], r_fastfood: [5.6, 10.6], capotavola: [5.6, 10.6], p_sitari: [5.6, 10.6], p_pizzaecori: [5.6, 10.6], p_granofino: [5.6, 10.6], p_centoquindici: [5.6, 10.6], p_capriccio: [5.6, 10.6], p_gallodoro: [5.6, 10.6], p_pistritto: [5.6, 10.6], p_parcoangeli: [5.6, 10.6], p_mediterranea: [5.6, 10.6], p_focacceria: [5.6, 10.6], p_stadiomose: [5.6, 10.6], mary: [5.6, 10.6], forte: [5.6, 10.6], paolo: [5.6, 9.6], quiz: [9.8, 10.2], manulab: [5.8, 7.8], municipio: [8.5, 10.2], palacongressi: [11.5, 9.4], rifugio: [10, 7.6], cittatempi: [16.5, 9.4], capotavola: [5.6, 7.2], posta: [5.6, 7.2], oceanomare: [4.8, 6.2], denise: [5.4, 9.0], cose: [5.4, 8.2], animazione: [5.6, 9.6], doimos: [5.4, 8.1], fuori: [5.4, 8.5], carta: [7.0, 6.5], centesimo: [6.4, 7.2] };
 const SHOP_DEF = {
   denise: { name: "DENISE EVENTI", logo: "denise", logoDark: true, sh: 3.2, signW: 4.4, h: 8.4, hw: 5.0, wall: "#22222c", trim: "#ff4081", signBg: "#000", signFg: "#fff", awn: ["#ff4081", "#00bcd4"], glow: ["#fff3b0", "#ff9f43"], base: "rgba(255,64,129,.35)", inWin: inWinCandy },
   doimos: { name: "DOIMOS", logo: "doimos", sh: 2.1, h: 7.4, wall: "#eef1f2", trim: "#455a64", signBg: "#fff", signFg: "#000", awn: ["#90a4ae", "#eceff1"], glow: ["#e8f4f8", "#b3d4e0"], base: "rgba(60,80,90,.35)",
@@ -1638,7 +1646,25 @@ const SHOP_DEF = {
   p_mediterranea: { name: "MEDITERRANEA", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#e1f5fe", trim: "#01579b", signBg: "#0277bd", signFg: "#fff", subFg: "#b3e5fc", awn: ["#0277bd", "#fff59d"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
   p_focacceria: { name: "LA FOCACCERIA", sub: "PIZZERIA", hw: 4.8, h: 6.5, flag: true, wall: "#fffde7", trim: "#f57f17", signBg: "#f57f17", signFg: "#fff", subFg: "#fff59d", awn: ["#f57f17", "#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
   p_stadiomose: { name: "STADIO MOSÈ", sub: "PIZZA", hw: 4.8, h: 6.5, flag: true, wall: "#e8eaf6", trim: "#1a237e", signBg: "#283593", signFg: "#fff", subFg: "#c5cae9", awn: ["#283593", "#ffeb3b"], glow: ["#fff0c0", "#ffb74d"], icon: icoPizza, iconW: 0.9, inWin: inWinPizza, base: "rgba(60,30,20,.4)" },
-  capotavola: { name: "CAPOTAVOLA", sub: "RISTORANTE", hw: 5.2, h: 6.8, wall: "#f5ead7", trim: "#8d6e2a", signBg: "#3e1414", signFg: "#f5d28a", subFg: "#e6c9a0", awn: ["#7b1e1e", "#f5ead7"], glow: ["#ffe7b3", "#ff9f43"], icon: icoPlate, iconW: 0.9, inWin: inWinTable, base: "rgba(80,20,20,.45)",
+  r_corallo: { name: "IL CORALLO", sub: "RISTORANTE", hw: 4.8, h: 6.5, rflag: true, wall: "#fff1ee", trim: "#c2185b", signBg: "#880e4f", signFg: "#ffd6e0", subFg: "#ffd6e0", awn: ["#c2185b","#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoPlate, iconW: 0.9, inWin: inWinTable, base: "rgba(40,30,30,.4)" },
+  r_gohan: { name: "GOHAN", sub: "SUSHI RESTAURANT", hw: 4.8, h: 6.5, rflag: true, wall: "#f5f5f5", trim: "#212121", signBg: "#212121", signFg: "#fff", subFg: "#ff8a80", awn: ["#212121","#d32f2f"], glow: ["#fff0c0", "#ffb74d"], icon: icoSushi, iconW: 0.9, inWin: inWinTable, base: "rgba(40,30,30,.4)" },
+  r_moka: { name: "MOKA SUSHI", sub: "AGRIGENTO", hw: 4.8, h: 6.5, rflag: true, wall: "#efe6dc", trim: "#3e2723", signBg: "#3e2723", signFg: "#ffcc80", subFg: "#ffe0b2", awn: ["#3e2723","#ffcc80"], glow: ["#fff0c0", "#ffb74d"], icon: icoSushi, iconW: 0.9, inWin: inWinTable, base: "rgba(40,30,30,.4)" },
+  r_jd: { name: "JD SUSHI", sub: "RESTAURANT", hw: 4.8, h: 6.5, rflag: true, wall: "#e8f0fe", trim: "#1a237e", signBg: "#1a237e", signFg: "#fff", subFg: "#c5cae9", awn: ["#1a237e","#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoSushi, iconW: 0.9, inWin: inWinTable, base: "rgba(40,30,30,.4)" },
+  r_wok: { name: "WOK DEI SAPORI", sub: "RISTORANTE", hw: 4.8, h: 6.5, rflag: true, wall: "#fff3e0", trim: "#bf360c", signBg: "#b71c1c", signFg: "#ffe082", subFg: "#ffe0b2", awn: ["#b71c1c","#ffe082"], glow: ["#fff0c0", "#ffb74d"], icon: icoPlate, iconW: 0.9, inWin: inWinTable, base: "rgba(40,30,30,.4)" },
+  r_girgenti: { name: "SAPORI DI GIRGENTI", sub: "RISTORANTE", hw: 4.8, h: 6.5, rflag: true, wall: "#f6e7d8", trim: "#8d4a1b", signBg: "#6d3b14", signFg: "#ffe0b2", subFg: "#ffe0b2", awn: ["#8d4a1b","#fff3e0"], glow: ["#fff0c0", "#ffb74d"], icon: icoPlate, iconW: 0.9, inWin: inWinTable, base: "rgba(40,30,30,.4)" },
+  r_fastfood: { name: "McDONALD'S", sub: "AGRIGENTO", hw: 4.8, h: 6.5, rflag: true, wall: "#eceff1", trim: "#37474f", signBg: "#263238", signFg: "#fff", subFg: "#cfd8dc", awn: ["#455a64","#eceff1"], glow: ["#fff0c0", "#ffb74d"], icon: icoBurger, iconW: 0.9, inWin: inWinTable, base: "rgba(40,30,30,.4)" },
+  c_extreme: { name: "EXTREME FASHION", sub: "LADY · MAN", hw: 4.8, h: 6.5, cflag: true, wall: "#fce4ec", trim: "#ad1457", signBg: "#111", signFg: "#ff80ab", subFg: "#f8bbd0", awn: ["#111","#ff4081"], glow: ["#fff0c0", "#ffb74d"], icon: icoShirt, iconW: 1.6, inWin: inWinClothes, base: "rgba(40,30,50,.4)" },
+  c_mega: { name: "CENTRO MEGA", sub: "IL MONDO DELLE SCARPE", hw: 4.8, h: 6.5, cflag: true, wall: "#e3f2fd", trim: "#e65100", signBg: "#0d47a1", signFg: "#ffb74d", subFg: "#bbdefb", awn: ["#0d47a1","#ff9800"], glow: ["#fff0c0", "#ffb74d"], icon: icoShoe, iconW: 1.6, inWin: inWinClothes, base: "rgba(40,30,50,.4)" },
+  c_angels: { name: "ANGEL'S STORE", sub: "ABBIGLIAMENTO", hw: 4.8, h: 6.5, cflag: true, wall: "#fffde7", trim: "#b8860b", signBg: "#fff", signFg: "#b8860b", subFg: "#8d6e00", awn: ["#b8860b","#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoShirt, iconW: 1.6, inWin: inWinClothes, base: "rgba(40,30,50,.4)" },
+  c_ovs: { name: "OVS", sub: "ABBIGLIAMENTO", hw: 4.8, h: 6.5, cflag: true, wall: "#e0f2f1", trim: "#00695c", signBg: "#00695c", signFg: "#fff", subFg: "#b2dfdb", awn: ["#00695c","#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoShirt, iconW: 0.9, inWin: inWinClothes, base: "rgba(40,30,50,.4)" },
+  c_upim: { name: "UPIM", sub: "ABBIGLIAMENTO", hw: 4.8, h: 6.5, cflag: true, wall: "#eceff1", trim: "#455a64", signBg: "#37474f", signFg: "#ffcc80", subFg: "#cfd8dc", awn: ["#37474f","#ffcc80"], glow: ["#fff0c0", "#ffb74d"], icon: icoShirt, iconW: 0.9, inWin: inWinClothes, base: "rgba(40,30,50,.4)" },
+  c_blukids: { name: "BLUKIDS", sub: "ABBIGLIAMENTO", hw: 4.8, h: 6.5, cflag: true, wall: "#e1f5fe", trim: "#0288d1", signBg: "#29b6f6", signFg: "#fff", subFg: "#fff59d", awn: ["#29b6f6","#fff59d"], glow: ["#fff0c0", "#ffb74d"], icon: icoShirt, iconW: 0.9, inWin: inWinClothes, base: "rgba(40,30,50,.4)" },
+  c_sciascia: { name: "SCIASCIA SHOP", sub: "ABBIGLIAMENTO", hw: 4.8, h: 6.5, cflag: true, wall: "#f3e5f5", trim: "#7b1fa2", signBg: "#4a148c", signFg: "#e1bee7", subFg: "#e1bee7", awn: ["#4a148c","#e1bee7"], glow: ["#fff0c0", "#ffb74d"], icon: icoShirt, iconW: 0.9, inWin: inWinClothes, base: "rgba(40,30,50,.4)" },
+  c_vincent: { name: "VINCENT", sub: "CALZATURE", hw: 4.8, h: 6.5, cflag: true, wall: "#efebe9", trim: "#5d4037", signBg: "#3e2723", signFg: "#ffcc80", subFg: "#d7ccc8", awn: ["#3e2723","#d7ccc8"], glow: ["#fff0c0", "#ffb74d"], icon: icoShoe, iconW: 0.9, inWin: inWinClothes, base: "rgba(40,30,50,.4)" },
+  c_peplos: { name: "PEPLOS", sub: "ABBIGLIAMENTO", hw: 4.8, h: 6.5, cflag: true, wall: "#e8f5e9", trim: "#2e7d32", signBg: "#1b5e20", signFg: "#fff", subFg: "#c8e6c9", awn: ["#1b5e20","#fff"], glow: ["#fff0c0", "#ffb74d"], icon: icoShirt, iconW: 0.9, inWin: inWinClothes, base: "rgba(40,30,50,.4)" },
+  c_citymose: { name: "CITY MOSÈ STORE", sub: "ABBIGLIAMENTO", hw: 4.8, h: 6.5, cflag: true, wall: "#fff3e0", trim: "#ef6c00", signBg: "#bf360c", signFg: "#fff", subFg: "#ffe0b2", awn: ["#bf360c","#fff3e0"], glow: ["#fff0c0", "#ffb74d"], icon: icoShirt, iconW: 1.6, inWin: inWinClothes, base: "rgba(40,30,50,.4)" },
+  r_ramen: { name: "MEET RAMEN", sub: "RAMEN BAR", hw: 4.8, h: 6.5, rflag: true, wall: "#fff3e0", trim: "#d84315", signBg: "#b71c1c", signFg: "#fff", subFg: "#ffe0b2", awn: ["#b71c1c", "#fff3e0"], glow: ["#fff0c0", "#ffb74d"], icon: icoBowl, iconW: 1.6, inWin: inWinTable, base: "rgba(60,20,20,.4)" },
+  capotavola: { rflag: true, name: "CAPOTAVOLA", sub: "RISTORANTE", hw: 5.2, h: 6.8, wall: "#f5ead7", trim: "#8d6e2a", signBg: "#3e1414", signFg: "#f5d28a", subFg: "#e6c9a0", awn: ["#7b1e1e", "#f5ead7"], glow: ["#ffe7b3", "#ff9f43"], icon: icoPlate, iconW: 0.9, inWin: inWinTable, base: "rgba(80,20,20,.45)",
     deco: (c, t, hw) => { [-hw - 0.7, hw + 0.7].forEach((x) => { c.fillStyle = "#6d4c41"; c.fillRect(x - 0.28, -0.7, 0.56, 0.7); c.fillStyle = "#2e7d32"; c.beginPath(); c.ellipse(x, -1.5, 0.45, 0.85, 0, 0, 7); c.fill(); }); } },
   posta: { name: "POSTA", sub: "UFFICIO POSTALE", hw: 4.6, h: 6.4, wall: "#fff8d6", trim: "#0d47a1", signBg: "#ffd600", signFg: "#0d47a1", subFg: "#0d47a1", awn: ["#0d47a1", "#ffd600"], glow: ["#e3f2fd", "#bbdefb"], icon: icoEnv, iconW: 0.9, inWin: inWinMail, base: "rgba(13,50,120,.35)",
     deco: (c, t, hw) => { const x = hw + 0.9; c.fillStyle = "#37474f"; c.fillRect(x - 0.06, -0.9, 0.12, 0.9); c.fillStyle = "#d32f2f"; trfRR(c, x - 0.4, -1.8, 0.8, 0.95, 0.35); c.fill(); c.fillStyle = "#111"; c.fillRect(x - 0.25, -1.45, 0.5, 0.07); } },
@@ -1647,6 +1673,7 @@ const SHOP_DEF = {
   marconi: { name: "CAFFÈ MARCONI", sub: "DAL 1950", wall: "#e8dfcc", trim: "#c9a227", signBg: "#1b4d3e", signFg: "#f5e6a8", subFg: "#cfe8d8", awn: ["#1b4d3e", "#f5e6a8"], glow: ["#fff1c9", "#e0b36a"], icon: icoCup, iconW: 0.9, inWin: inWinCakes, base: "rgba(27,77,62,.45)" },
   central: { name: "CENTRAL BAR", sub: "CAFFÈ · APERITIVI", wall: "#cfd8dc", trim: "#0d47a1", signBg: "#0d47a1", signFg: "#fff", subFg: "#ffcdd2", awn: ["#0d47a1", "#e53935"], glow: ["#e3f2fd", "#90caf9"], icon: icoCup, iconW: 0.9, inWin: inWinCakes, base: "rgba(13,50,120,.4)" },
 };
+Object.keys(SHOP_DEF).forEach((k) => { if (k.startsWith("p_") || k === "mary" || k === "forte") SHOP_DEF[k].rflag = true; });
 function drawShopArt(c, id, t, q) {
   if (id === "oceanomare") { scDrawOceanomare(c, t); return q && drawPlaque(c, q, -2.9); }
   if (id === "animazione") { drawAnimazione(c, t); return drawRoofLogo(c, t); }
@@ -1659,7 +1686,7 @@ function drawShopArt(c, id, t, q) {
   if (id === "frank") { drawFrankSaro(c, t); return q && drawPlaque(c, q, -3.45); }
   if (id === "naselli") return drawNaselli(c, t);
   if (SHOP_DEF[id]) return drawGenericShop(c, t, { ...SHOP_DEF[id], q });
-  scDrawPizzeria(c, t); if (id === "paolo") drawPizzaFlag(c, t, 3.4, -5.55);
+  scDrawPizzeria(c, t); if (id === "paolo") { drawPizzaFlag(c, t, 3.4, -5.55); drawRestaurantFlag(c, t, -4.0, -5.55); }
 }
 
 // immagini dei loghi/cartelloni forniti da Alberto (generato)
@@ -1972,6 +1999,44 @@ function drawPizzaFlag(c, t, px, top) {
   for (let k = 0; k < n; k++) { const wv = Math.sin(t * 3.2 + k * 0.7) * 0.09 * (k + 1) / n * 2; c.drawImage(cv, k * 16, 0, 16, 100, px + 0.06 + k * w / n, top - ph + 0.12 + wv, w / n + 0.02, h); }
 }
 
+// ---- bandiera del ristorante: piatto con forchetta e coltello (contraddistingue tutti i ristoranti) ----
+let REST_FLAG_CV = null;
+function restFlagCv() {
+  if (REST_FLAG_CV) return REST_FLAG_CV;
+  const cv = document.createElement("canvas"); cv.width = 160; cv.height = 100; const c = cv.getContext("2d");
+  c.fillStyle = "#1b5e20"; c.fillRect(0, 0, 160, 100); c.strokeStyle = "#fff8e1"; c.lineWidth = 5; c.strokeRect(5, 5, 150, 90);
+  c.save(); c.translate(80, 50);
+  c.fillStyle = "#fff8e1"; c.beginPath(); c.arc(0, 0, 30, 0, 7); c.fill(); c.strokeStyle = "#c9a227"; c.lineWidth = 3; c.beginPath(); c.arc(0, 0, 21, 0, 7); c.stroke();
+  c.fillStyle = "#fff8e1"; c.strokeStyle = "#fff8e1"; c.lineWidth = 5; c.lineCap = "round";
+  c.beginPath(); c.moveTo(-46, 22); c.lineTo(-46, -26); c.stroke(); [-52, -46, -40].forEach((x) => { c.beginPath(); c.moveTo(x, -28); c.lineTo(x, -12); c.stroke(); });
+  c.beginPath(); c.moveTo(46, 26); c.lineTo(46, -26); c.stroke(); c.beginPath(); c.moveTo(46, -26); c.quadraticCurveTo(58, -14, 46, 4); c.fill();
+  c.restore(); return (REST_FLAG_CV = cv);
+}
+function drawRestaurantFlag(c, t, px, top) {
+  const ph = 3.4; c.fillStyle = "#cfd8dc"; c.fillRect(px - 0.06, top - ph, 0.12, ph); c.fillStyle = "#ffd54f"; c.beginPath(); c.arc(px, top - ph, 0.12, 0, 7); c.fill();
+  const cv = restFlagCv(), w = 2.5, h = 1.56, n = 10;
+  for (let k = 0; k < n; k++) { const wv = Math.sin(t * 3.2 + k * 0.7 + 1.3) * 0.09 * (k + 1) / n * 2; c.drawImage(cv, k * 16, 0, 16, 100, px + 0.06 + k * w / n, top - ph + 0.12 + wv, w / n + 0.02, h); }
+}
+
+// ---- bandiera abbigliamento e calzature: maglietta + scarpa ----
+let CLOTH_FLAG_CV = null;
+function clothFlagCv() {
+  if (CLOTH_FLAG_CV) return CLOTH_FLAG_CV;
+  const cv = document.createElement("canvas"); cv.width = 160; cv.height = 100; const c = cv.getContext("2d");
+  c.fillStyle = "#6a1b9a"; c.fillRect(0, 0, 160, 100); c.strokeStyle = "#fff8e1"; c.lineWidth = 5; c.strokeRect(5, 5, 150, 90);
+  // maglietta
+  c.fillStyle = "#ffee58"; c.beginPath(); c.moveTo(28, 28); c.lineTo(44, 20); c.quadraticCurveTo(54, 30, 64, 20); c.lineTo(80, 28); c.lineTo(72, 44); c.lineTo(66, 41); c.lineTo(66, 74); c.lineTo(42, 74); c.lineTo(42, 41); c.lineTo(36, 44); c.closePath(); c.fill();
+  // scarpa (sneaker)
+  c.fillStyle = "#fff8e1"; c.beginPath(); c.moveTo(88, 40); c.lineTo(104, 40); c.lineTo(108, 54); c.quadraticCurveTo(128, 56, 134, 68); c.lineTo(134, 74); c.lineTo(88, 74); c.closePath(); c.fill();
+  c.fillStyle = "#ec407a"; c.fillRect(88, 70, 46, 6); c.strokeStyle = "#6a1b9a"; c.lineWidth = 2; [[96, 46], [100, 52]].forEach(([x, y]) => { c.beginPath(); c.moveTo(x, y); c.lineTo(x + 8, y + 3); c.stroke(); });
+  return (CLOTH_FLAG_CV = cv);
+}
+function drawClothesFlag(c, t, px, top) {
+  const ph = 3.4; c.fillStyle = "#cfd8dc"; c.fillRect(px - 0.06, top - ph, 0.12, ph); c.fillStyle = "#ffd54f"; c.beginPath(); c.arc(px, top - ph, 0.12, 0, 7); c.fill();
+  const cv = clothFlagCv(), w = 2.5, h = 1.56, n = 10;
+  for (let k = 0; k < n; k++) { const wv = Math.sin(t * 3.2 + k * 0.7 + 2.1) * 0.09 * (k + 1) / n * 2; c.drawImage(cv, k * 16, 0, 16, 100, px + 0.06 + k * w / n, top - ph + 0.12 + wv, w / n + 0.02, h); }
+}
+
 // ===================== SUPER CAPONE WORLD · mondo, zone, negozi, gallerie =====================
 const $ = (id) => document.getElementById(id);
 const FB_CFG = window.SCW_FIREBASE || {}; // i dati del progetto Firebase stanno nel file firebase-config.js
@@ -2006,6 +2071,24 @@ const SHOPS = {
   p_mediterranea: { zone: "agrigento", x: 0, name: "Mediterranea", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Mediterranea è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
   p_focacceria: { zone: "agrigento", x: 0, name: "Pizzeria La Focacceria", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Pizzeria La Focacceria è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
   p_stadiomose: { zone: "agrigento", x: 0, name: "Pizza Stadio Mosè", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Pizza Stadio Mosè è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  r_corallo: { zone: "agrigento", x: 0, name: "Il Corallo", icon: "🍽", sub: "Ristorante · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Il Corallo è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  r_gohan: { zone: "agrigento", x: 0, name: "Gohan Sushi Restaurant", icon: "🍣", sub: "Sushi · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Gohan Sushi Restaurant è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  r_moka: { zone: "agrigento", x: 0, name: "Moka Sushi Agrigento", icon: "🍣", sub: "Sushi · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Moka Sushi Agrigento è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  r_jd: { zone: "agrigento", x: 0, name: "JD Sushi Restaurant", icon: "🍣", sub: "Sushi · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di JD Sushi Restaurant è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  r_wok: { zone: "agrigento", x: 0, name: "Ristorante Wok Dei Sapori", icon: "🥢", sub: "Ristorante · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Ristorante Wok Dei Sapori è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  r_girgenti: { zone: "agrigento", x: 0, name: "Sapori di Girgenti", icon: "🍴", sub: "Ristorante · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Sapori di Girgenti è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  r_fastfood: { zone: "agrigento", x: 0, name: "McDonald's Agrigento", icon: "🍔", sub: "Fast food · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di McDonald's Agrigento è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
+  c_extreme: { zone: "agrigento", x: 0, name: "Extreme Fashion (Lady e Man)", icon: "👗", sub: "Abbigliamento · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Extreme Fashion (Lady e Man) è in arrivo: qui troverai presto novità, collezioni e promozioni.", links: [] },
+  c_mega: { zone: "agrigento", x: 0, name: "Centro Mega - Il Mondo Delle Scarpe", icon: "👟", sub: "Calzature · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Centro Mega - Il Mondo Delle Scarpe è in arrivo: qui troverai presto novità, collezioni e promozioni.", links: [] },
+  c_angels: { zone: "agrigento", x: 0, name: "Angel's Store", icon: "👗", sub: "Abbigliamento · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Angel's Store è in arrivo: qui troverai presto novità, collezioni e promozioni.", links: [] },
+  c_ovs: { zone: "agrigento", x: 0, name: "OVS", icon: "👗", sub: "Abbigliamento · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di OVS è in arrivo: qui troverai presto novità, collezioni e promozioni.", links: [] },
+  c_upim: { zone: "agrigento", x: 0, name: "UPIM", icon: "👗", sub: "Abbigliamento · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di UPIM è in arrivo: qui troverai presto novità, collezioni e promozioni.", links: [] },
+  c_blukids: { zone: "agrigento", x: 0, name: "Blukids", icon: "👗", sub: "Abbigliamento · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Blukids è in arrivo: qui troverai presto novità, collezioni e promozioni.", links: [] },
+  c_sciascia: { zone: "agrigento", x: 0, name: "Sciascia Shop", icon: "👗", sub: "Abbigliamento · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Sciascia Shop è in arrivo: qui troverai presto novità, collezioni e promozioni.", links: [] },
+  c_vincent: { zone: "agrigento", x: 0, name: "Vincent Calzature", icon: "👟", sub: "Calzature · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Vincent Calzature è in arrivo: qui troverai presto novità, collezioni e promozioni.", links: [] },
+  c_peplos: { zone: "agrigento", x: 0, name: "Peplos", icon: "👗", sub: "Abbigliamento · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Peplos è in arrivo: qui troverai presto novità, collezioni e promozioni.", links: [] },
+  c_citymose: { zone: "agrigento", x: 0, name: "City Mosè Store", icon: "👗", sub: "Abbigliamento · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di City Mosè Store è in arrivo: qui troverai presto novità, collezioni e promozioni.", links: [] },
+  r_ramen: { zone: "agrigento", x: 0, name: "Meet Ramen", icon: "🍜", sub: "Ramen · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Meet Ramen è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
   forte: { zone: "porto_empedocle", x: 55, name: "Pizzette da Forte", icon: "🍕", sub: "Porto Empedocle", text: "La vetrina di Pizzette da Forte è in arrivo: qui troverai presto il menù e le novità.", links: [] },
   marconi: { zone: "grotte", x: 52, name: "Caffè Marconi", icon: "☕", sub: "Bar · Grotte", text: "La vetrina del Caffè Marconi è in arrivo: qui troverai presto novità e orari.", links: [] },
   central: { zone: "grotte", x: 62, name: "Central Bar", icon: "☕", sub: "Bar · Grotte", text: "La vetrina del Central Bar è in arrivo: qui troverai presto novità, aperitivi ed eventi.", links: [] },
@@ -2056,13 +2139,15 @@ const shopRadius = (id) => shopHW(id) + 0.9;
 // ---- piano di Agrigento: l'ordine dei quartieri e dei locali. Basta aggiungere l'id nel quartiere giusto: le posizioni si calcolano da sole,
 // così i locali dello stesso quartiere restano sempre vicini ----
 const PIZZERIE = ["p_sitari", "p_pizzaecori", "p_granofino", "p_centoquindici", "p_capriccio", "p_gallodoro", "p_pistritto", "p_parcoangeli", "p_mediterranea", "p_focacceria", "p_stadiomose"];
+const RISTORANTI = ["r_corallo", "r_gohan", "r_moka", "r_jd", "r_wok", "r_girgenti", "r_fastfood", "r_ramen"];
+const NEGOZI = ["c_extreme", "c_mega", "c_angels", "c_ovs", "c_upim", "c_blukids", "c_sciascia", "c_vincent", "c_peplos", "c_citymose"];
 const PLAN = [
   { q: "sanleone", items: ["oceanomare", "denise"] },
   { q: "montaperto", items: ["gabbia", "bb:karaoke"] },
   { tun: "t_ara" },
   { q: "centro", items: ["municipio", "capotavola", "posta", "animazione", "quiz", "mary"] },
   { tun: "t_fav" },
-  { q: "mose", items: ["cose", "doimos", "frank", "centesimo", "manulab", "palacongressi", ...PIZZERIE, "bb:quiz"] },
+  { q: "mose", items: ["cose", "doimos", "frank", "centesimo", "manulab", "palacongressi", ...PIZZERIE, ...RISTORANTI, ...NEGOZI, "bb:quiz"] },
   { tun: "t_por" },
   { q: "fontanelle", items: ["carta", "bb:karaoke"] },
   { q: "quadrivio", items: ["fuori", "bb:quiz"] },
