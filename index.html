@@ -62,6 +62,37 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
 #pmenu{position:absolute;display:none;z-index:9;background:#2b1556;border:2px solid var(--gold);border-radius:12px;padding:6px;box-shadow:0 8px 20px rgba(0,0,0,.6)}
 #pmenu div{font-weight:700;padding:4px 8px;color:var(--gold)}
 #pmenu button{display:block;width:100%;margin-top:4px;background:#4a2c85;border:none;color:#fff;border-radius:8px;padding:9px 12px;font:700 14px Arial;cursor:pointer;text-align:left}
+
+#rgLock{position:fixed;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:31;background:none;border:0;font-size:18px;opacity:.28;cursor:pointer;color:#fff}#rgLock:hover{opacity:.9}
+#regia{position:fixed;inset:0;z-index:60;background:linear-gradient(#1c0f3d,#0f0720);color:#fff;overflow-y:auto;font-family:Arial,Helvetica,sans-serif;-webkit-overflow-scrolling:touch}
+#regia[hidden]{display:none}.rg-wrap{max-width:1100px;margin:0 auto;padding:12px 12px 60px}
+.rg-b{display:inline-block;font:700 13px Arial;color:#fff;background:#3b2377;border:2px solid #7e57c2;border-radius:10px;padding:8px 12px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.rg-b.gold{background:#b8860b;border-color:#ffd54f;color:#fff}.rg-b.green{background:#1b5e20;border-color:#66bb6a}.rg-b.red{background:#8e1b1b;border-color:#ef5350}.rg-b.ghost{background:transparent;border-color:#5b4a8f;color:#cdbfff}
+.rg-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}.rg-title b{font:900 26px Bungee,Arial Black,Arial;color:#ffd54f;display:block}.rg-title small{color:#cdbfff}
+.rg-acts{display:flex;flex-wrap:wrap;gap:6px}
+.rg-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:12px}
+.rg-card{text-align:left;border:2px solid;border-radius:14px;padding:10px 12px;color:#fff;cursor:pointer;font-family:Arial;display:flex;flex-direction:column;gap:3px}
+.rg-card small{font:800 11px Arial;letter-spacing:.5px;opacity:.9}.rg-card b{font:900 26px Arial}.rg-card em{font:normal 12px Arial;opacity:.85}
+.rg-card.red{background:#4a1414;border-color:#ef5350}.rg-card.amber{background:#4a3410;border-color:#ffb74d}.rg-card.green{background:#12381c;border-color:#66bb6a}.rg-card.blue{background:#14284a;border-color:#64b5f6}
+.rg-filt{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-bottom:12px;position:sticky;top:0;background:#150a2c;padding:8px;border-radius:12px;z-index:3;border:1px solid #3b2377}
+.rg-filt input,.rg-filt select,.rg-f input,.rg-f select,.rg-f textarea,.rg-login input{width:100%;box-sizing:border-box;font:15px Arial;color:#fff;background:#241447;border:2px solid #5b4a8f;border-radius:10px;padding:9px 10px}.rg-filt input:first-child{grid-column:1/-1}
+.rg-gh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px;margin:16px 0 6px;padding:6px 10px;background:#2c1a5a;border-left:5px solid #ffd54f;border-radius:6px}.rg-gh b{font:800 15px Arial;color:#ffd54f}.rg-gh span{font-size:12px;color:#cdbfff}
+.rg-row{display:grid;grid-template-columns:1.3fr 1.2fr auto;gap:8px 12px;align-items:center;background:#201141;border:2px solid #3b2377;border-left-width:6px;border-radius:12px;padding:8px 10px;margin-bottom:6px}
+.rg-row.st-scaduto{border-left-color:#ef5350;background:#2c1330}.rg-row.st-settimana{border-left-color:#ff7043}.rg-row.st-mese{border-left-color:#ffca28}.rg-row.st-regolare{border-left-color:#66bb6a}.rg-row.st-senzascad{border-left-color:#78909c}.rg-row.st-sospeso{border-left-color:#555;opacity:.65}
+.rg-main{display:flex;gap:10px;align-items:center;cursor:pointer;min-width:0}.rg-ic{font-size:26px}.rg-nm{display:flex;flex-direction:column;min-width:0}.rg-nm b{font-size:16px}.rg-nm small,.rg-due small{color:#cdbfff;font-size:12px}
+.rg-due{display:flex;flex-direction:column;gap:2px}.rg-due strong{font-size:14px;color:#fff}
+.rg-badge{align-self:flex-start;font:900 10px Arial;letter-spacing:.5px;border-radius:20px;padding:3px 8px;background:#444}
+.st-scaduto .rg-badge{background:#c62828}.st-settimana .rg-badge{background:#e64a19}.st-mese .rg-badge{background:#f9a825;color:#222}.st-regolare .rg-badge{background:#2e7d32}.st-senzascad .rg-badge{background:#546e7a}
+.rg-btns{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}.rg-empty{padding:30px;text-align:center;color:#cdbfff}
+.rg-modal{position:fixed;inset:0;background:rgba(5,0,20,.75);display:flex;align-items:center;justify-content:center;padding:10px;z-index:5}
+.rg-mc{background:#1f1240;border:3px solid #ffd54f;border-radius:16px;width:min(560px,100%);max-height:94vh;overflow-y:auto;padding:14px}.rg-mc h3{margin:0 0 8px;color:#ffd54f;font:900 18px Bungee,Arial Black,Arial}
+.rg-form{display:flex;flex-direction:column;gap:9px}.rg-sh{font:800 15px Arial;margin-top:4px;display:flex;flex-direction:column}.rg-sh small{font-weight:400;color:#cdbfff}
+.rg-g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.rg-f{display:flex;flex-direction:column;gap:3px}.rg-f span{font-size:12px;color:#cdbfff}
+.rg-chk{font-size:13px;color:#e8defc}.rg-hist{display:flex;flex-direction:column;gap:4px;max-height:160px;overflow-y:auto}.rg-hr{display:flex;justify-content:space-between;gap:8px;background:#2a1a55;border-radius:8px;padding:6px 10px;font-size:13px}.rg-x{background:none;border:0;color:#ef9a9a;cursor:pointer;font-size:14px}
+.rg-foot{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:flex-end}
+.rg-login{max-width:380px;margin:12vh auto 0;display:flex;flex-direction:column;gap:10px;padding:18px}.rg-login h2{font:900 34px Bungee,Arial Black,Arial;color:#ffd54f;text-align:center;margin:0}.rg-login p{text-align:center;color:#cdbfff;margin:0}.rg-err{color:#ff8a80;font-size:13px;min-height:16px;text-align:center}
+#rgToast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#000c;border:2px solid #ffd54f;border-radius:20px;padding:9px 16px;font:700 14px Arial;display:none;z-index:70}
+@media(max-width:700px){.rg-row{grid-template-columns:1fr}.rg-btns{justify-content:flex-start}.rg-g2{grid-template-columns:1fr}}
 #join{position:fixed;inset:0;z-index:30;background:radial-gradient(circle at 50% 0,#4a1f8c,#1a0b33 70%);display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:16px 12px 30px}
 #join h1{font:900 clamp(28px,8vw,56px) Bungee,Arial Black,Arial;margin:6px 0 0;text-align:center;color:var(--gold);text-shadow:0 4px 0 #b36b00,0 8px 16px rgba(0,0,0,.5);line-height:1}
 #join h1 small{display:block;font-size:.5em;color:#fff;text-shadow:0 3px 0 #c2185b}
@@ -113,6 +144,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
     <div id="row2"></div>
   </div>
 </div>
+<div id="regia" hidden></div>
+<button id="rgLock" title="Regia">🔒</button>
 <div id="join">
   <h1>SUPER CAPONE<small>WORLD</small></h1>
   <p>Il mondo online di Super Capone: entra col tuo avatar, chatta con tutti, visita i negozi e viaggia tra Agrigento, Aragona e Favara.</p>
@@ -1335,7 +1368,7 @@ function scDrawFavaraSign(c, x, T, name, sub) {
   }
 }
 // ===================== SUPER CAPONE WORLD · arte (avatar, negozi, terreno) =====================
-const WORLD_VERSION = "v1.10";
+const WORLD_VERSION = "v1.11";
 const T0 = 1; // unità: tutto è disegnato in "caselle" (come in Super Capone), i piedi sono in (0,0)
 
 // ---------- 11 avatar: il Capone + 10 personaggi ----------
@@ -2700,6 +2733,184 @@ $("jname").addEventListener("keydown", (e) => { if (e.key === "Enter") start(); 
   requestAnimationFrame(frame);
   window.__world = { ME, others, roster, threads, chatLog, K, Net, enterTunnel, nearTunnel, openChat, goTo, SHOPS, TUNNELS, QUARTIERI, jumpQuartiere, BILLBOARDS, ZONES, shopHW, CANTIERE_X: () => CANTIERE_X };
 })();
+
+// ===================== SUPER CAPONE WORLD · REGIA (database punti vendita, solo per Alberto) =====================
+// I dati stanno su Firebase in "regia/shops/<id>" e le regole li rendono leggibili/scrivibili SOLO dall'account amministratore (email + password).
+const TIPI = {
+  pizzeria: "Pizzerie", ristorante: "Ristoranti", bar: "Bar, pub e lidi", abbigliamento: "Abbigliamento", calzature: "Calzature", gioielleria: "Gioielleria",
+  supermercato: "Supermercati", eventi: "Eventi e intrattenimento", servizi: "Servizi e professionisti", vari: "Negozi vari", centro: "Centri commerciali", altro: "Altro",
+};
+const TIPO_DI = { mary: "pizzeria", forte: "pizzeria", paolo: "pizzeria", capotavola: "ristorante", gabbia: "bar", marconi: "bar", central: "bar", naselli: "bar", oceanomare: "bar", frank: "gioielleria", centesimo: "supermercato",
+  denise: "eventi", animazione: "eventi", quiz: "eventi", fuori: "eventi", carta: "eventi", municipio: "servizi", posta: "servizi", doimos: "servizi", rifugio: "servizi", palacongressi: "servizi", manulab: "servizi",
+  cittatempi: "centro", cose: "vari", c_mega: "calzature", c_vincent: "calzature" };
+function tipoOf(id) { if (TIPO_DI[id]) return TIPO_DI[id]; if (id.startsWith("p_")) return "pizzeria"; if (id.startsWith("r_")) return "ristorante"; if (id.startsWith("c_")) return "abbigliamento"; return "altro"; }
+function zonaOf(s) { return s.zone === "agrigento" ? quartiereAt(s.x).name : (ZONES[s.zone] ? ZONES[s.zone].name : s.zone); }
+const PERIODI = { mensile: 1, trimestrale: 3, semestrale: 6, annuale: 12, unatantum: 0 };
+const PERIODI_LABEL = { mensile: "Mensile", trimestrale: "Trimestrale", semestrale: "Semestrale", annuale: "Annuale", unatantum: "Una tantum" };
+
+const RG = { data: {}, admin: false, local: false, off: null, ui: { q: "", tipo: "", zona: "", stato: "", ord: "scad", grp: "tipo" } };
+const rgEl = (tag, attrs, ...kids) => { const e = document.createElement(tag); if (attrs) for (const k in attrs) { if (k === "class") e.className = attrs[k]; else if (k.startsWith("on")) e[k] = attrs[k]; else if (k === "value") e.value = attrs[k]; else e.setAttribute(k, attrs[k]); } kids.flat().forEach((c) => { if (c != null) e.appendChild(typeof c === "string" || typeof c === "number" ? document.createTextNode(String(c)) : c); }); return e; };
+const rgToday = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
+const rgIso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+const rgParse = (s) => { if (!s) return null; const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; };
+const rgFmt = (s) => { const d = rgParse(s); return d ? String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "/" + d.getFullYear() : "—"; };
+const rgEur = (n) => "€ " + (Math.round((+n || 0) * 100) / 100).toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const rgAddMonths = (d, n) => { const r = new Date(d.getFullYear(), d.getMonth() + n, 1); const last = new Date(r.getFullYear(), r.getMonth() + 1, 0).getDate(); r.setDate(Math.min(d.getDate(), last)); return r; };
+function rgRec(id) { const r = RG.data[id] || {}; return { st: r.st || "attivo", fee: +r.fee || 0, per: r.per || "mensile", due: r.due || "", ref: { n: (r.ref && r.ref.n) || "", t: (r.ref && r.ref.t) || "", e: (r.ref && r.ref.e) || "" }, note: r.note || "", pay: Array.isArray(r.pay) ? r.pay : r.pay ? Object.values(r.pay) : [] }; }
+function rgCatalog() {
+  return Object.entries(SHOPS).map(([id, s]) => { const r = rgRec(id), due = rgParse(r.due), days = due ? Math.round((due - rgToday()) / 864e5) : null;
+    let stato = "regolare"; if (r.st === "sospeso") stato = "sospeso"; else if (days == null) stato = "senzascad"; else if (days < 0) stato = "scaduto"; else if (days <= 7) stato = "settimana"; else if (days <= 30) stato = "mese";
+    return { id, name: s.name, icon: s.icon, tipo: tipoOf(id), zona: zonaOf(s), x: s.x, zone: s.zone, r, days, stato }; });
+}
+const STATO_LABEL = { scaduto: "SCADUTO", settimana: "SCADE A BREVE", mese: "IN ARRIVO", regolare: "REGOLARE", senzascad: "SENZA SCADENZA", sospeso: "SOSPESO" };
+const STATO_FILTRI = { scaduto: "Scaduti", settimana: "Scadono entro 7 giorni", mese: "Scadono entro 30 giorni", regolare: "Regolari", senzascad: "Senza scadenza", sospeso: "Sospesi", nonreg: "Da incassare (scaduti + entro 30 gg)" };
+
+// ---------- salvataggio ----------
+function rgSave(id) {
+  const r = rgRec(id); RG.data[id] = r;
+  if (RG.local) { try { localStorage.setItem("scw_regia_demo", JSON.stringify(RG.data)); } catch (e) {} return Promise.resolve(); }
+  return Net.db.ref("regia/shops/" + id).set(r).catch((e) => { rgToast("Salvataggio non riuscito: " + String((e && e.code) || e)); });
+}
+function rgToast(m) { const t = $("rgToast"); if (!t) return; t.textContent = m; t.style.display = "block"; clearTimeout(rgToast.h); rgToast.h = setTimeout(() => (t.style.display = "none"), 3200); }
+
+// ---------- accesso ----------
+function rgOpen() {
+  $("join").style.display = "none"; const root = $("regia"); root.hidden = false; root.textContent = "";
+  root.appendChild(rgEl("div", { id: "rgToast" }));
+  if (!Net.ok && !Net.db) Net.init();
+  const cu = Net.ok && window.firebase && firebase.auth().currentUser;
+  if (cu && !cu.isAnonymous) rgStartLive(); else rgShowLogin();
+}
+function rgClose() { try { if (RG.off) RG.off(); } catch (e) {} location.reload(); }
+function rgShowLogin(msg) {
+  const root = $("regia"); [...root.children].forEach((c) => { if (c.id !== "rgToast") c.remove(); });
+  const mail = rgEl("input", { type: "email", placeholder: "Email amministratore", autocomplete: "username", value: lsGet("scw_regia_mail", "") });
+  const pw = rgEl("input", { type: "password", placeholder: "Password", autocomplete: "current-password" });
+  const err = rgEl("div", { class: "rg-err" }, msg || "");
+  const go = () => {
+    if (!Net.ok) return (err.textContent = "Il gioco non è collegato a Firebase: non posso fare l'accesso.");
+    err.textContent = "Accesso…"; lsSet("scw_regia_mail", mail.value.trim());
+    firebase.auth().signInWithEmailAndPassword(mail.value.trim(), pw.value).then(() => rgStartLive()).catch((e) => { const c = (e && e.code) || ""; err.textContent = /wrong-password|invalid-credential|user-not-found|invalid-email/.test(c) ? "Email o password non corretti." : /operation-not-allowed/.test(c) ? "Su Firebase manca l'accesso «Email/Password» (Authentication > Metodo di accesso)." : /too-many/.test(c) ? "Troppi tentativi: riprova fra qualche minuto." : "Errore: " + (c || e); });
+  };
+  const box = rgEl("div", { class: "rg-login" }, rgEl("h2", null, "🎬 REGIA"), rgEl("p", null, "Area riservata alla gestione dei punti vendita."), mail, pw, rgEl("button", { class: "rg-b gold", onclick: go }, "ENTRA IN REGIA"), err,
+    rgEl("button", { class: "rg-b ghost", onclick: rgDemo }, "Prova locale (dati solo su questo dispositivo)"), rgEl("button", { class: "rg-b ghost", onclick: rgClose }, "← Torna al gioco"));
+  pw.addEventListener("keydown", (e) => { if (e.key === "Enter") go(); }); root.appendChild(box);
+}
+function rgDemo() { RG.local = true; try { RG.data = JSON.parse(localStorage.getItem("scw_regia_demo") || "{}"); } catch (e) { RG.data = {}; } rgBuild(); }
+function rgStartLive() {
+  RG.local = false; const ref = Net.db.ref("regia/shops");
+  const onv = (s) => { RG.data = s.val() || {}; if (!RG.admin) { RG.admin = true; rgBuild(); } else rgRender(); };
+  const onerr = () => { RG.admin = false; try { firebase.auth().signOut(); } catch (e) {} rgShowLogin("Accesso negato: questo account non è autorizzato. Controlla l'UID nelle regole Firebase."); };
+  ref.on("value", onv, onerr); RG.off = () => ref.off("value", onv);
+}
+
+// ---------- interfaccia ----------
+function rgBuild() {
+  const root = $("regia"); [...root.children].forEach((c) => { if (c.id !== "rgToast") c.remove(); });
+  const sel = (key, opts, first) => { const s = rgEl("select", { onchange: (e) => { RG.ui[key] = e.target.value; rgRender(); } }); if (first != null) s.appendChild(rgEl("option", { value: "" }, first)); opts.forEach(([v, l]) => s.appendChild(rgEl("option", { value: v }, l))); s.value = RG.ui[key]; return s; };
+  const zone = [...new Set(rgCatalog().map((c) => c.zona))].sort((a, b) => a.localeCompare(b, "it"));
+  const top = rgEl("div", { class: "rg-top" }, rgEl("div", { class: "rg-title" }, rgEl("b", null, "🎬 REGIA"), rgEl("small", { id: "rgSub" }, "")),
+    rgEl("div", { class: "rg-acts" }, rgEl("button", { class: "rg-b", onclick: rgCsv }, "⬇ Excel (CSV)"), rgEl("button", { class: "rg-b", onclick: rgBackup }, "💾 Backup"), rgEl("button", { class: "rg-b", onclick: () => $("rgFile").click() }, "⬆ Ripristina"), rgEl("button", { class: "rg-b red", onclick: () => { if (!RG.local) try { firebase.auth().signOut(); } catch (e) {} rgClose(); } }, "Esci")));
+  const file = rgEl("input", { type: "file", id: "rgFile", accept: "application/json", style: "display:none" }); file.onchange = rgRestore;
+  const filt = rgEl("div", { class: "rg-filt" },
+    rgEl("input", { id: "rgQ", type: "search", placeholder: "🔎 Cerca nome, referente, telefono…", value: RG.ui.q, oninput: (e) => { RG.ui.q = e.target.value; rgRender(); } }),
+    sel("tipo", Object.entries(TIPI), "Tutte le tipologie"), sel("zona", zone.map((z) => [z, z]), "Tutte le zone"),
+    sel("stato", Object.entries(STATO_FILTRI), "Tutti gli stati"),
+    sel("ord", [["scad", "Scadenza: più vicina prima"], ["scadDesc", "Scadenza: più lontana prima"], ["az", "Nome A → Z"], ["za", "Nome Z → A"], ["fee", "Canone più alto"]]),
+    sel("grp", [["tipo", "Raggruppa per tipologia"], ["zona", "Raggruppa per zona"], ["none", "Nessun gruppo"]]),
+    rgEl("button", { class: "rg-b ghost", onclick: () => { RG.ui = { q: "", tipo: "", zona: "", stato: "", ord: "scad", grp: "tipo" }; rgBuild(); } }, "Azzera filtri"));
+  root.appendChild(rgEl("div", { class: "rg-wrap" }, top, rgEl("div", { id: "rgCards", class: "rg-cards" }), filt, rgEl("div", { id: "rgList" }), file));
+  rgRender();
+}
+function rgRender() {
+  const cat = rgCatalog(), u = RG.ui, q = u.q.trim().toLowerCase();
+  const act = cat.filter((c) => c.stato !== "sospeso");
+  const sum = (a) => a.reduce((t, c) => t + c.r.fee, 0);
+  const scad = act.filter((c) => c.stato === "scaduto"), prox = act.filter((c) => c.stato === "settimana" || c.stato === "mese");
+  const now = rgToday(), ym = rgIso(now).slice(0, 7), y1 = rgIso(new Date(now.getFullYear() - 1, now.getMonth(), now.getDate()));
+  const pays = cat.flatMap((c) => c.r.pay.map((p) => ({ ...p, id: c.id }))); const mese = pays.filter((p) => (p.d || "").slice(0, 7) === ym).reduce((t, p) => t + (+p.a || 0), 0), anno = pays.filter((p) => (p.d || "") >= y1).reduce((t, p) => t + (+p.a || 0), 0);
+  $("rgSub").textContent = cat.length + " punti vendita · " + act.length + " attivi";
+  const card = (cls, lab, big, small, f) => rgEl("button", { class: "rg-card " + cls, onclick: f ? () => { RG.ui.stato = f; rgBuild(); } : null }, rgEl("small", null, lab), rgEl("b", null, big), rgEl("em", null, small));
+  const cc = $("rgCards"); cc.textContent = "";
+  cc.append(card("red", "⚠ SCADUTI", scad.length, rgEur(sum(scad)) + " da incassare", "scaduto"), card("amber", "⏳ ENTRO 30 GIORNI", prox.length, rgEur(sum(prox)) + " in arrivo", "nonreg2"),
+    card("green", "💶 INCASSATO QUESTO MESE", rgEur(mese), "ultimi 12 mesi: " + rgEur(anno), null), card("blue", "🏪 PUNTI VENDITA", cat.length, act.length + " attivi · " + (cat.length - act.length) + " sospesi", null));
+  cc.children[1].onclick = () => { RG.ui.stato = "nonreg"; rgBuild(); };
+  let rows = cat.filter((c) => (!u.tipo || c.tipo === u.tipo) && (!u.zona || c.zona === u.zona) && (!u.stato || (u.stato === "nonreg" ? ["scaduto", "settimana", "mese"].includes(c.stato) : c.stato === u.stato)) &&
+    (!q || (c.name + " " + c.r.ref.n + " " + c.r.ref.t + " " + c.r.ref.e + " " + TIPI[c.tipo] + " " + c.zona).toLowerCase().includes(q)));
+  const cmpDays = (dir) => (a, b) => { const x = a.days == null ? 1e9 : a.days, y = b.days == null ? 1e9 : b.days; if (a.days == null && b.days == null) return a.name.localeCompare(b.name, "it"); if (a.days == null) return 1; if (b.days == null) return -1; return dir * (x - y) || a.name.localeCompare(b.name, "it"); };
+  rows.sort(u.ord === "az" ? (a, b) => a.name.localeCompare(b.name, "it") : u.ord === "za" ? (a, b) => b.name.localeCompare(a.name, "it") : u.ord === "fee" ? (a, b) => b.r.fee - a.r.fee || a.name.localeCompare(b.name, "it") : u.ord === "scadDesc" ? cmpDays(-1) : cmpDays(1));
+  const L = $("rgList"); L.textContent = "";
+  if (!rows.length) { L.appendChild(rgEl("div", { class: "rg-empty" }, "Nessun punto vendita con questi filtri.")); return; }
+  const groups = new Map(); rows.forEach((c) => { const k = u.grp === "tipo" ? TIPI[c.tipo] : u.grp === "zona" ? c.zona : ""; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(c); });
+  let keys = [...groups.keys()]; if (u.grp !== "none") keys.sort((a, b) => a.localeCompare(b, "it"));
+  keys.forEach((k) => { const g = groups.get(k);
+    if (u.grp !== "none") L.appendChild(rgEl("div", { class: "rg-gh" }, rgEl("b", null, k), rgEl("span", null, g.length + " punti vendita · canoni " + rgEur(g.reduce((t, c) => t + c.r.fee, 0)) + (g.some((c) => c.stato === "scaduto") ? " · ⚠ " + g.filter((c) => c.stato === "scaduto").length + " scaduti" : ""))));
+    g.forEach((c) => L.appendChild(rgRow(c))); });
+}
+function rgRow(c) {
+  const dl = c.days == null ? "" : c.days < 0 ? "scaduto da " + -c.days + (c.days === -1 ? " giorno" : " giorni") : c.days === 0 ? "scade OGGI" : "tra " + c.days + (c.days === 1 ? " giorno" : " giorni");
+  return rgEl("div", { class: "rg-row st-" + c.stato },
+    rgEl("div", { class: "rg-main", onclick: () => rgEdit(c.id) }, rgEl("div", { class: "rg-ic" }, c.icon), rgEl("div", { class: "rg-nm" }, rgEl("b", null, c.name), rgEl("small", null, TIPI[c.tipo] + " · " + c.zona + (c.r.ref.n ? " · 👤 " + c.r.ref.n : "")))),
+    rgEl("div", { class: "rg-due" }, rgEl("span", { class: "rg-badge" }, STATO_LABEL[c.stato]), rgEl("small", null, c.r.due ? rgFmt(c.r.due) + (dl ? " · " + dl : "") : "—"), rgEl("strong", null, c.r.fee ? rgEur(c.r.fee) + " / " + PERIODI_LABEL[c.r.per].toLowerCase() : "canone da inserire")),
+    rgEl("div", { class: "rg-btns" }, rgEl("button", { class: "rg-b gold", onclick: () => rgPay(c.id) }, "💶 Pagamento"), rgEl("button", { class: "rg-b", onclick: () => rgEdit(c.id) }, "✏️ Scheda"),
+      c.r.ref.t && c.stato !== "regolare" && c.stato !== "senzascad" ? rgEl("a", { class: "rg-b green", target: "_blank", rel: "noopener", href: rgWa(c) }, "💬 Sollecita") : null));
+}
+function rgWa(c) { let t = (c.r.ref.t || "").replace(/[^\d+]/g, ""); if (t.startsWith("00")) t = t.slice(2); else if (t.startsWith("+")) t = t.slice(1); else if (t.length === 10 && t[0] === "3") t = "39" + t;
+  const msg = "Buongiorno" + (c.r.ref.n ? " " + c.r.ref.n : "") + ", le ricordo che per «" + c.name + "» su Super Capone World " + (c.days != null && c.days < 0 ? "il pagamento di " : "è in scadenza il pagamento di ") + rgEur(c.r.fee) + " risulta con scadenza " + rgFmt(c.r.due) + ". Grazie, Alberto Seminerio";
+  return "https://wa.me/" + t + "?text=" + encodeURIComponent(msg); }
+
+// ---------- modali ----------
+function rgModal(title, body, foot) {
+  const m = rgEl("div", { class: "rg-modal", onclick: (e) => { if (e.target === m) m.remove(); } }, rgEl("div", { class: "rg-mc" }, rgEl("h3", null, title), body, rgEl("div", { class: "rg-foot" }, foot)));
+  $("regia").appendChild(m); return m;
+}
+const rgField = (lab, inp) => rgEl("label", { class: "rg-f" }, rgEl("span", null, lab), inp);
+function rgEdit(id) {
+  const s = SHOPS[id], r = rgRec(id), cat = rgCatalog().find((c) => c.id === id);
+  const i = { n: rgEl("input", { value: r.ref.n, placeholder: "Nome e cognome" }), t: rgEl("input", { type: "tel", value: r.ref.t, placeholder: "Telefono / WhatsApp" }), e: rgEl("input", { type: "email", value: r.ref.e, placeholder: "Email" }),
+    fee: rgEl("input", { type: "number", step: "0.01", min: "0", value: r.fee || "", placeholder: "0,00" }), per: rgEl("select", null, ...Object.entries(PERIODI_LABEL).map(([v, l]) => rgEl("option", { value: v }, l))),
+    due: rgEl("input", { type: "date", value: r.due }), st: rgEl("select", null, ...[["attivo", "Attivo"], ["prova", "In prova / gratuito"], ["sospeso", "Sospeso"]].map(([v, l]) => rgEl("option", { value: v }, l))), note: rgEl("textarea", { rows: "3", placeholder: "Note (accordi, contratto, promemoria…)" }) };
+  i.per.value = r.per; i.st.value = r.st; i.note.value = r.note;
+  const hist = rgEl("div", { class: "rg-hist" }); const drawHist = () => { hist.textContent = ""; const p = rgRec(id).pay.slice().sort((a, b) => (b.d || "").localeCompare(a.d || ""));
+    if (!p.length) hist.appendChild(rgEl("small", null, "Nessun pagamento registrato.")); p.forEach((x, k) => hist.appendChild(rgEl("div", { class: "rg-hr" }, rgEl("span", null, rgFmt(x.d) + " · " + rgEur(x.a) + (x.n ? " · " + x.n : "")), rgEl("button", { class: "rg-x", title: "Elimina", onclick: () => { if (!confirm("Eliminare questo pagamento?")) return; const all = rgRec(id); all.pay = all.pay.filter((y) => !(y.d === x.d && y.a === x.a && y.n === x.n)); RG.data[id] = all; rgSave(id).then(() => { drawHist(); rgRender(); }); } }, "✕")))); };
+  drawHist();
+  const body = rgEl("div", { class: "rg-form" }, rgEl("div", { class: "rg-sh" }, s.icon + " " + s.name, rgEl("small", null, TIPI[cat.tipo] + " · " + cat.zona)),
+    rgEl("div", { class: "rg-g2" }, rgField("Referente", i.n), rgField("Telefono / WhatsApp", i.t)), rgField("Email", i.e),
+    rgEl("div", { class: "rg-g2" }, rgField("Canone / importo (€)", i.fee), rgField("Periodicità", i.per)), rgEl("div", { class: "rg-g2" }, rgField("Prossima scadenza", i.due), rgField("Stato", i.st)), rgField("Note", i.note),
+    rgEl("div", { class: "rg-sh" }, "Storico pagamenti"), hist);
+  const m = rgModal("Scheda punto vendita", body, [rgEl("button", { class: "rg-b gold", onclick: () => { RG.data[id] = { ...rgRec(id), ref: { n: i.n.value.trim().slice(0, 60), t: i.t.value.trim().slice(0, 30), e: i.e.value.trim().slice(0, 80) }, fee: Math.max(0, +i.fee.value || 0), per: i.per.value, due: i.due.value, st: i.st.value, note: i.note.value.slice(0, 600) }; rgSave(id).then(() => { rgRender(); m.remove(); rgToast("Salvato ✓"); }); } }, "SALVA"),
+    rgEl("button", { class: "rg-b", onclick: () => { m.remove(); rgPay(id); } }, "💶 Registra pagamento"), rgEl("button", { class: "rg-b ghost", onclick: () => m.remove() }, "Chiudi")]);
+}
+function rgPay(id) {
+  const r = rgRec(id), s = SHOPS[id];
+  const d = rgEl("input", { type: "date", value: rgIso(rgToday()) }), a = rgEl("input", { type: "number", step: "0.01", min: "0", value: r.fee || "", placeholder: "Importo" }), n = rgEl("input", { placeholder: "Nota (es. bonifico, contanti)" });
+  const adv = rgEl("input", { type: "checkbox" }); adv.checked = r.per !== "unatantum"; const advL = rgEl("label", { class: "rg-chk" }, adv, " Sposta la scadenza al prossimo periodo (" + PERIODI_LABEL[r.per].toLowerCase() + ")");
+  const body = rgEl("div", { class: "rg-form" }, rgEl("div", { class: "rg-sh" }, s.icon + " " + s.name, rgEl("small", null, r.due ? "Scadenza attuale: " + rgFmt(r.due) : "Nessuna scadenza impostata")), rgEl("div", { class: "rg-g2" }, rgField("Data pagamento", d), rgField("Importo (€)", a)), rgField("Nota", n), advL);
+  const m = rgModal("Registra pagamento", body, [rgEl("button", { class: "rg-b gold", onclick: () => {
+    const amt = +a.value; if (!(amt > 0) || !d.value) return rgToast("Inserisci data e importo");
+    const rec = rgRec(id); rec.pay = rec.pay.concat([{ d: d.value, a: Math.round(amt * 100) / 100, n: n.value.trim().slice(0, 80) }]);
+    if (adv.checked && PERIODI[rec.per] > 0) { const base = rgParse(rec.due) || rgParse(d.value); rec.due = rgIso(rgAddMonths(base, PERIODI[rec.per])); } else if (rec.per === "unatantum") rec.due = "";
+    RG.data[id] = rec; rgSave(id).then(() => { rgRender(); m.remove(); rgToast("Pagamento registrato ✓" + (rec.due ? " · prossima scadenza " + rgFmt(rec.due) : "")); }); } }, "REGISTRA"), rgEl("button", { class: "rg-b ghost", onclick: () => m.remove() }, "Annulla")]);
+}
+
+// ---------- esporta / backup / ripristino ----------
+function rgDownload(name, text, type) { const b = new Blob([text], { type }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+function rgCsv() {
+  const q = (v) => '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"';
+  const head = ["Punto vendita", "Tipologia", "Zona", "Stato", "Referente", "Telefono", "Email", "Canone", "Periodicità", "Scadenza", "Giorni alla scadenza", "Ultimo pagamento", "Totale incassato", "Note"];
+  const lines = rgCatalog().sort((a, b) => a.name.localeCompare(b.name, "it")).map((c) => { const last = c.r.pay.map((p) => p.d).sort().pop() || ""; return [c.name, TIPI[c.tipo], c.zona, STATO_LABEL[c.stato], c.r.ref.n, c.r.ref.t, c.r.ref.e, String(c.r.fee).replace(".", ","), PERIODI_LABEL[c.r.per], rgFmt(c.r.due), c.days == null ? "" : c.days, last ? rgFmt(last) : "", String(c.r.pay.reduce((t, p) => t + (+p.a || 0), 0)).replace(".", ","), c.r.note].map(q).join(";"); });
+  rgDownload("regia-punti-vendita-" + rgIso(rgToday()) + ".csv", "﻿" + [head.map(q).join(";")].concat(lines).join("\r\n"), "text/csv;charset=utf-8"); rgToast("File Excel (CSV) scaricato");
+}
+function rgBackup() { rgDownload("regia-backup-" + rgIso(rgToday()) + ".json", JSON.stringify({ versione: 1, data: rgIso(rgToday()), shops: RG.data }, null, 1), "application/json"); rgToast("Backup scaricato"); }
+function rgRestore(e) {
+  const f = e.target.files[0]; if (!f) return; const rd = new FileReader();
+  rd.onload = () => { try { const j = JSON.parse(rd.result), sh = j.shops || j; let n = 0; Object.keys(sh).forEach((id) => { if (SHOPS[id]) { RG.data[id] = sh[id]; n++; } });
+    if (!n) return rgToast("Il file non contiene dati validi"); if (!confirm("Ripristinare " + n + " punti vendita dal backup? I dati attuali di quei punti vendita verranno sostituiti.")) return;
+    Promise.all(Object.keys(sh).filter((id) => SHOPS[id]).map((id) => rgSave(id))).then(() => { rgRender(); rgToast("Ripristinati " + n + " punti vendita ✓"); }); } catch (x) { rgToast("File non valido"); } e.target.value = ""; };
+  rd.readAsText(f);
+}
+// ---------- ingresso nella Regia: lucchetto discreto nella schermata iniziale, oppure indirizzo con #regia ----------
+$("rgLock").onclick = rgOpen; if (/regia/i.test(location.hash)) rgOpen();
 
 </script>
 </body>
