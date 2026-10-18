@@ -76,6 +76,9 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
 .rg-card.red{background:#4a1414;border-color:#ef5350}.rg-card.amber{background:#4a3410;border-color:#ffb74d}.rg-card.green{background:#12381c;border-color:#66bb6a}.rg-card.blue{background:#14284a;border-color:#64b5f6}
 .rg-filt{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-bottom:12px;position:sticky;top:0;background:#150a2c;padding:8px;border-radius:12px;z-index:3;border:1px solid #3b2377}
 .rg-filt input,.rg-filt select,.rg-f input,.rg-f select,.rg-f textarea,.rg-login input{width:100%;box-sizing:border-box;font:15px Arial;color:#fff;background:#241447;border:2px solid #5b4a8f;border-radius:10px;padding:9px 10px}.rg-filt input:first-child{grid-column:1/-1}
+.rg-ms{position:relative}.rg-msb{width:100%;box-sizing:border-box;text-align:left;font:15px Arial;color:#fff;background:#241447;border:2px solid #5b4a8f;border-radius:10px;padding:9px 10px;cursor:pointer}.rg-msb.on{border-color:#ffd54f;background:#3a2670}
+.rg-msp{display:none;position:absolute;left:0;top:100%;margin-top:4px;min-width:250px;max-height:60vh;overflow-y:auto;background:#1f1240;border:2px solid #ffd54f;border-radius:12px;padding:8px;z-index:6;box-shadow:0 10px 30px #000a}.rg-ms.open .rg-msp{display:block}
+.rg-msbar{display:flex;gap:6px;margin-bottom:6px;position:sticky;top:-8px;background:#1f1240;padding:4px 0}.rg-msi{display:flex;align-items:center;gap:8px;padding:8px 6px;font-size:15px;border-radius:8px;cursor:pointer}.rg-msi:hover{background:#2f1a5c}.rg-msi input{width:20px;height:20px;flex:none;padding:0}
 .rg-gh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px;margin:16px 0 6px;padding:6px 10px;background:#2c1a5a;border-left:5px solid #ffd54f;border-radius:6px}.rg-gh b{font:800 15px Arial;color:#ffd54f}.rg-gh span{font-size:12px;color:#cdbfff}
 .rg-row{display:grid;grid-template-columns:1.3fr 1.2fr auto;gap:8px 12px;align-items:center;background:#201141;border:2px solid #3b2377;border-left-width:6px;border-radius:12px;padding:8px 10px;margin-bottom:6px}
 .rg-row.st-scaduto{border-left-color:#ef5350;background:#2c1330}.rg-row.st-settimana{border-left-color:#ff7043}.rg-row.st-mese{border-left-color:#ffca28}.rg-row.st-regolare{border-left-color:#66bb6a}.rg-row.st-senzascad{border-left-color:#78909c}.rg-row.st-sospeso{border-left-color:#555;opacity:.65}
@@ -93,6 +96,17 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
 .rg-login{max-width:380px;margin:12vh auto 0;display:flex;flex-direction:column;gap:10px;padding:18px}.rg-login h2{font:900 34px Bungee,Arial Black,Arial;color:#ffd54f;text-align:center;margin:0}.rg-login p{text-align:center;color:#cdbfff;margin:0}.rg-err{color:#ff8a80;font-size:13px;min-height:16px;text-align:center}
 #rgToast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#000c;border:2px solid #ffd54f;border-radius:20px;padding:9px 16px;font:700 14px Arial;display:none;z-index:70}
 @media(max-width:700px){.rg-row{grid-template-columns:1fr}.rg-btns{justify-content:flex-start}.rg-g2{grid-template-columns:1fr}}
+
+.av.avnew{display:flex;flex-direction:column;align-items:center;justify-content:center;border-style:dashed;border-color:var(--gold);color:var(--gold)}.av.avnew .plus{font-size:38px;line-height:1.5}
+#avb{position:fixed;inset:0;z-index:50;background:#120a2a;color:#fff;display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:10px;font-family:Arial,Helvetica,sans-serif}#avb[hidden]{display:none}
+.avb-top{display:flex;gap:12px;align-items:center;width:min(100%,640px)}#avbCv{background:radial-gradient(#4a2c85,#241447);border:3px solid var(--gold);border-radius:16px;flex:none;width:150px;height:190px}
+.avb-side{display:flex;flex-direction:column;gap:8px;flex:1}.avb-side h2{margin:0;font:900 18px Bungee,Arial Black,Arial;color:var(--gold)}
+.avb-b{font:700 14px Arial;color:#fff;background:#3b2377;border:2px solid #7e57c2;border-radius:10px;padding:8px 10px;cursor:pointer}.avb-b.on{border-color:var(--gold);background:#5a3aa0}.avb-b.gold{background:#b8860b;border-color:#ffd54f}
+#avbTabs{display:flex;flex-wrap:wrap;gap:6px;width:min(100%,640px);margin:10px 0}.avb-tab{font:700 13px Arial;color:#d9ccff;background:#2f1a5c;border:2px solid #5b3aa3;border-radius:20px;padding:7px 11px;cursor:pointer}.avb-tab.on{background:#4a2c85;border-color:var(--gold);color:#fff}
+#avbBody{width:min(100%,640px);padding-bottom:90px}.avb-h{font:800 13px Arial;color:#cdbfff;margin:10px 0 5px}.avb-g{display:flex;flex-wrap:wrap;gap:7px}
+.avb-sw{width:34px;height:34px;border-radius:50%;border:3px solid #ffffff55;cursor:pointer;padding:0}.avb-sw.on{border-color:#fff;box-shadow:0 0 0 3px var(--gold)}
+.avb-ch{font:700 13px Arial;color:#fff;background:#2f1a5c;border:2px solid #5b3aa3;border-radius:10px;padding:7px 10px;cursor:pointer}.avb-ch.on{border-color:var(--gold);background:#5a3aa0}
+.avb-foot{position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;justify-content:center;padding:10px;background:#120a2aee;border-top:2px solid #3b2377}.avb-foot .avb-b{flex:1;max-width:280px;padding:12px;font-size:15px}
 #join{position:fixed;inset:0;z-index:30;background:radial-gradient(circle at 50% 0,#4a1f8c,#1a0b33 70%);display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:16px 12px 30px}
 #join h1{font:900 clamp(28px,8vw,56px) Bungee,Arial Black,Arial;margin:6px 0 0;text-align:center;color:var(--gold);text-shadow:0 4px 0 #b36b00,0 8px 16px rgba(0,0,0,.5);line-height:1}
 #join h1 small{display:block;font-size:.5em;color:#fff;text-shadow:0 3px 0 #c2185b}
@@ -144,6 +158,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
     <div id="row2"></div>
   </div>
 </div>
+<div id="avb" hidden><div class="avb-top"><canvas id="avbCv" width="300" height="380"></canvas><div class="avb-side"><h2>🎨 IL TUO AVATAR</h2><button class="avb-b" id="avbRnd">🎲 Casuale</button><button class="avb-b" id="avbWalk">🚶 Fallo camminare</button></div></div><div id="avbTabs"></div><div id="avbBody"></div><div class="avb-foot"><button class="avb-b" id="avbNo">Annulla</button><button class="avb-b gold" id="avbOk">✔ USA QUESTO</button></div></div>
 <div id="regia" hidden></div>
 <button id="rgLock" title="Regia">🔒</button>
 <div id="join">
@@ -1368,7 +1383,7 @@ function scDrawFavaraSign(c, x, T, name, sub) {
   }
 }
 // ===================== SUPER CAPONE WORLD · arte (avatar, negozi, terreno) =====================
-const WORLD_VERSION = "v1.11";
+const WORLD_VERSION = "v1.12";
 const T0 = 1; // unità: tutto è disegnato in "caselle" (come in Super Capone), i piedi sono in (0,0)
 
 // ---------- 11 avatar: il Capone + 10 personaggi ----------
@@ -1386,9 +1401,70 @@ const AVATARS = [
   { id: "mago", nome: "Il Mago", skin: "#f1c9a5", hair: "#eeeeee", style: "none", hat: "wizard", shirt: "#3949ab", pants: "#283593", extra: "beard" },
 ];
 function circ(c, x, y, r, col) { c.fillStyle = col; c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); }
+
+// ---------- AVATAR PERSONALIZZATO: opzioni (il codice salvato è "c" + indici separati da punti) ----------
+const AV_OPT = {
+  skin: ["#fde3cf", "#f7d3b5", "#f1c9a5", "#e8b88e", "#d9a066", "#c68642", "#a86b3c", "#8d5524", "#6f4120", "#4e2f17", "#3a2210", "#f6c7b6", "#9ccc65", "#4fc3f7", "#ba68c8", "#b0bec5", "#ef5350", "#ffd54f"],
+  face: ["Normale", "Felice", "Occhioni", "Occhiolino", "Sorpreso", "Arrabbiato", "Assonnato", "Innamorato", "Linguaccia", "Sereno"],
+  iris: ["#222222", "#5d4037", "#1e88e5", "#43a047", "#8e24aa", "#e53935", "#26c6da", "#ffb300"],
+  style: ["Calvo", "Corti", "Punte", "Lunghi", "Chignon", "Coda", "Afro", "Cresta", "Caschetto", "Ricci"],
+  hair: ["#1b1b1b", "#3e2723", "#5d4037", "#8d6e63", "#c9a063", "#f7d046", "#ffe9a8", "#d84315", "#eeeeee", "#9e9e9e", "#e91e63", "#8e24aa", "#1e88e5", "#26c6da", "#43a047", "#ff9800"],
+  hat: ["Nessuno", "Cuoco", "Paglia", "Bandana", "Mago", "Cappellino", "Berretto", "Corona", "Cilindro", "Festa"],
+  shirt: ["#fafafa", "#212121", "#e53935", "#d81b60", "#8e24aa", "#3949ab", "#1e88e5", "#26c6da", "#00897b", "#43a047", "#9ccc65", "#fdd835", "#ffa726", "#ff7043", "#8d6e63", "#78909c", "#f48fb1", "#ffcc80"],
+  pat: ["Tinta unita", "Righe", "Pallini", "Cuore", "Fasce"],
+  pants: ["#212121", "#455a64", "#1e3a8a", "#1e88e5", "#5d4037", "#8d6e63", "#c9b037", "#fafafa", "#2e7d32", "#c62828", "#6a1b9a", "#ff7043"],
+  extra: ["Nessuno", "Occhiali", "Occhiali da sole", "Baffi", "Barba", "Benda pirata", "Lentiggini", "Guance rosse"],
+  acc: ["Nessuno", "Microfono", "Macchina foto", "Grembiule", "Papillon", "Sciarpa", "Collana", "Zaino", "Mantello"],
+};
+const AV_KEYS = ["skin", "face", "iris", "style", "hair", "hat", "shirt", "pat", "pants", "extra", "acc"];
+const AV_STYLE_ID = ["none", "short", "spiky", "long", "bun", "pony", "afro", "mohawk", "bob", "curly"];
+const AV_HAT_ID = ["none", "chef", "straw", "bandana", "wizard", "cap", "beanie", "crown", "tophat", "party"];
+const AV_EXTRA_ID = ["none", "glasses", "shades", "mustache", "beard", "eyepatch", "freckles", "blush"];
+const AV_ACC_ID = ["none", "mic", "camera", "apron", "bowtie", "scarf", "necklace", "backpack", "cape"];
+const AV_PAT_ID = ["none", "stripes", "dots", "heart", "stripes2"];
+const avDefault = () => [2, 1, 0, 1, 1, 0, 6, 0, 1, 0, 0];
+function avNorm(v) { return AV_KEYS.map((k, i) => { const n = parseInt(v && v[i]); const m = AV_OPT[k].length; return n >= 0 && n < m ? n : avDefault()[i]; }); }
+const avEncode = (v) => "c" + avNorm(v).join(".");
+function avValid(code) { return typeof code === "string" && /^c\d+(\.\d+){10}$/.test(code); }
+const AV_CACHE = new Map();
+function avCustom(code) {
+  let s = AV_CACHE.get(code); if (s) return s;
+  const v = avValid(code) ? avNorm(code.slice(1).split(".")) : avDefault(), O = AV_OPT, g = {}; AV_KEYS.forEach((k, i) => (g[k] = v[i]));
+  const lum = (h) => { const n = parseInt(h.slice(1), 16); return ((n >> 16) * 0.3 + ((n >> 8) & 255) * 0.59 + (n & 255) * 0.11); };
+  const shirt = O.shirt[g.shirt], pcol = lum(shirt) > 140 ? "#37474f" : "#ffffff";
+  const pat = AV_PAT_ID[g.pat];
+  s = { custom: 1, skin: O.skin[g.skin], face: g.face, iris: O.iris[g.iris], style: AV_STYLE_ID[g.style], hair: g.style === 0 ? "none" : O.hair[g.hair], hat: AV_HAT_ID[g.hat], hatc: O.shirt[(g.shirt + 5) % O.shirt.length],
+    shirt, shirt2: pat === "stripes" ? pcol : null, pat, pcol, pants: O.pants[g.pants], extra: AV_EXTRA_ID[g.extra], acc: AV_ACC_ID[g.acc], bcol: O.hair[g.hair] };
+  AV_CACHE.set(code, s); return s;
+}
+function avEyes(c, s, hy, blink) {
+  const f = s.face, ir = s.iris;
+  const eye = (x, r, closed, flip) => {
+    if (closed || blink) { c.strokeStyle = "#222"; c.lineWidth = 0.035; c.beginPath(); c.arc(x, hy - 0.03, 0.06, Math.PI * 1.1, Math.PI * 1.9, !!flip); c.stroke(); return; }
+    circ(c, x, hy - 0.04, r, "#fff"); circ(c, x + 0.02, hy - 0.04, r * 0.55, ir); circ(c, x + 0.02, hy - 0.04, r * 0.25, "#111");
+  };
+  [-0.1, 0.1].forEach((x, i) => {
+    if (f === 7) { c.fillStyle = "#e91e63"; c.beginPath(); c.moveTo(x, hy + 0.0); c.bezierCurveTo(x - 0.1, hy - 0.08, x - 0.05, hy - 0.16, x, hy - 0.09); c.bezierCurveTo(x + 0.05, hy - 0.16, x + 0.1, hy - 0.08, x, hy + 0.0); c.fill(); }
+    else if (f === 9 || f === 6) { c.strokeStyle = "#222"; c.lineWidth = 0.035; c.beginPath(); if (f === 9) c.arc(x, hy - 0.02, 0.06, Math.PI * 1.1, Math.PI * 1.9); else { c.moveTo(x - 0.06, hy - 0.03); c.lineTo(x + 0.06, hy - 0.03); } c.stroke(); }
+    else if (f === 3 && i === 0) eye(x, 0.07, true);
+    else if (f === 2) eye(x, 0.1);
+    else if (f === 4) eye(x, 0.085);
+    else eye(x, 0.07);
+    if (f === 5) { c.strokeStyle = "#222"; c.lineWidth = 0.04; c.beginPath(); c.moveTo(x - 0.08 * (i ? -1 : 1), hy - 0.17 + (i ? 0.0 : 0)); c.lineTo(x + 0.08 * (i ? -1 : 1), hy - 0.1); c.stroke(); }
+  });
+}
+function avMouth(c, s, hy) {
+  const f = s.face; c.strokeStyle = "#8d3b2f"; c.lineWidth = 0.035; c.fillStyle = "#7b1f1f";
+  if (f === 1 || f === 3 || f === 8 || f === 2) { c.beginPath(); c.arc(0.02, hy + 0.06, 0.12, 0.05 * Math.PI, 0.95 * Math.PI); c.closePath(); c.fill(); if (f === 8) { c.fillStyle = "#ef5350"; trfRR(c, 0.0, hy + 0.1, 0.09, 0.1, 0.04); c.fill(); } }
+  else if (f === 4) { c.beginPath(); c.ellipse(0.02, hy + 0.12, 0.05, 0.07, 0, 0, 7); c.fill(); }
+  else if (f === 5) { c.beginPath(); c.arc(0.02, hy + 0.2, 0.09, 1.15 * Math.PI, 1.85 * Math.PI); c.stroke(); }
+  else if (f === 6) { c.beginPath(); c.moveTo(-0.05, hy + 0.12); c.lineTo(0.09, hy + 0.12); c.stroke(); }
+  else { c.beginPath(); c.arc(0.02, hy + 0.08, 0.1, 0.15 * Math.PI, 0.85 * Math.PI); c.stroke(); }
+}
 function drawAvatar(c, k, a) {
   if (k === 0) return scDrawCapone(c, a);
-  const s = AVATARS[k] || AVATARS[1];
+  const s = typeof k === "string" ? avCustom(k) : (AVATARS[k] || AVATARS[1]);
+  const has = (n) => s.extra === n || s.acc === n;
   const walk = a.walk || 0, air = a.air, sw = air ? 0 : Math.sin(walk) * 0.5, bob = air ? 0 : Math.abs(Math.sin(walk)) * 0.04;
   c.save();
   c.translate(0, -bob);
@@ -1399,6 +1475,8 @@ function drawAvatar(c, k, a) {
   lg.forEach((dx) => { trfRR(c, dx - 0.1, -0.6, 0.2, 0.55, 0.06); c.fill(); });
   c.fillStyle = "#37474f";
   lg.forEach((dx) => { trfRR(c, dx - 0.12, -0.1, 0.26, 0.1, 0.05); c.fill(); });
+  if (has("cape")) { c.fillStyle = "#c62828"; c.beginPath(); c.moveTo(-0.22, -1.08); c.lineTo(-0.5 - sw * 0.1, -0.35); c.lineTo(0.0, -0.4); c.closePath(); c.fill(); }
+  if (has("backpack")) { c.fillStyle = "#8d6e63"; trfRR(c, -0.42, -1.0, 0.2, 0.42, 0.06); c.fill(); c.fillStyle = "#5d4037"; c.fillRect(-0.42, -0.82, 0.2, 0.04); }
   // braccio dietro
   c.strokeStyle = s.skin; c.lineWidth = 0.14;
   c.beginPath(); c.moveTo(-0.02, -1.0); c.lineTo(-0.02 - sw * 0.3 - 0.08, -0.62 + (air ? -0.35 : 0)); c.stroke();
@@ -1406,14 +1484,20 @@ function drawAvatar(c, k, a) {
   c.fillStyle = s.shirt;
   trfRR(c, -0.28, -1.08, 0.56, 0.55, 0.14); c.fill();
   if (s.shirt2) { c.fillStyle = s.shirt2; for (let i = 0; i < 3; i++) c.fillRect(-0.28 + i * 0.2, -1.04, 0.08, 0.5); }
-  if (s.extra === "apron") { c.fillStyle = "#ef9a9a"; trfRR(c, -0.2, -0.95, 0.4, 0.45, 0.08); c.fill(); }
-  if (s.extra === "robot") { c.fillStyle = "#ffeb3b"; c.fillRect(-0.12, -0.95, 0.24, 0.16); c.fillStyle = "#e53935"; circ(c, 0, -0.65, 0.05, "#e53935"); }
-  if (s.extra === "camera") { c.fillStyle = "#212121"; trfRR(c, -0.1, -0.78, 0.22, 0.14, 0.03); c.fill(); circ(c, 0.01, -0.71, 0.04, "#90caf9"); }
+  if (s.pat === "dots") for (let i = 0; i < 6; i++) circ(c, -0.17 + (i % 3) * 0.17, -0.96 + Math.floor(i / 3) * 0.2, 0.035, s.pcol);
+  if (s.pat === "heart") { c.fillStyle = s.pcol; c.beginPath(); c.moveTo(0, -0.62); c.bezierCurveTo(-0.22, -0.78, -0.1, -0.95, 0, -0.84); c.bezierCurveTo(0.1, -0.95, 0.22, -0.78, 0, -0.62); c.fill(); }
+  if (s.pat === "stripes2") { c.fillStyle = s.pcol; c.fillRect(-0.28, -0.9, 0.56, 0.07); c.fillRect(-0.28, -0.74, 0.56, 0.07); }
+  if (has("necklace")) { c.strokeStyle = "#ffd54f"; c.lineWidth = 0.03; c.beginPath(); c.arc(0, -1.1, 0.16, 0.1 * Math.PI, 0.9 * Math.PI); c.stroke(); circ(c, 0, -0.94, 0.04, "#ffd54f"); }
+  if (has("apron")) { c.fillStyle = "#ef9a9a"; trfRR(c, -0.2, -0.95, 0.4, 0.45, 0.08); c.fill(); }
+  if (has("robot")) { c.fillStyle = "#ffeb3b"; c.fillRect(-0.12, -0.95, 0.24, 0.16); c.fillStyle = "#e53935"; circ(c, 0, -0.65, 0.05, "#e53935"); }
+  if (has("camera")) { c.fillStyle = "#212121"; trfRR(c, -0.1, -0.78, 0.22, 0.14, 0.03); c.fill(); circ(c, 0.01, -0.71, 0.04, "#90caf9"); }
   // testa
   const hy = -1.3;
   if (s.hair !== "none" && (s.style === "long" || s.style === "bun" || s.style === "pony")) { c.fillStyle = s.hair; trfRR(c, -0.34, hy - 0.2, 0.68, 0.62, 0.3); c.fill(); }
+  if (s.style === "bob") { c.fillStyle = s.hair; trfRR(c, -0.37, hy - 0.2, 0.74, 0.58, 0.22); c.fill(); }
+  if (s.style === "afro") circ(c, 0, hy - 0.1, 0.5, s.hair);
   circ(c, 0, hy, 0.3, s.skin);
-  if (s.extra === "robot") { c.fillStyle = s.skin; trfRR(c, -0.3, hy - 0.28, 0.6, 0.56, 0.1); c.fill(); c.strokeStyle = "#455a64"; c.lineWidth = 0.04; c.beginPath(); c.moveTo(0, hy - 0.28); c.lineTo(0, hy - 0.5); c.stroke(); circ(c, 0, hy - 0.52, 0.06, "#ff5252"); }
+  if (has("robot")) { c.fillStyle = s.skin; trfRR(c, -0.3, hy - 0.28, 0.6, 0.56, 0.1); c.fill(); c.strokeStyle = "#455a64"; c.lineWidth = 0.04; c.beginPath(); c.moveTo(0, hy - 0.28); c.lineTo(0, hy - 0.5); c.stroke(); circ(c, 0, hy - 0.52, 0.06, "#ff5252"); }
   // capelli
   if (s.hair !== "none") {
     c.fillStyle = s.hair;
@@ -1421,27 +1505,42 @@ function drawAvatar(c, k, a) {
     if (s.style === "spiky") for (let i = -2; i <= 2; i++) { c.beginPath(); c.moveTo(i * 0.12 - 0.07, hy - 0.2); c.lineTo(i * 0.12, hy - 0.5 - (i % 2 ? 0.04 : 0.1)); c.lineTo(i * 0.12 + 0.07, hy - 0.2); c.fill(); }
     if (s.style === "bun") { circ(c, 0, hy - 0.38, 0.14, s.hair); c.beginPath(); c.arc(0, hy - 0.04, 0.31, Math.PI * 1.05, Math.PI * 1.95); c.fill(); }
     if (s.style === "pony") { c.beginPath(); c.arc(0, hy - 0.04, 0.31, Math.PI * 1.05, Math.PI * 1.95); c.fill(); circ(c, -0.34, hy + 0.02, 0.1, s.hair); }
+    if (s.style === "bob") { c.beginPath(); c.arc(0, hy - 0.04, 0.32, Math.PI * 1.0, Math.PI * 2.0); c.fill(); c.fillRect(-0.32, hy - 0.06, 0.1, 0.22); c.fillRect(0.22, hy - 0.06, 0.1, 0.22); }
+    if (s.style === "afro") { c.beginPath(); c.arc(0, hy - 0.04, 0.31, Math.PI * 1.1, Math.PI * 1.9); c.fill(); }
+    if (s.style === "curly") for (let i = -3; i <= 3; i++) circ(c, i * 0.095, hy - 0.22 - (Math.abs(i) < 2 ? 0.07 : 0), 0.11, s.hair), (Math.abs(i) === 3) && circ(c, i * 0.1, hy - 0.05, 0.1, s.hair);
+    if (s.style === "mohawk") for (let i = -2; i <= 2; i++) { c.beginPath(); c.moveTo(i * 0.07 - 0.05, hy - 0.26); c.lineTo(i * 0.07, hy - 0.68 + Math.abs(i) * 0.08); c.lineTo(i * 0.07 + 0.05, hy - 0.26); c.fill(); }
     if (s.style === "long") { c.beginPath(); c.arc(0, hy - 0.04, 0.32, Math.PI, 2 * Math.PI); c.fill(); }
   }
   // faccia
   const blink = a.blink;
-  if (s.extra === "shades") { c.fillStyle = "#111"; trfRR(c, -0.25, hy - 0.1, 0.5, 0.14, 0.05); c.fill(); }
-  else if (s.extra === "eyepatch") { circ(c, 0.1, hy - 0.04, 0.07, "#fafafa"); c.fillStyle = "#111"; trfRR(c, -0.22, hy - 0.1, 0.18, 0.14, 0.05); c.fill(); c.strokeStyle = "#111"; c.lineWidth = 0.03; c.beginPath(); c.moveTo(-0.3, hy - 0.2); c.lineTo(0.3, hy - 0.05); c.stroke(); circ(c, 0.1, hy - 0.04, 0.03, "#111"); }
+  if (has("shades")) { c.fillStyle = "#111"; trfRR(c, -0.25, hy - 0.1, 0.5, 0.14, 0.05); c.fill(); }
+  else if (has("eyepatch")) { circ(c, 0.1, hy - 0.04, 0.07, "#fafafa"); c.fillStyle = "#111"; trfRR(c, -0.22, hy - 0.1, 0.18, 0.14, 0.05); c.fill(); c.strokeStyle = "#111"; c.lineWidth = 0.03; c.beginPath(); c.moveTo(-0.3, hy - 0.2); c.lineTo(0.3, hy - 0.05); c.stroke(); circ(c, 0.1, hy - 0.04, 0.03, "#111"); }
+  else if (s.face != null) avEyes(c, s, hy, blink);
   else { [-0.1, 0.1].forEach((x) => { if (blink) { c.fillStyle = "#222"; c.fillRect(x - 0.06, hy - 0.04, 0.12, 0.025); } else { circ(c, x, hy - 0.04, 0.07, "#fff"); circ(c, x + 0.02, hy - 0.04, 0.035, "#222"); } }); }
-  if (s.extra === "glasses") { c.strokeStyle = "#5d4037"; c.lineWidth = 0.03; [-0.1, 0.1].forEach((x) => { c.beginPath(); c.arc(x, hy - 0.04, 0.1, 0, 7); c.stroke(); }); }
-  c.strokeStyle = "#8d3b2f"; c.lineWidth = 0.035;
-  c.beginPath(); c.arc(0.02, hy + 0.08, 0.1, 0.15 * Math.PI, 0.85 * Math.PI); c.stroke();
-  if (s.extra === "mustache") { c.fillStyle = "#3e2723"; c.beginPath(); c.ellipse(-0.08, hy + 0.06, 0.1, 0.04, -0.2, 0, 7); c.ellipse(0.1, hy + 0.06, 0.1, 0.04, 0.2, 0, 7); c.fill(); }
-  if (s.extra === "beard") { c.fillStyle = "#eee"; c.beginPath(); c.moveTo(-0.26, hy + 0.04); c.quadraticCurveTo(0, hy + 0.7, 0.26, hy + 0.04); c.quadraticCurveTo(0, hy + 0.14, -0.26, hy + 0.04); c.fill(); }
+  if (has("glasses")) { c.strokeStyle = "#5d4037"; c.lineWidth = 0.03; [-0.1, 0.1].forEach((x) => { c.beginPath(); c.arc(x, hy - 0.04, 0.1, 0, 7); c.stroke(); }); }
+  if (s.face != null) avMouth(c, s, hy);
+  else { c.strokeStyle = "#8d3b2f"; c.lineWidth = 0.035;
+  c.beginPath(); c.arc(0.02, hy + 0.08, 0.1, 0.15 * Math.PI, 0.85 * Math.PI); c.stroke(); }
+  if (has("blush")) { c.fillStyle = "rgba(239,83,80,.45)"; circ(c, -0.2, hy + 0.07, 0.06, "rgba(239,83,80,.45)"); circ(c, 0.2, hy + 0.07, 0.06, "rgba(239,83,80,.45)"); }
+  if (has("freckles")) { c.fillStyle = "rgba(121,68,30,.7)"; [[-0.17, 0.05], [-0.1, 0.09], [-0.22, 0.1], [0.17, 0.05], [0.1, 0.09], [0.22, 0.1]].forEach((q) => circ(c, q[0], hy + q[1], 0.015, "rgba(121,68,30,.75)")); }
+  if (has("mustache")) { c.fillStyle = s.bcol || "#3e2723"; c.beginPath(); c.ellipse(-0.08, hy + 0.06, 0.1, 0.04, -0.2, 0, 7); c.ellipse(0.1, hy + 0.06, 0.1, 0.04, 0.2, 0, 7); c.fill(); }
+  if (has("beard")) { c.fillStyle = s.bcol || "#eee"; c.beginPath(); c.moveTo(-0.26, hy + 0.04); c.quadraticCurveTo(0, hy + 0.7, 0.26, hy + 0.04); c.quadraticCurveTo(0, hy + 0.14, -0.26, hy + 0.04); c.fill(); }
   // cappelli
   if (s.hat === "chef") { c.fillStyle = "#fff"; trfRR(c, -0.24, hy - 0.5, 0.48, 0.3, 0.1); c.fill(); circ(c, -0.16, hy - 0.52, 0.14, "#fff"); circ(c, 0.16, hy - 0.52, 0.14, "#fff"); circ(c, 0, hy - 0.62, 0.17, "#fff"); c.fillStyle = "#e0e0e0"; c.fillRect(-0.27, hy - 0.26, 0.54, 0.07); }
   if (s.hat === "straw") { c.fillStyle = "#e6c35a"; c.beginPath(); c.ellipse(0, hy - 0.22, 0.52, 0.1, 0, 0, 7); c.fill(); c.beginPath(); c.arc(0, hy - 0.24, 0.26, Math.PI, 2 * Math.PI); c.fill(); c.fillStyle = "#c62828"; c.fillRect(-0.26, hy - 0.3, 0.52, 0.05); }
   if (s.hat === "bandana") { c.fillStyle = "#c62828"; c.beginPath(); c.arc(0, hy - 0.06, 0.32, Math.PI * 1.02, Math.PI * 1.98); c.lineTo(0.3, hy - 0.14); c.lineTo(-0.3, hy - 0.14); c.fill(); c.beginPath(); c.moveTo(-0.3, hy - 0.16); c.lineTo(-0.5, hy - 0.05); c.lineTo(-0.3, hy - 0.02); c.fill(); circ(c, 0.08, hy - 0.26, 0.03, "#fff"); circ(c, -0.1, hy - 0.2, 0.03, "#fff"); }
   if (s.hat === "wizard") { c.fillStyle = "#3949ab"; c.beginPath(); c.ellipse(0, hy - 0.2, 0.46, 0.09, 0, 0, 7); c.fill(); c.beginPath(); c.moveTo(-0.28, hy - 0.2); c.quadraticCurveTo(-0.05, hy - 0.8, 0.2, hy - 1.02); c.quadraticCurveTo(0.22, hy - 0.5, 0.28, hy - 0.2); c.fill(); c.fillStyle = "#ffd54f"; circ(c, 0, hy - 0.42, 0.05, "#ffd54f"); circ(c, 0.1, hy - 0.62, 0.035, "#ffd54f"); }
+  if (s.hat === "cap") { c.fillStyle = s.hatc || "#1e88e5"; c.beginPath(); c.arc(0, hy - 0.08, 0.32, Math.PI, 2 * Math.PI); c.fill(); trfRR(c, 0.05, hy - 0.16, 0.42, 0.07, 0.03); c.fill(); circ(c, 0, hy - 0.4, 0.04, "#fff"); }
+  if (s.hat === "beanie") { c.fillStyle = s.hatc || "#e53935"; c.beginPath(); c.arc(0, hy - 0.08, 0.33, Math.PI, 2 * Math.PI); c.fill(); trfRR(c, -0.34, hy - 0.2, 0.68, 0.1, 0.04); c.fill(); circ(c, 0, hy - 0.45, 0.07, "#fff"); }
+  if (s.hat === "crown") { c.fillStyle = "#ffca28"; c.beginPath(); c.moveTo(-0.24, hy - 0.26); c.lineTo(-0.26, hy - 0.58); c.lineTo(-0.12, hy - 0.42); c.lineTo(0, hy - 0.62); c.lineTo(0.12, hy - 0.42); c.lineTo(0.26, hy - 0.58); c.lineTo(0.24, hy - 0.26); c.closePath(); c.fill(); circ(c, 0, hy - 0.34, 0.035, "#e53935"); }
+  if (s.hat === "tophat") { c.fillStyle = "#212121"; c.beginPath(); c.ellipse(0, hy - 0.26, 0.42, 0.07, 0, 0, 7); c.fill(); trfRR(c, -0.24, hy - 0.72, 0.48, 0.48, 0.04); c.fill(); c.fillStyle = "#c62828"; c.fillRect(-0.24, hy - 0.4, 0.48, 0.07); }
+  if (s.hat === "party") { c.fillStyle = s.hatc || "#ab47bc"; c.beginPath(); c.moveTo(-0.22, hy - 0.22); c.lineTo(0.02, hy - 0.8); c.lineTo(0.26, hy - 0.22); c.closePath(); c.fill(); circ(c, 0.02, hy - 0.82, 0.05, "#ffee58"); c.fillStyle = "#ffee58"; c.fillRect(-0.12, hy - 0.4, 0.06, 0.05); c.fillRect(0.08, hy - 0.5, 0.06, 0.05); }
+  if (has("scarf")) { c.fillStyle = "#e53935"; trfRR(c, -0.26, -1.12, 0.52, 0.1, 0.04); c.fill(); trfRR(c, 0.08, -1.08, 0.1, 0.34, 0.04); c.fill(); }
+  if (has("bowtie")) { c.fillStyle = "#d32f2f"; c.beginPath(); c.moveTo(0, -1.04); c.lineTo(-0.13, -1.12); c.lineTo(-0.13, -0.96); c.closePath(); c.fill(); c.beginPath(); c.moveTo(0, -1.04); c.lineTo(0.13, -1.12); c.lineTo(0.13, -0.96); c.closePath(); c.fill(); circ(c, 0, -1.04, 0.035, "#b71c1c"); }
   // braccio davanti
   c.strokeStyle = s.skin; c.lineWidth = 0.14;
   c.beginPath(); c.moveTo(0.02, -1.0); c.lineTo(0.02 + sw * 0.3 + 0.1, -0.62 + (air ? -0.35 : 0)); c.stroke();
-  if (s.extra === "mic") { const hx = 0.12 + sw * 0.3, hyy = -0.66 + (air ? -0.35 : 0); c.strokeStyle = "#555"; c.lineWidth = 0.05; c.beginPath(); c.moveTo(hx, hyy); c.lineTo(hx + 0.1, hyy - 0.2); c.stroke(); circ(c, hx + 0.12, hyy - 0.25, 0.08, "#9e9e9e"); }
+  if (has("mic")) { const hx = 0.12 + sw * 0.3, hyy = -0.66 + (air ? -0.35 : 0); c.strokeStyle = "#555"; c.lineWidth = 0.05; c.beginPath(); c.moveTo(hx, hyy); c.lineTo(hx + 0.1, hyy - 0.2); c.stroke(); circ(c, hx + 0.12, hyy - 0.25, 0.08, "#9e9e9e"); }
   c.restore();
 }
 
@@ -2389,13 +2488,14 @@ function avThumb(k, w) {
   return cv;
 }
 function buildJoin() {
-  const box = $("avs");
-  AVATARS.forEach((a, k) => {
-    const d = document.createElement("div"); d.className = "av" + (k === ME.av ? " sel" : ""); d.appendChild(avThumb(k, 72));
-    const l = document.createElement("div"); l.textContent = a.nome; d.appendChild(l);
-    d.onclick = () => { ME.av = k; lsSet("scw_av", String(k)); [...box.children].forEach((x, i) => x.classList.toggle("sel", i === k)); };
-    box.appendChild(d);
-  });
+  const box = $("avs"); box.textContent = "";
+  const mark = () => [...box.children].forEach((x) => x.classList.toggle("sel", x.dataset.k === String(ME.av)));
+  const tile = (k, thumbKey, label, onclick) => { const d = document.createElement("div"); d.className = "av"; d.dataset.k = String(k); d.appendChild(avThumb(thumbKey, 72)); const l = document.createElement("div"); l.textContent = label; d.appendChild(l); d.onclick = onclick; box.appendChild(d); return d; };
+  const mine = lsGet("scw_avc", "");
+  if (avValid(mine)) tile(mine, mine, "⭐ Il mio", () => { ME.av = mine; lsSet("scw_av", mine); mark(); });
+  const mk = document.createElement("div"); mk.className = "av avnew"; mk.innerHTML = '<div class="plus">🎨</div><div>Crea il tuo</div>'; mk.onclick = avbOpen; box.appendChild(mk);
+  AVATARS.forEach((a, k) => tile(k, k, a.nome, () => { ME.av = k; lsSet("scw_av", String(k)); mark(); }));
+  mark();
 }
 
 // ---------- rete: presenza, posizioni, chat ----------
@@ -2493,6 +2593,48 @@ function updateOnline() { $("onChip").textContent = "👥 " + Math.max(1, online
 // segnala (una volta ogni tanto) un problema di collegamento: così si capisce subito cosa non va
 let lastProblem = 0;
 function netProblem(txt) { if (Date.now() - lastProblem < 15000) return; lastProblem = Date.now(); toast("⚠ " + txt, 9000); const c = $("onChip"); if (c) c.style.borderColor = "#ff5252"; }
+
+// ===================== SUPER CAPONE WORLD · costruisci il tuo avatar =====================
+const AVB = { v: avDefault(), tab: "viso", raf: 0 };
+function avLoad(saved) { // ME.av: numero (avatar pronto) oppure codice "c…" (avatar personalizzato)
+  if (avValid(saved)) return saved;
+  return Math.max(0, Math.min(AVATARS.length - 1, parseInt(saved) || 0));
+}
+const AV_TABS = [
+  ["viso", "😀 Viso", [["skin", "Pelle", "col"], ["face", "Espressione", "txt"], ["iris", "Occhi", "col"]]],
+  ["capelli", "💇 Capelli", [["style", "Taglio", "txt"], ["hair", "Colore", "col"]]],
+  ["cappello", "🎩 Cappello", [["hat", "Cappello", "txt"]]],
+  ["vestiti", "👕 Vestiti", [["shirt", "Maglia", "col"], ["pat", "Motivo", "txt"], ["pants", "Pantaloni", "col"]]],
+  ["extra", "🕶 Accessori", [["extra", "Viso", "txt"], ["acc", "Corpo", "txt"]]],
+];
+function avbOpen() {
+  const cur = lsGet("scw_avc", ""); AVB.v = avValid(cur) ? avNorm(cur.slice(1).split(".")) : avDefault(); AVB.tab = "viso";
+  const root = $("avb"); root.hidden = false; avbRender();
+  const cv = $("avbCv"), c = cv.getContext("2d"); let t0 = performance.now();
+  const loop = (now) => { if (root.hidden) return; const t = (now - t0) / 1000; c.clearRect(0, 0, cv.width, cv.height); c.save(); c.translate(cv.width / 2, cv.height * 0.9); c.scale(cv.width * 0.46, cv.width * 0.46);
+    drawAvatar(c, avEncode(AVB.v), { t, walk: AVB.walking ? t * 7 : 0, blink: Math.floor(t * 1.3) % 5 === 0 && (t * 10) % 10 < 1.2 }); c.restore(); AVB.raf = requestAnimationFrame(loop); };
+  cancelAnimationFrame(AVB.raf); AVB.raf = requestAnimationFrame(loop);
+}
+function avbRender() {
+  const body = $("avbBody"); body.textContent = "";
+  const tabs = $("avbTabs"); tabs.textContent = "";
+  AV_TABS.forEach(([id, lab]) => { const b = document.createElement("button"); b.textContent = lab; b.className = "avb-tab" + (AVB.tab === id ? " on" : ""); b.onclick = () => { AVB.tab = id; avbRender(); }; tabs.appendChild(b); });
+  AV_TABS.find((x) => x[0] === AVB.tab)[2].forEach(([key, lab, kind]) => {
+    const i = AV_KEYS.indexOf(key), h = document.createElement("div"); h.className = "avb-h"; h.textContent = lab; body.appendChild(h);
+    const g = document.createElement("div"); g.className = "avb-g"; body.appendChild(g);
+    AV_OPT[key].forEach((val, n) => {
+      const b = document.createElement("button"); b.className = (kind === "col" ? "avb-sw" : "avb-ch") + (AVB.v[i] === n ? " on" : "");
+      if (kind === "col") { b.style.background = val; b.title = lab + " " + (n + 1); } else b.textContent = val;
+      b.onclick = () => { AVB.v[i] = n; [...g.children].forEach((x, j) => x.classList.toggle("on", j === n)); };
+      g.appendChild(b);
+    });
+  });
+}
+function avbRandom() { AVB.v = AV_KEYS.map((k) => Math.floor(Math.random() * AV_OPT[k].length)); AVB.v[7] = Math.random() < 0.6 ? 0 : AVB.v[7]; AVB.v[9] = Math.random() < 0.55 ? 0 : AVB.v[9]; AVB.v[10] = Math.random() < 0.5 ? 0 : AVB.v[10]; AVB.v[5] = Math.random() < 0.55 ? 0 : AVB.v[5]; avbRender(); }
+function avbClose() { $("avb").hidden = true; cancelAnimationFrame(AVB.raf); }
+function avbSave() { const code = avEncode(AVB.v); lsSet("scw_avc", code); ME.av = code; lsSet("scw_av", code); avbClose(); buildJoin(); }
+$("avbRnd").onclick = avbRandom; $("avbWalk").onclick = () => { AVB.walking = !AVB.walking; $("avbWalk").classList.toggle("on", AVB.walking); };
+$("avbOk").onclick = avbSave; $("avbNo").onclick = avbClose;
 
 // ===================== SUPER CAPONE WORLD · chat, comandi, ciclo di gioco =====================
 function badges() {
@@ -2728,7 +2870,7 @@ function start() {
 $("jgo").onclick = start;
 $("jname").addEventListener("keydown", (e) => { if (e.key === "Enter") start(); });
 (function boot() {
-  $("jname").value = lsGet("scw_name", ""); ME.av = Math.max(0, Math.min(AVATARS.length - 1, parseInt(lsGet("scw_av", "0")) || 0));
+  $("jname").value = lsGet("scw_name", ""); ME.av = avLoad(lsGet("scw_av", "0"));
   buildJoin(); Net.init(); $("jst").textContent = Net.ok ? "" : "Connessione online non disponibile: potrai girare da solo.";
   requestAnimationFrame(frame);
   window.__world = { ME, others, roster, threads, chatLog, K, Net, enterTunnel, nearTunnel, openChat, goTo, SHOPS, TUNNELS, QUARTIERI, jumpQuartiere, BILLBOARDS, ZONES, shopHW, CANTIERE_X: () => CANTIERE_X };
@@ -2748,7 +2890,7 @@ function zonaOf(s) { return s.zone === "agrigento" ? quartiereAt(s.x).name : (ZO
 const PERIODI = { mensile: 1, trimestrale: 3, semestrale: 6, annuale: 12, unatantum: 0 };
 const PERIODI_LABEL = { mensile: "Mensile", trimestrale: "Trimestrale", semestrale: "Semestrale", annuale: "Annuale", unatantum: "Una tantum" };
 
-const RG = { data: {}, admin: false, local: false, off: null, ui: { q: "", tipo: "", zona: "", stato: "", ord: "scad", grp: "tipo" } };
+const RG = { data: {}, admin: false, local: false, off: null, ui: { q: "", tipo: [], zona: [], stato: [], ord: "scad", grp: "tipo" } };
 const rgEl = (tag, attrs, ...kids) => { const e = document.createElement(tag); if (attrs) for (const k in attrs) { if (k === "class") e.className = attrs[k]; else if (k.startsWith("on")) e[k] = attrs[k]; else if (k === "value") e.value = attrs[k]; else e.setAttribute(k, attrs[k]); } kids.flat().forEach((c) => { if (c != null) e.appendChild(typeof c === "string" || typeof c === "number" ? document.createTextNode(String(c)) : c); }); return e; };
 const rgToday = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
 const rgIso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
@@ -2763,7 +2905,7 @@ function rgCatalog() {
     return { id, name: s.name, icon: s.icon, tipo: tipoOf(id), zona: zonaOf(s), x: s.x, zone: s.zone, r, days, stato }; });
 }
 const STATO_LABEL = { scaduto: "SCADUTO", settimana: "SCADE A BREVE", mese: "IN ARRIVO", regolare: "REGOLARE", senzascad: "SENZA SCADENZA", sospeso: "SOSPESO" };
-const STATO_FILTRI = { scaduto: "Scaduti", settimana: "Scadono entro 7 giorni", mese: "Scadono entro 30 giorni", regolare: "Regolari", senzascad: "Senza scadenza", sospeso: "Sospesi", nonreg: "Da incassare (scaduti + entro 30 gg)" };
+const STATO_FILTRI = { scaduto: "Scaduti", settimana: "Scadono entro 7 giorni", mese: "Scadono tra 8 e 30 giorni", regolare: "Regolari", senzascad: "Senza scadenza", sospeso: "Sospesi" };
 
 // ---------- salvataggio ----------
 function rgSave(id) {
@@ -2799,7 +2941,7 @@ function rgShowLogin(msg) {
 function rgDemo() { RG.local = true; try { RG.data = JSON.parse(localStorage.getItem("scw_regia_demo") || "{}"); } catch (e) { RG.data = {}; } rgBuild(); }
 function rgStartLive() {
   RG.local = false; const ref = Net.db.ref("regia/shops");
-  const onv = (s) => { RG.data = s.val() || {}; if (!RG.admin) { RG.admin = true; rgBuild(); } else rgRender(); };
+  const onv = (s) => { RG.data = s.val() || {}; if (!RG.admin) { RG.admin = true; rgBuild(); document.addEventListener("click", (e) => { if (!e.target.closest(".rg-ms")) document.querySelectorAll(".rg-ms.open").forEach((x) => x.classList.remove("open")); }); } else rgRender(); };
   const onerr = () => { RG.admin = false; try { firebase.auth().signOut(); } catch (e) {} rgShowLogin("Accesso negato: questo account non è autorizzato. Controlla l'UID nelle regole Firebase."); };
   ref.on("value", onv, onerr); RG.off = () => ref.off("value", onv);
 }
@@ -2808,17 +2950,27 @@ function rgStartLive() {
 function rgBuild() {
   const root = $("regia"); [...root.children].forEach((c) => { if (c.id !== "rgToast") c.remove(); });
   const sel = (key, opts, first) => { const s = rgEl("select", { onchange: (e) => { RG.ui[key] = e.target.value; rgRender(); } }); if (first != null) s.appendChild(rgEl("option", { value: "" }, first)); opts.forEach(([v, l]) => s.appendChild(rgEl("option", { value: v }, l))); s.value = RG.ui[key]; return s; };
+  const multi = (key, label, opts) => { // menu a scelta multipla: spunti quanti vuoi
+    const wrap = rgEl("div", { class: "rg-ms" }), btn = rgEl("button", { class: "rg-msb", type: "button" }), panel = rgEl("div", { class: "rg-msp" });
+    const upd = () => { const n = RG.ui[key].length; btn.textContent = n ? label + " (" + n + ") ▾" : label + " ▾"; btn.classList.toggle("on", n > 0); };
+    const bar = rgEl("div", { class: "rg-msbar" }, rgEl("button", { class: "rg-b ghost", type: "button", onclick: () => { RG.ui[key] = opts.map((o) => o[0]); panel.querySelectorAll("input").forEach((i) => (i.checked = true)); upd(); rgRender(); } }, "Tutti"),
+      rgEl("button", { class: "rg-b ghost", type: "button", onclick: () => { RG.ui[key] = []; panel.querySelectorAll("input").forEach((i) => (i.checked = false)); upd(); rgRender(); } }, "Nessuno"), rgEl("button", { class: "rg-b gold", type: "button", onclick: () => wrap.classList.remove("open") }, "OK"));
+    if (key === "zona") bar.insertBefore(rgEl("button", { class: "rg-b ghost", type: "button", onclick: () => { const q = QUARTIERI.map((x) => x.name).filter((n) => opts.some((o) => o[0] === n)); RG.ui[key] = q; panel.querySelectorAll("input").forEach((i, k) => (i.checked = q.includes(opts[k][0]))); upd(); rgRender(); } }, "Tutta Agrigento"), bar.lastChild);
+    panel.appendChild(bar);
+    opts.forEach(([v, l]) => { const cb = rgEl("input", { type: "checkbox" }); cb.checked = RG.ui[key].includes(v); cb.onchange = () => { const a = RG.ui[key]; if (cb.checked) { if (!a.includes(v)) a.push(v); } else RG.ui[key] = a.filter((x) => x !== v); upd(); rgRender(); }; panel.appendChild(rgEl("label", { class: "rg-msi" }, cb, " " + l)); });
+    btn.onclick = () => { const was = wrap.classList.contains("open"); document.querySelectorAll(".rg-ms.open").forEach((x) => x.classList.remove("open")); if (!was) wrap.classList.add("open"); };
+    upd(); wrap.append(btn, panel); return wrap;
+  };
   const zone = [...new Set(rgCatalog().map((c) => c.zona))].sort((a, b) => a.localeCompare(b, "it"));
   const top = rgEl("div", { class: "rg-top" }, rgEl("div", { class: "rg-title" }, rgEl("b", null, "🎬 REGIA"), rgEl("small", { id: "rgSub" }, "")),
     rgEl("div", { class: "rg-acts" }, rgEl("button", { class: "rg-b", onclick: rgCsv }, "⬇ Excel (CSV)"), rgEl("button", { class: "rg-b", onclick: rgBackup }, "💾 Backup"), rgEl("button", { class: "rg-b", onclick: () => $("rgFile").click() }, "⬆ Ripristina"), rgEl("button", { class: "rg-b red", onclick: () => { if (!RG.local) try { firebase.auth().signOut(); } catch (e) {} rgClose(); } }, "Esci")));
   const file = rgEl("input", { type: "file", id: "rgFile", accept: "application/json", style: "display:none" }); file.onchange = rgRestore;
   const filt = rgEl("div", { class: "rg-filt" },
     rgEl("input", { id: "rgQ", type: "search", placeholder: "🔎 Cerca nome, referente, telefono…", value: RG.ui.q, oninput: (e) => { RG.ui.q = e.target.value; rgRender(); } }),
-    sel("tipo", Object.entries(TIPI), "Tutte le tipologie"), sel("zona", zone.map((z) => [z, z]), "Tutte le zone"),
-    sel("stato", Object.entries(STATO_FILTRI), "Tutti gli stati"),
+    multi("tipo", "Tipologie", Object.entries(TIPI)), multi("zona", "Zone / quartieri", zone.map((z) => [z, z])), multi("stato", "Stati", Object.entries(STATO_FILTRI)),
     sel("ord", [["scad", "Scadenza: più vicina prima"], ["scadDesc", "Scadenza: più lontana prima"], ["az", "Nome A → Z"], ["za", "Nome Z → A"], ["fee", "Canone più alto"]]),
     sel("grp", [["tipo", "Raggruppa per tipologia"], ["zona", "Raggruppa per zona"], ["none", "Nessun gruppo"]]),
-    rgEl("button", { class: "rg-b ghost", onclick: () => { RG.ui = { q: "", tipo: "", zona: "", stato: "", ord: "scad", grp: "tipo" }; rgBuild(); } }, "Azzera filtri"));
+    rgEl("button", { class: "rg-b ghost", onclick: () => { RG.ui = { q: "", tipo: [], zona: [], stato: [], ord: "scad", grp: "tipo" }; rgBuild(); } }, "Azzera filtri"));
   root.appendChild(rgEl("div", { class: "rg-wrap" }, top, rgEl("div", { id: "rgCards", class: "rg-cards" }), filt, rgEl("div", { id: "rgList" }), file));
   rgRender();
 }
@@ -2830,12 +2982,11 @@ function rgRender() {
   const now = rgToday(), ym = rgIso(now).slice(0, 7), y1 = rgIso(new Date(now.getFullYear() - 1, now.getMonth(), now.getDate()));
   const pays = cat.flatMap((c) => c.r.pay.map((p) => ({ ...p, id: c.id }))); const mese = pays.filter((p) => (p.d || "").slice(0, 7) === ym).reduce((t, p) => t + (+p.a || 0), 0), anno = pays.filter((p) => (p.d || "") >= y1).reduce((t, p) => t + (+p.a || 0), 0);
   $("rgSub").textContent = cat.length + " punti vendita · " + act.length + " attivi";
-  const card = (cls, lab, big, small, f) => rgEl("button", { class: "rg-card " + cls, onclick: f ? () => { RG.ui.stato = f; rgBuild(); } : null }, rgEl("small", null, lab), rgEl("b", null, big), rgEl("em", null, small));
+  const card = (cls, lab, big, small, f) => rgEl("button", { class: "rg-card " + cls, onclick: f ? () => { RG.ui.stato = f.split(","); rgBuild(); } : null }, rgEl("small", null, lab), rgEl("b", null, big), rgEl("em", null, small));
   const cc = $("rgCards"); cc.textContent = "";
-  cc.append(card("red", "⚠ SCADUTI", scad.length, rgEur(sum(scad)) + " da incassare", "scaduto"), card("amber", "⏳ ENTRO 30 GIORNI", prox.length, rgEur(sum(prox)) + " in arrivo", "nonreg2"),
+  cc.append(card("red", "⚠ SCADUTI", scad.length, rgEur(sum(scad)) + " da incassare", "scaduto"), card("amber", "⏳ ENTRO 30 GIORNI", prox.length, rgEur(sum(prox)) + " in arrivo", "settimana,mese"),
     card("green", "💶 INCASSATO QUESTO MESE", rgEur(mese), "ultimi 12 mesi: " + rgEur(anno), null), card("blue", "🏪 PUNTI VENDITA", cat.length, act.length + " attivi · " + (cat.length - act.length) + " sospesi", null));
-  cc.children[1].onclick = () => { RG.ui.stato = "nonreg"; rgBuild(); };
-  let rows = cat.filter((c) => (!u.tipo || c.tipo === u.tipo) && (!u.zona || c.zona === u.zona) && (!u.stato || (u.stato === "nonreg" ? ["scaduto", "settimana", "mese"].includes(c.stato) : c.stato === u.stato)) &&
+  let rows = cat.filter((c) => (!u.tipo.length || u.tipo.includes(c.tipo)) && (!u.zona.length || u.zona.includes(c.zona)) && (!u.stato.length || u.stato.includes(c.stato)) &&
     (!q || (c.name + " " + c.r.ref.n + " " + c.r.ref.t + " " + c.r.ref.e + " " + TIPI[c.tipo] + " " + c.zona).toLowerCase().includes(q)));
   const cmpDays = (dir) => (a, b) => { const x = a.days == null ? 1e9 : a.days, y = b.days == null ? 1e9 : b.days; if (a.days == null && b.days == null) return a.name.localeCompare(b.name, "it"); if (a.days == null) return 1; if (b.days == null) return -1; return dir * (x - y) || a.name.localeCompare(b.name, "it"); };
   rows.sort(u.ord === "az" ? (a, b) => a.name.localeCompare(b.name, "it") : u.ord === "za" ? (a, b) => b.name.localeCompare(a.name, "it") : u.ord === "fee" ? (a, b) => b.r.fee - a.r.fee || a.name.localeCompare(b.name, "it") : u.ord === "scadDesc" ? cmpDays(-1) : cmpDays(1));
