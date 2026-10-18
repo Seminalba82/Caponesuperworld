@@ -1412,7 +1412,7 @@ function scDrawFavaraSign(c, x, T, name, sub) {
   }
 }
 // ===================== SUPER CAPONE WORLD · arte (avatar, negozi, terreno) =====================
-const WORLD_VERSION = "v1.16";
+const WORLD_VERSION = "v1.18";
 const T0 = 1; // unità: tutto è disegnato in "caselle" (come in Super Capone), i piedi sono in (0,0)
 
 // ---------- 11 avatar: il Capone + 10 personaggi ----------
@@ -2210,6 +2210,206 @@ function drawClothesFlag(c, t, px, top) {
   for (let k = 0; k < n; k++) { const wv = Math.sin(t * 3.2 + k * 0.7 + 2.1) * 0.09 * (k + 1) / n * 2; c.drawImage(cv, k * 16, 0, 16, 100, px + 0.06 + k * w / n, top - ph + 0.12 + wv, w / n + 0.02, h); }
 }
 
+// ===================== sfondi dei quartieri di Agrigento =====================
+// ogni quartiere ha il suo paesaggio dietro le vetrine: mare, camping, case, stadio, mura di tufo, centro commerciale, palazzi.
+// Le misure sono in "unità": 1 unità = 1 casella del mondo, disegnata con la parallasse BGP.
+const BGP = 0.6;
+const bgR = (k, s) => { let h = Math.imul((k | 0) + 7919 * (s | 0) + 13, 2654435761); h ^= h >>> 15; h = Math.imul(h, 2246822519); h ^= h >>> 13; return (h >>> 0) / 4294967296; };
+const bgPick = (a, r) => a[Math.min(a.length - 1, Math.floor(r * a.length))];
+const bgWin = (c, x, y, w, h, lit) => { c.fillStyle = lit ? "#ffe9a0" : "#3c5a73"; c.fillRect(x, y, w, h); c.fillStyle = "rgba(255,255,255,.26)"; c.fillRect(x, y, w * 0.4, h); };
+function bgTree(c, s, col) { c.fillStyle = "#6d4c41"; c.fillRect(-0.12 * s, -1.4 * s, 0.24 * s, 1.4 * s); c.fillStyle = col || "#3f8f3a"; c.beginPath(); c.arc(0, -1.9 * s, 0.95 * s, 0, 7); c.arc(-0.6 * s, -1.4 * s, 0.7 * s, 0, 7); c.arc(0.6 * s, -1.4 * s, 0.7 * s, 0, 7); c.fill(); }
+function bgPine(c, s) { c.fillStyle = "#5d4037"; c.fillRect(-0.1 * s, -0.8 * s, 0.2 * s, 0.8 * s); [["#2e7d32", 1.1, 0.5], ["#388e3c", 0.9, 1.5], ["#43a047", 0.65, 2.4]].forEach(([col, w, y]) => { c.fillStyle = col; c.beginPath(); c.moveTo(-w * s, -y * s + 0.9 * s); c.lineTo(0, -y * s - 0.9 * s); c.lineTo(w * s, -y * s + 0.9 * s); c.fill(); }); }
+function bgPalazzo(c, w, fl, wall, r, shop) {
+  const fh = 1.5, h = fl * fh + 0.6;
+  c.fillStyle = wall; c.fillRect(-w / 2, -h, w, h);
+  c.fillStyle = "rgba(0,0,0,.09)"; c.fillRect(w * 0.28, -h, w * 0.22, h);
+  c.fillStyle = "rgba(0,0,0,.2)"; c.fillRect(-w / 2 - 0.1, -h - 0.25, w + 0.2, 0.25);
+  const cols = Math.max(2, Math.round(w / 1.7));
+  for (let f = 0; f < fl; f++) for (let i = 0; i < cols; i++) {
+    const x = -w / 2 + (i + 0.5) * (w / cols) - 0.3, y = -h + 0.35 + f * fh;
+    bgWin(c, x, y, 0.6, 0.85, bgR(f * 9 + i, (r * 50) | 0) > 0.82);
+    c.fillStyle = "rgba(70,70,70,.5)"; c.fillRect(x - 0.12, y + 0.85, 0.84, 0.07);
+  }
+  if (shop) { c.fillStyle = shop; c.fillRect(-w / 2, -1.0, w, 0.32); c.fillStyle = "#2b3a42"; c.fillRect(-w / 2 + 0.3, -0.7, w - 0.6, 0.7); c.fillStyle = "#ffe9a0"; c.fillRect(-w / 2 + 0.45, -0.62, w - 0.9, 0.5); }
+  else { c.fillStyle = "#5d4037"; c.fillRect(-0.35, -0.9, 0.7, 0.9); }
+  c.strokeStyle = "#555"; c.lineWidth = 0.07; c.beginPath(); c.moveTo(w * 0.15, -h - 0.25); c.lineTo(w * 0.15, -h - 1.1); c.moveTo(w * 0.05, -h - 0.9); c.lineTo(w * 0.25, -h - 0.9); c.stroke();
+}
+function bgCasa(c, w, fl, wall, roof, r) {
+  const h = fl * 1.5 + 0.3;
+  c.fillStyle = wall; c.fillRect(-w / 2, -h, w, h);
+  c.fillStyle = "rgba(0,0,0,.08)"; c.fillRect(w * 0.25, -h, w * 0.25, h);
+  c.fillStyle = roof; c.beginPath(); c.moveTo(-w / 2 - 0.35, -h); c.lineTo(0, -h - 1.2 - w * 0.1); c.lineTo(w / 2 + 0.35, -h); c.closePath(); c.fill();
+  c.fillStyle = "rgba(0,0,0,.16)"; c.beginPath(); c.moveTo(0, -h - 1.2 - w * 0.1); c.lineTo(w / 2 + 0.35, -h); c.lineTo(0.2, -h); c.closePath(); c.fill();
+  for (let f = 0; f < fl; f++) for (let i = 0; i < 2; i++) { const x = (i ? 0.45 : -1.05) * (w / 3.2) - 0.0 + (i ? 0.2 : 0), y = -h + 0.4 + f * 1.5; bgWin(c, i ? w * 0.18 : -w * 0.36, y, 0.6, 0.8, bgR(f + i * 3, (r * 40) | 0) > 0.85); c.fillStyle = "#8d6e63"; c.fillRect((i ? w * 0.18 : -w * 0.36) - 0.1, y + 0.8, 0.8, 0.07); }
+  c.fillStyle = "#6d4c41"; c.fillRect(-0.3, -0.95, 0.6, 0.95);
+}
+function bgMerli(c, x0, x1, y, n, col) { c.fillStyle = col; for (let i = 0; i < n; i++) { const w = (x1 - x0) / (n * 2 - 1); c.fillRect(x0 + i * 2 * w, y - 0.5, w, 0.5); } }
+function bgTufoCasa(c, r, wall) {
+  const w = 4.6 + r * 1.6, fl = 2 + (r > 0.55 ? 1 : 0), h = fl * 1.6 + 0.4;
+  c.fillStyle = wall; c.fillRect(-w / 2, -h, w, h);
+  c.fillStyle = "rgba(90,60,20,.13)"; for (let y = 0; y < h; y += 0.55) c.fillRect(-w / 2, -y - 0.04, w, 0.04);
+  c.fillStyle = "rgba(0,0,0,.09)"; c.fillRect(w * 0.3, -h, w * 0.2, h);
+  c.fillStyle = "#a1583a"; c.fillRect(-w / 2 - 0.3, -h - 0.35, w + 0.6, 0.35); c.fillStyle = "#b8643f"; c.fillRect(-w / 2 - 0.15, -h - 0.62, w + 0.3, 0.3);
+  const cols = Math.max(2, Math.round(w / 1.9)), shut = bgPick(["#3e6b4a", "#6d4c41", "#2f5d73"], r);
+  for (let f = 0; f < fl; f++) for (let i = 0; i < cols; i++) {
+    const x = -w / 2 + (i + 0.5) * (w / cols), y = -h + 0.5 + f * 1.6;
+    c.fillStyle = "#33281d"; c.fillRect(x - 0.28, y + 0.25, 0.56, 0.75); c.beginPath(); c.arc(x, y + 0.25, 0.28, Math.PI, 0); c.fill();
+    c.fillStyle = shut; c.fillRect(x - 0.52, y + 0.2, 0.22, 0.85); c.fillRect(x + 0.3, y + 0.2, 0.22, 0.85);
+    if (f > 0 && i % 2 === 0) { c.fillStyle = "#222"; c.fillRect(x - 0.6, y + 1.0, 1.2, 0.07); }
+  }
+  c.fillStyle = "#4e3b2c"; c.fillRect(-0.4, -1.2, 0.8, 1.2); c.beginPath(); c.arc(0, -1.2, 0.4, Math.PI, 0); c.fill();
+  c.fillStyle = "#8d6e63"; c.fillRect(w * 0.2, -h - 1.1, 0.5, 0.5);
+}
+function bgMura(c, w, r) {
+  const h = 2.5;
+  c.fillStyle = "#cdb078"; c.fillRect(-w / 2, -h, w, h);
+  c.fillStyle = "rgba(80,55,20,.25)";
+  for (let y = 0; y < h; y += 0.5) { c.fillRect(-w / 2, -y - 0.03, w, 0.04); for (let x = -w / 2 + ((y * 2) % 1.2); x < w / 2; x += 1.2) c.fillRect(x, -y - 0.5, 0.04, 0.5); }
+  c.fillStyle = "rgba(0,0,0,.1)"; c.fillRect(-w / 2, -0.4, w, 0.4);
+  bgMerli(c, -w / 2, w / 2, -h, 5, "#cdb078");
+  if (r > 0.45) { const tw = 2.2, th = 4.6; c.fillStyle = "#c4a56a"; c.fillRect(-tw / 2, -th, tw, th); c.fillStyle = "rgba(80,55,20,.25)"; for (let y = 0; y < th; y += 0.5) c.fillRect(-tw / 2, -y - 0.03, tw, 0.04); bgMerli(c, -tw / 2 - 0.15, tw / 2 + 0.15, -th, 3, "#c4a56a"); c.fillStyle = "#33281d"; c.fillRect(-0.12, -3.4, 0.24, 0.8); c.beginPath(); c.arc(0, -2.6, 0, 0, 0); c.fill(); }
+}
+function bgTenda(c, r) {
+  const cols = ["#e53935", "#1e88e5", "#fb8c00", "#43a047", "#8e24aa", "#fdd835"], col = bgPick(cols, r), w = 1.6 + r * 0.5;
+  c.fillStyle = col; c.beginPath(); c.moveTo(-w, 0); c.lineTo(0, -2.3); c.lineTo(w, 0); c.closePath(); c.fill();
+  c.fillStyle = "rgba(0,0,0,.2)"; c.beginPath(); c.moveTo(0, -2.3); c.lineTo(w, 0); c.lineTo(0.15, 0); c.closePath(); c.fill();
+  c.fillStyle = "#263238"; c.beginPath(); c.moveTo(-0.55, 0); c.lineTo(0, -1.4); c.lineTo(0.55, 0); c.closePath(); c.fill();
+  c.strokeStyle = "#cfd8dc"; c.lineWidth = 0.05; c.beginPath(); c.moveTo(-w, 0); c.lineTo(-w - 0.6, 0.05); c.moveTo(w, 0); c.lineTo(w + 0.6, 0.05); c.stroke();
+}
+function bgBungalow(c, r) {
+  const w = 3.6, h = 2.1;
+  c.fillStyle = bgPick(["#c58f56", "#b07a45", "#d2a06a"], r); c.fillRect(-w / 2, -h, w, h);
+  c.fillStyle = "rgba(60,30,10,.22)"; for (let x = -w / 2 + 0.4; x < w / 2; x += 0.4) c.fillRect(x, -h, 0.04, h);
+  c.fillStyle = "#6d3b2a"; c.beginPath(); c.moveTo(-w / 2 - 0.3, -h); c.lineTo(0, -h - 1.1); c.lineTo(w / 2 + 0.3, -h); c.closePath(); c.fill();
+  bgWin(c, -1.3, -1.45, 0.8, 0.8, r > 0.6); c.fillStyle = "#4e342e"; c.fillRect(0.45, -1.5, 0.7, 1.5);
+  c.fillStyle = "#8d6e63"; c.fillRect(-w / 2 - 0.2, -0.12, w + 0.4, 0.12);
+}
+function bgCaravan(c, r) {
+  c.fillStyle = "#f5f5f0"; c.beginPath(); c.moveTo(-2, 0); c.lineTo(-2, -1.2); c.quadraticCurveTo(-2, -2, -1.2, -2); c.lineTo(1.2, -2); c.quadraticCurveTo(2, -2, 2, -1.2); c.lineTo(2, 0); c.closePath(); c.fill();
+  c.fillStyle = bgPick(["#1e88e5", "#e53935", "#43a047"], r); c.fillRect(-2, -0.9, 4, 0.25);
+  bgWin(c, -0.6, -1.7, 1.0, 0.6, false); c.fillStyle = "#37474f"; c.beginPath(); c.arc(0.3, 0.02, 0.4, 0, 7); c.fill(); c.fillStyle = "#cfd8dc"; c.beginPath(); c.arc(0.3, 0.02, 0.18, 0, 7); c.fill();
+  c.strokeStyle = "#78909c"; c.lineWidth = 0.1; c.beginPath(); c.moveTo(2, -0.35); c.lineTo(2.9, -0.2); c.stroke();
+}
+function bgOmbrellone(c, r) {
+  const cols = [["#e53935", "#fff"], ["#1e88e5", "#fff"], ["#fb8c00", "#fff"], ["#00acc1", "#fff"]], [a, b] = bgPick(cols, r);
+  c.strokeStyle = "#8d6e63"; c.lineWidth = 0.1; c.beginPath(); c.moveTo(0, 0); c.lineTo(0, -2.4); c.stroke();
+  for (let i = 0; i < 4; i++) { c.fillStyle = i % 2 ? b : a; c.beginPath(); c.moveTo(0, -2.4); c.arc(0, -2.4, 1.6, Math.PI + i * Math.PI / 4, Math.PI + (i + 1) * Math.PI / 4); c.closePath(); c.fill(); }
+  c.fillStyle = bgPick(["#ff8a65", "#4fc3f7", "#ffd54f"], r * 3 % 1); c.fillRect(-1.0, -0.12, 2.0, 0.12);
+}
+function bgCabina(c, r) {
+  const a = bgPick(["#e53935", "#1e88e5", "#43a047", "#fb8c00"], r), w = 2.4, h = 2.6;
+  c.fillStyle = "#fff"; c.fillRect(-w / 2, -h, w, h);
+  c.fillStyle = a; for (let x = -w / 2; x < w / 2; x += 0.6) c.fillRect(x, -h, 0.3, h);
+  c.fillStyle = "#6d4c41"; c.beginPath(); c.moveTo(-w / 2 - 0.2, -h); c.lineTo(0, -h - 0.8); c.lineTo(w / 2 + 0.2, -h); c.closePath(); c.fill();
+  c.fillStyle = "#37474f"; c.fillRect(-0.4, -1.7, 0.8, 1.7);
+}
+function bgPalmaPiccola(c, t) {
+  c.strokeStyle = "#8d5a2b"; c.lineWidth = 0.28; c.lineCap = "round"; c.beginPath(); c.moveTo(0, 0); c.quadraticCurveTo(0.5, -2.2, 0.2, -4.0); c.stroke();
+  c.fillStyle = "#2e8b3d"; for (let i = 0; i < 7; i++) { const a = -Math.PI / 2 + (i - 3) * 0.55 + Math.sin(t * 1.2 + i) * 0.05; c.save(); c.translate(0.2, -4.0); c.rotate(a); c.beginPath(); c.ellipse(1.0, 0, 1.1, 0.22, 0, 0, 7); c.fill(); c.restore(); }
+}
+function bgStadio(c, k) {
+  const w = 8, h = 2.8;
+  c.fillStyle = "#b9bdc2"; c.fillRect(-w / 2, -h, w, h);
+  for (let i = 0; i < 4; i++) { c.fillStyle = i % 2 ? "#1565c0" : "#e3e8ee"; c.fillRect(-w / 2, -h + 0.25 + i * 0.5, w, 0.5); }
+  c.fillStyle = "rgba(0,0,0,.2)"; for (let x = -w / 2 + 0.5; x < w / 2; x += 0.9) c.fillRect(x, -h + 0.25, 0.05, 2.0);
+  c.fillStyle = "#455a64"; c.beginPath(); c.moveTo(-w / 2 - 0.2, -h - 0.1); c.lineTo(w / 2 + 0.2, -h - 0.1); c.lineTo(w / 2 + 0.2, -h - 0.6); c.lineTo(-w / 2 - 0.2, -h - 0.3); c.closePath(); c.fill();
+  c.fillStyle = "#37474f"; c.fillRect(-w / 2, -0.55, w, 0.55); c.fillStyle = "#cfd8dc"; for (let x = -w / 2 + 0.3; x < w / 2; x += 1.0) c.fillRect(x, -0.45, 0.4, 0.45);
+  if (k % 2 === 0) { // torre faro
+    c.fillStyle = "#78909c"; c.fillRect(-w / 2 - 0.1, -7.2, 0.22, 7.2); c.fillStyle = "#37474f"; c.fillRect(-w / 2 - 0.9, -8.1, 1.8, 1.0);
+    c.fillStyle = "#fff9c4"; for (let i = 0; i < 3; i++) for (let j = 0; j < 2; j++) { c.beginPath(); c.arc(-w / 2 - 0.5 + i * 0.5, -7.8 + j * 0.45, 0.17, 0, 7); c.fill(); }
+  }
+}
+function bgMallBody(c, k) {
+  const w = 8, h = 6.2;
+  const g = c.createLinearGradient(0, -h, 0, 0); g.addColorStop(0, "#f5e9cf"); g.addColorStop(1, "#e2d3b0");
+  c.fillStyle = g; c.fillRect(-w / 2, -h, w, h);
+  c.fillStyle = "rgba(120,100,60,.1)"; for (let i = 0; i < 12; i++) c.fillRect(-w / 2, -5.8 + i * 0.5, w, 0.03);
+  const cl = ["#e53935", "#1e88e5", "#43a047", "#fb8c00", "#8e24aa"];
+  for (let i = 0; i < 3; i++) {
+    const x = -w / 2 + 0.15 + i * 2.6;
+    c.fillStyle = cl[(k * 3 + i) % 5]; c.fillRect(x, -4.9, 2.4, 0.6); c.fillStyle = "rgba(255,255,255,.85)"; c.fillRect(x + 0.3, -4.7, 1.7, 0.1);
+    c.fillStyle = "#2b2118"; c.fillRect(x - 0.05, -3.9, 2.5, 2.6); const gg = c.createLinearGradient(0, -3.8, 0, -1.4); gg.addColorStop(0, "#fff3b0"); gg.addColorStop(1, "#ffb74d"); c.fillStyle = gg; c.fillRect(x, -3.85, 2.4, 2.5);
+    c.fillStyle = "rgba(0,0,0,.25)"; for (let m = 0; m < 3; m++) c.fillRect(x + 0.25 + m * 0.7, -2.5, 0.32, 1.1);
+  }
+  c.fillStyle = "#b8963e"; c.fillRect(-w / 2, -h - 0.15, w, 0.3);
+  c.fillStyle = "#c8c4ba"; c.fillRect(-w / 2, -0.12, w, 0.12);
+}
+
+// ---- i temi: sp = larghezza di un pezzo di paesaggio, hill = colore della collina dietro, strip = suolo sotto gli edifici ----
+const BGT = {
+  sanleone: { sp: 6.5, hill: "#ecd28f", strip: "#e8cf8c", draw: (c, r, k, x, t) => {
+    const m = k % 4;
+    if (m === 0) { c.save(); c.translate(-1.6, 0); bgOmbrellone(c, r); c.restore(); c.save(); c.translate(1.5, 0); bgOmbrellone(c, (r * 7) % 1); c.restore(); }
+    else if (m === 1) bgCabina(c, r);
+    else if (m === 2) { bgPalmaPiccola(c, t); c.save(); c.translate(2.2, 0); bgOmbrellone(c, r); c.restore(); }
+    else { c.save(); c.translate(-1.2, 0); bgCabina(c, (r * 5) % 1); c.restore(); c.save(); c.translate(1.8, 0); bgPalmaPiccola(c, t + 1); c.restore(); }
+  } },
+  peruzzo: { sp: 4.6, hill: "#6fae45", strip: "#79b84a", draw: (c, r, k) => {
+    const m = r;
+    if (m < 0.38) bgTenda(c, (r * 11) % 1); else if (m < 0.6) bgBungalow(c, (r * 13) % 1); else if (m < 0.82) bgPine(c, 1.1 + (r * 3) % 0.5); else bgCaravan(c, (r * 17) % 1);
+  } },
+  mose: { sp: 7.2, hill: "#86b95c", strip: "#8cc063", draw: (c, r, k) => {
+    const wall = bgPick(["#f3e2c4", "#f0c9a8", "#e8d6a4", "#d9e4c0", "#f1d4d0"], r), roof = bgPick(["#c1583a", "#b34a30", "#a85a3a"], (r * 9) % 1);
+    if (k % 3 === 1) { bgPalazzo(c, 5.4, 3 + (r > 0.5 ? 1 : 0), wall, r); }
+    else { c.save(); c.translate(-1.4, 0); bgCasa(c, 3.6 + r * 0.9, 2 + (r > 0.6 ? 1 : 0), wall, roof, r); c.restore(); c.save(); c.translate(2.5, 0); bgTree(c, 1.0); c.restore(); }
+  } },
+  campo: { sp: 8, hill: "#5ba344", strip: "#4fa341", draw: (c, r, k) => bgStadio(c, k) },
+  centro: { sp: 6.4, hill: "#c9b48a", strip: "#b9a784", draw: (c, r, k) => {
+    const m = k % 4;
+    if (m === 2) bgMura(c, 6.2, r); else bgTufoCasa(c, r, bgPick(["#d8bc82", "#cfb074", "#dcc592", "#c9a566"], (r * 7) % 1));
+  } },
+  monserrato: { sp: 8, hill: "#a9ad9a", strip: "#a8a8a0", draw: (c, r, k) => bgMallBody(c, k) },
+  villaseta: { sp: 8, hill: "#a9ad9a", strip: "#a8a8a0", draw: (c, r, k, x, t, q) => {
+    if ((k + 0.5) * 8 < (q.end - q.from) * 0.5) bgMallBody(c, k + 3);
+    else { const wall = bgPick(["#f3e2c4", "#e6b8a0", "#d6dce0", "#efe0a8"], r); c.save(); c.translate(-0.8, 0); bgPalazzo(c, 5.6, 3 + (r > 0.5 ? 1 : 0), wall, r); c.restore(); }
+  } },
+  quadrivio: { sp: 6.8, hill: "#9aa09a", strip: "#8d9091", draw: (c, r, k) => bgPalazzo(c, 5.8, 3 + Math.floor(r * 3), bgPick(["#e6d3b3", "#d8c7a6", "#d1b9a7", "#cfd3d6", "#e8c9a0"], (r * 7) % 1), r, bgPick(["#e53935", "#1e88e5", "#43a047", "#fb8c00"], (r * 13) % 1)) },
+  fontanelle: { sp: 7.0, hill: "#9aa09a", strip: "#8d9091", draw: (c, r, k) => bgPalazzo(c, 6.2, 5 + Math.floor(r * 4), bgPick(["#d9c7a3", "#c8cdd2", "#e0b9a0", "#cdb89a", "#bfc6cc"], (r * 7) % 1), r) },
+  montaperto: { sp: 7.5, hill: "#93b85b", strip: "#8fb35a", draw: (c, r, k, x, t) => {
+    if (k % 3 === 2) { scDrawAlmond(c, 0, 0, 1.6, t); } else { c.save(); c.translate(-1.2, 0); bgCasa(c, 3.8 + r, 2, bgPick(["#f2dfb8", "#ead3a6", "#f0c9a8"], r), "#b0573a", r); c.restore(); c.save(); c.translate(2.7, 0); scDrawAlmond(c, 0, 0, 1.3, t); c.restore(); }
+  } },
+};
+const bgThemeAt = (wx) => { let q = QUARTIERI[0]; for (let i = 0; i < QUARTIERI.length; i++) if (wx >= QUARTIERI[i].from) q = QUARTIERI[i]; return BGT[q.id]; };
+
+function drawAgrigentoBg(c, W, H, cam, T, t) {
+  drawSky(c, W, H, { sky: SKY }, t, cam, T);
+  // il mare si vede solo a San Leone e svanisce andando verso l'interno
+  const cc = cam + W / T / 2, sa = Math.max(0, Math.min(1, 1 - (cc - SAND_END - 4) / 26));
+  if (sa > 0) { c.globalAlpha = sa; drawSea(c, W, H, cam, T, t, 1); c.globalAlpha = 1; }
+  const far = cam * T * 0.25;
+  c.fillStyle = "#e2b36a"; c.beginPath(); c.moveTo(0, H);
+  const hy = (x) => H * 0.6 - Math.sin((x + far) * 0.004) * H * 0.05 - Math.sin((x + far) * 0.011) * H * 0.02;
+  for (let x = 0; x <= W + 20; x += 20) c.lineTo(x, hy(x));
+  c.lineTo(W, H); c.fill();
+  const spacing = T * 22;
+  for (let k = Math.floor(far / spacing) - 1; k < Math.floor((far + W) / spacing) + 2; k++) {
+    const x = k * spacing - far + T * 6; scDrawTemple(c, x, hy(x) + T * 0.15, T * (k % 2 ? 3.2 : 2.4), k % 2 ? "#c78f45" : "#b98236");
+  }
+  // collina del quartiere (colore diverso per ogni zona)
+  const hp = 0.5, hillY = (wx) => H * 0.7 - Math.sin(wx * 0.2) * H * 0.04 - Math.cos(wx * 0.53) * H * 0.012;
+  for (let sx = 0; sx < W + 4; sx += 4) { const wx = cam + (sx + 2 - (1 - hp) * W / 2) / (hp * T), y = hillY(wx); c.fillStyle = bgThemeAt(wx).hill; c.fillRect(sx, y, 5, H - y); }
+  // paesaggio del quartiere
+  const u = BGP * T, base = T * 9.5, off = (1 - BGP) * W / 2;
+  const wL = cam - off / u - 10, wR = cam + (W - off) / u + 10;
+  QUARTIERI.forEach((q) => {
+    if (q.end == null || q.end < wL || q.from > wR) return;
+    const th = BGT[q.id], a = Math.max(q.from, wL), b = Math.min(q.end, wR);
+    const k0 = Math.floor((a - q.from) / th.sp), k1 = Math.floor((b - q.from) / th.sp);
+    for (let k = k0; k <= k1; k++) {
+      const cx = q.from + (k + 0.5) * th.sp; if (cx + th.sp * 0.5 > q.end + 2.5) continue;
+      const sx = BGP * (cx - cam) * T + off;
+      c.fillStyle = th.strip; c.fillRect(sx - th.sp * u * 0.5 - 1, base, th.sp * u + 2, T * 0.6);
+      c.save(); c.translate(sx, base + T * 0.1); c.scale(u, u); th.draw(c, bgR(k, q.from | 0), k, cx, t, q); c.restore();
+    }
+  });
+  // il centro commerciale Città dei Templi fa da sfondo a Monserrato e Villaseta
+  const mq = QUARTIERI.find((k) => k.id === "monserrato");
+  if (mq && mq.end != null) {
+    const mx = (mq.from + mq.end) / 2, sx = BGP * (mx - cam) * T + off;
+    if (sx > -16 * u && sx < W + 16 * u) { c.save(); c.translate(sx, base + T * 0.1); c.scale(u, u); drawCentroComm(c, t, null); c.restore(); }
+  }
+}
+
 // ===================== SUPER CAPONE WORLD · mondo, zone, negozi, gallerie =====================
 const $ = (id) => document.getElementById(id);
 const FB_CFG = window.SCW_FIREBASE || {}; // i dati del progetto Firebase stanno nel file firebase-config.js
@@ -2230,7 +2430,6 @@ const SHOPS = {
   posta: { zone: "agrigento", x: 180, name: "Ufficio Postale", icon: "✉️", sub: "Posta · Agrigento centro", text: "La vetrina dell'ufficio postale è in arrivo: qui troverai presto orari e collegamenti ai servizi online.", links: [] },
   palacongressi: { zone: "agrigento", x: 364, r: 12.5, name: "Pala Congressi", icon: "🏟", sub: "Eventi e congressi · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina del Pala Congressi è in arrivo: qui troverai presto eventi, spettacoli e informazioni.", links: [] },
   rifugio: { zone: "agrigento", x: 502, r: 10.5, name: "Rifugio Hope", icon: "🐶", sub: "Rifugio per cani · Monserrato", q: "MONSERRATO", text: "Rifugio Hope di Agrigento: scopri i cani da adottare e come aiutarli.", links: [{ t: "🔎 Cerca Rifugio Hope su Google", u: "https://www.google.com/search?q=rifugio+hope+agrigento&oq=rifugio+hope+agrigento&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDk1ODFqMGo0qAIBsAIB&client=ms-android-honor&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8", main: true }] },
-  cittatempi: { zone: "agrigento", x: 549, r: 15.5, name: "Centro Commerciale Città dei Templi", icon: "🛍", sub: "Centro commerciale · Villaseta", q: "VILLASETA", text: "La vetrina del Centro Commerciale Città dei Templi è in arrivo: qui troverai presto negozi, orari e promozioni.", links: [] },
   quiz: { zone: "agrigento", x: 212, r: 6, name: "Il Capone Quiz 3.0", icon: "🎤", sub: "Il quiz per eventi live · Agrigento centro", text: "Il Capone Quiz 3.0: il quiz con domande, punti e classifica per serate ed eventi dal vivo. Entra e scopri come giocare.", links: [{ t: "🌐 Vai al sito ilcaponequiz.win", u: "https://ilcaponequiz.win/", main: true }] },
   manulab: { zone: "agrigento", x: 346, name: "Manulab", icon: "💻", sub: "Social strategist e web designer · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "Manulab: social strategist e web designer. Strategie social, siti web e comunicazione per far crescere la tua attività.", links: [{ t: "🌐 Vai al sito manulab.it", u: "https://www.manulab.it/", main: true }] },
   p_sitari: { zone: "agrigento", x: 0, name: "Sitàri", icon: "🍕", sub: "Pizzeria · Villaggio Mosè", q: "VILLAGGIO MOSÈ", text: "La vetrina di Sitàri è in arrivo: qui troverai presto menù, orari e novità.", links: [] },
@@ -2281,10 +2480,10 @@ const BBINFO = {
 };
 // ---- gallerie: portali fra le zone ----
 const TUNNELS = [
-  { id: "t_ara", zone: "agrigento", x: 117, to: "aragona", label: "ARAGONA", stand: 114.5 },
-  { id: "t_fav", zone: "agrigento", x: 249, to: "favara", label: "FAVARA", stand: 246.5 },
-  { id: "t_por", zone: "agrigento", x: 390, to: "porto_empedocle", label: "PORTO EMPEDOCLE", stand: 387.5 },
-  { id: "t_gro", zone: "agrigento", x: 472, to: "grotte", label: "GROTTE", stand: 469.5 },
+  { id: "t_ara", hide: true, zone: "agrigento", x: 117, to: "aragona", label: "ARAGONA", stand: 114.5 },
+  { id: "t_fav", hide: true, zone: "agrigento", x: 249, to: "favara", label: "FAVARA", stand: 246.5 },
+  { id: "t_por", hide: true, zone: "agrigento", x: 390, to: "porto_empedocle", label: "PORTO EMPEDOCLE", stand: 387.5 },
+  { id: "t_gro", hide: true, zone: "agrigento", x: 472, to: "grotte", label: "GROTTE", stand: 469.5 },
   { id: "t_agA", zone: "aragona", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.2, back: "t_ara" },
   { id: "t_agF", zone: "favara", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.2, back: "t_fav" },
   { id: "t_agP", zone: "porto_empedocle", x: 12, to: "agrigento", label: "AGRIGENTO", stand: 14.2, back: "t_por" },
@@ -2299,9 +2498,10 @@ const ZONES = {
 };
 // ---- quartieri di Agrigento: from = dove inizia, sign = cartello, jump = dove atterra il pulsante ----
 const QUARTIERI = [
-  { id: "sanleone", name: "San Leone" }, { id: "montaperto", name: "Montaperto" }, { id: "centro", name: "Agrigento centro" },
-  { id: "mose", name: "Villaggio Mosè" }, { id: "fontanelle", name: "Fontanelle" }, { id: "quadrivio", name: "Quadrivio Spina Santa" },
-  { id: "monserrato", name: "Monserrato" }, { id: "villaseta", name: "Villaseta" }, { id: "peruzzo", name: "Villaggio Peruzzo" },
+  { id: "sanleone", name: "San Leone" }, { id: "peruzzo", name: "Villaggio Peruzzo" }, { id: "mose", name: "Villaggio Mosè" },
+  { id: "campo", name: "Campo Sportivo" }, { id: "centro", name: "Agrigento centro" }, { id: "monserrato", name: "Monserrato" },
+  { id: "villaseta", name: "Villaseta" }, { id: "quadrivio", name: "Quadrivio Spina Santa" }, { id: "fontanelle", name: "Fontanelle" },
+  { id: "montaperto", name: "Montaperto" },
 ];
 const quartiereAt = (x) => { let q = QUARTIERI[0]; QUARTIERI.forEach((k) => { if (x >= k.from) q = k; }); return q; };
 let CANTIERE_X = 0, SAND_END = 40, BENCHES = [], PALMS = [];
@@ -2309,7 +2509,7 @@ let CANTIERE_X = 0, SAND_END = 40, BENCHES = [], PALMS = [];
 const BLD = 0.5, BLD_SIGN = 0.75;
 const SHOP_FIT = { denise: 0.8, cose: 0.9, doimos: 0.9, fuori: 0.85 }; // le strutture più alte degli altri esercizi vengono riportate alla stessa taglia
 const shopScale = (id) => BLD * (id === "oceanomare" ? 1.5 : 1) * (SHOP_FIT[id] || 1);
-const HW = { oceanomare: 9, municipio: 8.2, capotavola: 6.6, posta: 5.9, animazione: 5.8, quiz: 4.9, frank: 5.5, centesimo: 6.5, manulab: 5, mary: 5.2, denise: 5.4, gabbia: 5, cose: 5.8, doimos: 5.4, palacongressi: 11.2, carta: 6.8, fuori: 5.5, rifugio: 9.4, cittatempi: 16.6, cantiere: 6.5 };
+const HW = { oceanomare: 9, municipio: 8.2, capotavola: 6.6, posta: 5.9, animazione: 5.8, quiz: 4.9, frank: 5.5, centesimo: 6.5, manulab: 5, mary: 5.2, denise: 5.4, gabbia: 5, cose: 5.8, doimos: 5.4, palacongressi: 11.2, carta: 6.8, fuori: 5.5, rifugio: 9.4, cantiere: 6.5 };
 const shopHW = (id) => (HW[id] || 5.3) * shopScale(id);
 const shopRadius = (id) => shopHW(id) + 0.9;
 // ---- piano di Agrigento: l'ordine dei quartieri e dei locali. Basta aggiungere l'id nel quartiere giusto: le posizioni si calcolano da sole,
@@ -2319,21 +2519,18 @@ const RISTORANTI = ["r_corallo", "r_gohan", "r_moka", "r_jd", "r_wok", "r_girgen
 const NEGOZI = ["c_extreme", "c_mega", "c_angels", "c_ovs", "c_upim", "c_blukids", "c_sciascia", "c_vincent", "c_peplos", "c_citymose"];
 const PLAN = [
   { q: "sanleone", items: ["oceanomare", "denise"] },
-  { q: "montaperto", items: ["gabbia", "bb:karaoke"] },
-  { tun: "t_ara" },
-  { q: "centro", items: ["municipio", "capotavola", "posta", "animazione", "quiz", "mary"] },
-  { tun: "t_fav" },
-  { q: "mose", items: ["cose", "doimos", "frank", "centesimo", "manulab", "palacongressi", ...PIZZERIE, ...RISTORANTI, ...NEGOZI, "bb:quiz"] },
-  { tun: "t_por" },
-  { q: "fontanelle", items: ["carta", "bb:karaoke"] },
-  { q: "quadrivio", items: ["fuori", "bb:supercapone"] },
-  { tun: "t_gro" },
-  { q: "monserrato", items: ["rifugio", "bb:quiz"] },
-  { q: "villaseta", items: ["cittatempi", "bb:karaoke"] },
   { q: "peruzzo", items: ["cantiere"] },
+  { q: "mose", items: ["cose", "doimos", "frank", "centesimo", "manulab", "palacongressi", ...PIZZERIE, ...RISTORANTI, ...NEGOZI, "bb:quiz"] },
+  { q: "campo", items: ["sp:14"] },
+  { q: "centro", items: ["municipio", "capotavola", "posta", "animazione", "quiz", "mary"] },
+  { q: "monserrato", items: ["rifugio", "bb:quiz"] },
+  { q: "villaseta", items: ["sp:8", "bb:karaoke"] },
+  { q: "quadrivio", items: ["fuori", "bb:supercapone"] },
+  { q: "fontanelle", items: ["carta", "bb:karaoke"] },
+  { q: "montaperto", items: ["gabbia", "bb:karaoke"] },
 ];
 function layoutAgrigento() {
-  const GAP = 1.1; let cur = 2; const BBW = { karaoke: 5.6, quiz: 3.6, supercapone: 5.6 }; let lastQ = null, lastGroupEnd = 0;
+  const GAP = 1.1; let cur = 2; const BBW = { karaoke: 5.6, quiz: 3.6, supercapone: 5.6 }; let lastQ = null, lastGroupEnd = 0, firstQ = true;
   for (let i = BILLBOARDS.length - 1; i >= 0; i--) if (BILLBOARDS[i].zone === "agrigento") BILLBOARDS.splice(i, 1);
   BENCHES = [];
   const put = (e, fn) => { const x = cur + e; fn(x); cur = x + e + GAP; };
@@ -2341,21 +2538,28 @@ function layoutAgrigento() {
     if (g.tun) { const t = TUNNELS.find((k) => k.id === g.tun); put(6.1, (x) => { t.x = x; t.stand = x - 2.2; }); return; }
     const q = QUARTIERI.find((k) => k.id === g.q); lastQ = q;
     put(2.4, (x) => { q.sign = x; q.jump = x + 0.5; q.from = x - 2.4; });
-    ["arc", ...g.items, "arc"].forEach((id) => {
+    [...(firstQ ? ["arc"] : []), ...g.items, "arc"].forEach((id) => {
       if (id === "arc") { put(1.5, (x) => BILLBOARDS.push({ zone: "agrigento", x, img: "arcade", w: 5 })); return; }
+      if (id.startsWith("sp:")) { put(+id.slice(3) / 2, () => {}); return; }
       if (id.startsWith("bb:")) { const img = id.slice(3), w = BBW[img]; put(w * BLD / 2 + 0.7, (x) => BILLBOARDS.push({ zone: "agrigento", x, img, w })); return; }
       if (id === "cantiere") { put(shopHW("cantiere"), (x) => (CANTIERE_X = x)); return; }
       put(shopHW(id), (x) => (SHOPS[id].x = x));
     });
+    firstQ = false;
     if (q.id === "sanleone") { SAND_END = cur - 0.4; }
     if (gi % 3 === 1) { put(0.9, (x) => BENCHES.push(x)); }
   });
   ZONES.agrigento.W = Math.ceil(cur + 4); ZONES.agrigento.spawn = QUARTIERI[0].jump + 3;
   QUARTIERI.forEach((q, i) => { q.from = i === 0 ? 0 : q.from; });
+  QUARTIERI.forEach((q, i) => { q.end = i < QUARTIERI.length - 1 ? QUARTIERI[i + 1].from : ZONES.agrigento.W; });
+  // le gallerie di Agrigento non si vedono più: restano i punti di rientro dai paesi
+  const BACK = { t_ara: "centro", t_fav: "mose", t_por: "fontanelle", t_gro: "monserrato" };
+  TUNNELS.forEach((t) => { if (BACK[t.id]) { const q = QUARTIERI.find((k) => k.id === BACK[t.id]); t.x = q.jump + 1.5; t.stand = q.jump + 3.5; } });
   PALMS = [1.2, SAND_END - 3.6, SAND_END - 0.6];
 }
 const tunnelFrom = (zone, to) => TUNNELS.find((t) => t.zone === zone && t.to === to);
-const tunnelAt = (zone) => TUNNELS.filter((t) => t.zone === zone);
+const tunnelAt = (zone) => TUNNELS.filter((t) => t.zone === zone && !t.hide);
+const townGates = () => TUNNELS.filter((t) => t.zone === "agrigento");
 
 // ---------- sfondo di ogni zona (coordinate dello schermo, come nel gioco) ----------
 const SKY = ["#3aa0f0", "#9bd6ff", "#ffe7b8"];
@@ -2381,27 +2585,6 @@ function drawSea(c, W, H, cam, T, t, factor) {
   c.fillStyle = g; c.fillRect(0, y0, W, H * 0.2);
   c.fillStyle = "rgba(255,255,255,.35)";
   for (let i = 0; i < 26; i++) { const x = (((i * 211 - cam * T * 0.12 * factor) % (W + 120)) + W + 120) % (W + 120) - 60, y = y0 + 8 + ((i * 37) % 70) / 100 * H * 0.16; c.fillRect(x + Math.sin(t * 2 + i) * 4, y, 18 + (i % 4) * 8, 2); }
-}
-function drawAgrigentoBg(c, W, H, cam, T, t) {
-  drawSky(c, W, H, { sky: SKY }, t, cam, T);
-  // il mare si vede sulla spiaggia (a sinistra) e sfuma andando verso la piazza
-  drawSea(c, W, H, cam, T, t, 1);
-  const far = cam * T * 0.25;
-  c.fillStyle = "#e2b36a"; c.beginPath(); c.moveTo(0, H);
-  const hy = (x) => H * 0.6 - Math.sin((x + far) * 0.004) * H * 0.05 - Math.sin((x + far) * 0.011) * H * 0.02;
-  for (let x = 0; x <= W + 20; x += 20) c.lineTo(x, hy(x));
-  c.lineTo(W, H); c.fill();
-  const spacing = T * 22;
-  for (let k = Math.floor(far / spacing) - 1; k < Math.floor((far + W) / spacing) + 2; k++) {
-    const x = k * spacing - far + T * 6; scDrawTemple(c, x, hy(x) + T * 0.15, T * (k % 2 ? 3.2 : 2.4), k % 2 ? "#c78f45" : "#b98236");
-  }
-  const mid = cam * T * 0.5;
-  c.fillStyle = "#7cbf55"; c.beginPath(); c.moveTo(0, H);
-  const hill = (x) => H * 0.7 - Math.sin((x + mid) * 0.006) * H * 0.05 - Math.cos((x + mid) * 0.017) * H * 0.015;
-  for (let x = 0; x <= W + 20; x += 16) c.lineTo(x, hill(x));
-  c.lineTo(W, H); c.fill();
-  const tsp = T * 5.5;
-  for (let k = Math.floor(mid / tsp) - 1; k < Math.floor((mid + W) / tsp) + 2; k++) { if (((k * 7919) % 5) > 2) continue; scDrawAlmond(c, k * tsp - mid, hill(k * tsp - mid) + T * 0.2, T * 1.6, t); }
 }
 function drawPortoBg(c, W, H, cam, T, t) {
   drawSky(c, W, H, { sky: ["#3f9ee8", "#a8dcff", "#fdf0cf"] }, t, cam, T);
@@ -2948,7 +3131,7 @@ $("shop").onclick = (e) => { if (e.target === $("shop")) $("shop").classList.rem
 // ---------- pulsanti sotto il gioco: scorciatoie davanti a gallerie e negozi ----------
 function buildQuartieri() {
   const q = $("qrow"); q.textContent = ""; $("qbar").style.display = ME.zone === "agrigento" ? "block" : "none";
-  QUARTIERI.forEach((k) => { const b = document.createElement("button"); b.textContent = (k.id === "centro" ? "🏛 " : "📍 ") + k.name; b.dataset.q = k.id; b.onclick = () => jumpQuartiere(k); q.appendChild(b); });
+  QUARTIERI.forEach((k) => { const b = document.createElement("button"); b.textContent = ({ centro: "🏛 ", campo: "⚽ ", peruzzo: "⛺ ", sanleone: "🏖 " }[k.id] || "📍 ") + k.name; b.dataset.q = k.id; b.onclick = () => jumpQuartiere(k); q.appendChild(b); });
   markQuartiere(true);
 }
 function jumpQuartiere(k) {
@@ -2967,7 +3150,8 @@ function buildShortcuts() {
   buildQuartieri();
   const r = $("row2"); r.textContent = "";
   const add = (txt, cls, fn) => { const b = document.createElement("button"); b.textContent = txt; b.className = cls; b.onclick = fn; r.appendChild(b); };
-  tunnelAt(ME.zone).forEach((t) => add("🚇 Galleria " + (t.zone === "agrigento" ? t.label.toLowerCase().replace(/(^|\s)\S/g, (m) => m.toUpperCase()) : "Agrigento"), "tun", () => goTo(t.stand, 1)));
+  if (ME.zone === "agrigento") townGates().forEach((t) => add("🚇 " + t.label.toLowerCase().replace(/(^|\s)\S/g, (m) => m.toUpperCase()), "tun", () => enterTunnel(t)));
+  else tunnelAt(ME.zone).forEach((t) => add("🚇 Galleria Agrigento", "tun", () => goTo(t.stand, 1)));
   if (ME.zone !== "agrigento") add("🏠 Piazza di Agrigento", "tun", () => enterTunnel(tunnelAt(ME.zone)[0], true));
 }
 function goTo(x, f) { if (chat.open) closeChat(); ME.x = x; ME.y = GROUND; ME.vx = 0; ME.vy = 0; ME.f = f || 1; sendPos(true); }
@@ -3102,7 +3286,7 @@ const TIPI = {
 };
 const TIPO_DI = { mary: "pizzeria", forte: "pizzeria", paolo: "pizzeria", capotavola: "ristorante", gabbia: "bar", marconi: "bar", central: "bar", naselli: "bar", oceanomare: "bar", frank: "gioielleria", centesimo: "supermercato",
   denise: "eventi", animazione: "eventi", quiz: "eventi", fuori: "eventi", carta: "eventi", municipio: "servizi", posta: "servizi", doimos: "servizi", rifugio: "servizi", palacongressi: "servizi", manulab: "servizi",
-  cittatempi: "centro", cose: "vari", c_mega: "calzature", c_vincent: "calzature" };
+  cose: "vari", c_mega: "calzature", c_vincent: "calzature" };
 function tipoOf(id) { if (TIPO_DI[id]) return TIPO_DI[id]; if (id.startsWith("p_")) return "pizzeria"; if (id.startsWith("r_")) return "ristorante"; if (id.startsWith("c_")) return "abbigliamento"; return "altro"; }
 function zonaOf(s) { return s.zone === "agrigento" ? quartiereAt(s.x).name : (ZONES[s.zone] ? ZONES[s.zone].name : s.zone); }
 const PERIODI = { mensile: 1, trimestrale: 3, semestrale: 6, annuale: 12, unatantum: 0 };
