@@ -79,6 +79,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
 .rg-ms{position:relative}.rg-msb{width:100%;box-sizing:border-box;text-align:left;font:15px Arial;color:#fff;background:#241447;border:2px solid #5b4a8f;border-radius:10px;padding:9px 10px;cursor:pointer}.rg-msb.on{border-color:#ffd54f;background:#3a2670}
 .rg-msp{display:none;position:absolute;left:0;top:100%;margin-top:4px;min-width:250px;max-height:60vh;overflow-y:auto;background:#1f1240;border:2px solid #ffd54f;border-radius:12px;padding:8px;z-index:6;box-shadow:0 10px 30px #000a}.rg-ms.open .rg-msp{display:block}
 .rg-msbar{display:flex;gap:6px;margin-bottom:6px;position:sticky;top:-8px;background:#1f1240;padding:4px 0}.rg-msi{display:flex;align-items:center;gap:8px;padding:8px 6px;font-size:15px;border-radius:8px;cursor:pointer}.rg-msi:hover{background:#2f1a5c}.rg-msi input{width:20px;height:20px;flex:none;padding:0}
+.rg-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.rg-tab{font:800 14px Arial;color:#cdbfff;background:#2f1a5c;border:2px solid #5b3aa3;border-radius:20px;padding:9px 14px;cursor:pointer}.rg-tab.on{background:#4a2c85;border-color:#ffd54f;color:#fff}
+.rg-msg{display:grid;grid-template-columns:1fr auto;gap:2px 10px;background:#201141;border:2px solid #3b2377;border-radius:10px;padding:7px 10px;margin-bottom:5px;align-items:center}.rg-msg.blk{border-color:#ef5350;opacity:.7}.rg-mt{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.rg-mt small{color:#cdbfff}.rg-mx{grid-column:1;font-size:15px;word-break:break-word}.rg-msg .rg-b,.rg-msg>small{grid-row:1/3;grid-column:2}
 .rg-gh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px;margin:16px 0 6px;padding:6px 10px;background:#2c1a5a;border-left:5px solid #ffd54f;border-radius:6px}.rg-gh b{font:800 15px Arial;color:#ffd54f}.rg-gh span{font-size:12px;color:#cdbfff}
 .rg-row{display:grid;grid-template-columns:1.3fr 1.2fr auto;gap:8px 12px;align-items:center;background:#201141;border:2px solid #3b2377;border-left-width:6px;border-radius:12px;padding:8px 10px;margin-bottom:6px}
 .rg-row.st-scaduto{border-left-color:#ef5350;background:#2c1330}.rg-row.st-settimana{border-left-color:#ff7043}.rg-row.st-mese{border-left-color:#ffca28}.rg-row.st-regolare{border-left-color:#66bb6a}.rg-row.st-senzascad{border-left-color:#78909c}.rg-row.st-sospeso{border-left-color:#555;opacity:.65}
@@ -107,6 +109,21 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
 .avb-sw{width:34px;height:34px;border-radius:50%;border:3px solid #ffffff55;cursor:pointer;padding:0}.avb-sw.on{border-color:#fff;box-shadow:0 0 0 3px var(--gold)}
 .avb-ch{font:700 13px Arial;color:#fff;background:#2f1a5c;border:2px solid #5b3aa3;border-radius:10px;padding:7px 10px;cursor:pointer}.avb-ch.on{border-color:var(--gold);background:#5a3aa0}
 .avb-foot{position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;justify-content:center;padding:10px;background:#120a2aee;border-top:2px solid #3b2377}.avb-foot .avb-b{flex:1;max-width:280px;padding:12px;font-size:15px}
+
+#ctools{display:none;gap:6px;padding:5px 8px;background:#2a1654;border-bottom:1px solid #4a2c85}#ctools button{font:700 12px Arial;color:#fff;background:#3b2377;border:2px solid #7e57c2;border-radius:10px;padding:6px 10px;cursor:pointer}#ctools button.warn{background:#b71c1c;border-color:#ef5350}
+#dmring{font:700 12px Arial;color:#fff;background:#b8860b;border:2px solid #ffd54f;border-radius:10px;padding:5px 9px;margin-left:auto;margin-right:6px;cursor:pointer}
+.bellb{flex:none;margin-left:auto;font:18px Arial;background:#b8860b;border:2px solid #ffd54f;border-radius:50%;width:38px;height:38px;cursor:pointer}
+#ringBox{position:absolute;left:50%;top:56px;transform:translateX(-50%);z-index:20;display:none;min-width:300px;max-width:92%;background:#1f1240;border:3px solid #ffd54f;border-radius:16px;padding:10px 12px;box-shadow:0 8px 30px #000a;align-items:center;gap:10px;font-family:Arial;color:#fff;animation:ringgl .6s infinite alternate}
+@keyframes ringgl{from{box-shadow:0 0 6px #ffd54f}to{box-shadow:0 0 28px #ffd54f}}
+#ringBox b{display:block;font-size:15px}#ringBox small{color:#cdbfff}#ringBox button{font:800 13px Arial;border:none;border-radius:10px;padding:9px 12px;cursor:pointer;color:#fff;background:#1b8f4f}#ringBox button.n{background:#5b3aa3}
+#jtabs{display:flex;gap:6px;margin:6px 0}#jtabs button{font:800 13px Arial;color:#cdbfff;background:#2f1a5c;border:2px solid #5b3aa3;border-radius:20px;padding:8px 13px;cursor:pointer}#jtabs button.on{background:#4a2c85;border-color:var(--gold);color:#fff}
+#jhelp{max-width:420px;text-align:center;font-size:13px;color:#cdbfff;margin:2px 0 6px}#jacc{display:none;flex-direction:column;gap:6px;width:min(100%,320px);margin-bottom:6px}
+#jacc input,#join #jname{font:16px Arial;padding:11px 12px;border-radius:12px;border:2px solid #7e57c2;background:#150a2e;color:#fff;width:min(100%,320px);box-sizing:border-box}
+#jforgot,#jout{display:none;background:none;border:0;color:#ffd54f;font:13px Arial;text-decoration:underline;cursor:pointer;margin:2px 0 6px}
+#jwa{margin-top:10px;font:800 14px Arial;color:#fff;background:#1b8f4f;border:2px solid #66bb6a;border-radius:24px;padding:10px 18px;text-decoration:none}
+#jcred{margin:14px 0 8px;max-width:420px;text-align:center;font-size:12px;color:#b9a8e8;line-height:1.5}#jcred a{color:#ffd54f}
+#blockBox{position:fixed;inset:0;z-index:70;background:#000c;align-items:center;justify-content:center;padding:16px}#blockBox>div{background:#3a0f1a;border:3px solid #ef5350;border-radius:16px;padding:18px;text-align:center;color:#fff;max-width:340px;font-family:Arial}#blockBox h2{margin:0 0 8px}#blockBox button{font:800 14px Arial;background:#7a1f3d;color:#fff;border:0;border-radius:10px;padding:10px 24px;cursor:pointer}
+.wabtn{display:block;margin:6px 8px;text-align:center;font:800 14px Arial;color:#fff;background:#1b8f4f;border:2px solid #66bb6a;border-radius:12px;padding:10px;text-decoration:none}
 #join{position:fixed;inset:0;z-index:30;background:radial-gradient(circle at 50% 0,#4a1f8c,#1a0b33 70%);display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:16px 12px 30px}
 #join h1{font:900 clamp(28px,8vw,56px) Bungee,Arial Black,Arial;margin:6px 0 0;text-align:center;color:var(--gold);text-shadow:0 4px 0 #b36b00,0 8px 16px rgba(0,0,0,.5);line-height:1}
 #join h1 small{display:block;font-size:.5em;color:#fff;text-shadow:0 3px 0 #c2185b}
@@ -141,11 +158,13 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
     <div id="prompt"></div>
     <div id="chat">
       <div id="ctabs"><button data-t="all" class="on">💬 Tutti</button><button data-t="dm">✉ Privati<span class="bd" id="dmBd" style="display:none">0</span></button><button data-t="online">👥 Online</button><button id="cclose" aria-label="Chiudi">✕</button></div>
-      <div id="dmhead"><span id="dmwho"></span><button id="dmback">← elenco</button></div>
+      <div id="dmhead"><span id="dmwho"></span><button id="dmring" title="Suona il campanello">🔔 Chiama</button><button id="dmback">← elenco</button></div>
+      <div id="ctools"><button id="cSave">💾 Salva</button><button id="cClr">🧹 Azzera</button></div>
       <div id="cbody"></div>
       <form id="cform" autocomplete="off"><input id="cin" maxlength="140" placeholder="Scrivi a tutti…" enterkeyhint="send"><button>INVIA</button></form>
     </div>
     <div id="pmenu"></div>
+    <div id="ringBox"></div>
   </div>
   <div id="bar">
     <div id="qbar"><div class="ql">QUARTIERI DI AGRIGENTO</div><div id="qrow"></div></div>
@@ -164,16 +183,26 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
 <div id="join">
   <h1>SUPER CAPONE<small>WORLD</small></h1>
   <p>Il mondo online di Super Capone: entra col tuo avatar, chatta con tutti, visita i negozi e viaggia tra Agrigento, Aragona e Favara.</p>
-  <input id="jname" maxlength="14" placeholder="Il tuo nome" autocomplete="off">
+  <div id="jtabs"><button data-m="guest" class="on">👤 Ospite</button><button data-m="login">🔑 Accedi</button><button data-m="reg">✨ Registrati</button></div>
+  <div id="jhelp"></div>
+  <div id="jacc"><input id="jmail" type="email" placeholder="Email" autocomplete="username"><input id="jpass" type="password" placeholder="Password" autocomplete="current-password"></div>
+  <button id="jforgot" type="button">Password dimenticata?</button>
+  <input id="jname" maxlength="14" placeholder="Il tuo nick (unico)" autocomplete="off">
   <div id="avs"></div>
   <button id="jgo">ENTRA!</button>
+  <button id="jout" type="button">Esci dall'account</button>
   <div id="jst"></div>
+  <a id="jwa" target="_blank" rel="noopener" style="display:none">💬 Entra nel gruppo WhatsApp</a>
+  <div id="jcred" style="margin-bottom:2px">Le chat pubbliche vengono conservate dalla regia per moderazione. Chi scrive messaggi offensivi può essere bloccato.</div>
+  <div id="jcred">Creato da <a href="https://albertoseminerio.com/" target="_blank" rel="noopener">Alberto Seminerio</a> in collaborazione con <a href="https://www.manulab.it/" target="_blank" rel="noopener">Manulab</a><br><a href="https://albertoseminerio.com/" target="_blank" rel="noopener">Contattalo</a> per maggiori informazioni o per le tue app personalizzate.</div>
 </div>
+<div id="blockBox" style="display:none"><div><h2>🚫 Sei stato bloccato</h2><p>La regia ha sospeso il tuo accesso alla chat e al gioco.</p><p id="blockWhy"></p><button id="blockOk">OK</button></div></div>
 <div id="shop"><div class="card"><canvas id="shopCv" width="480" height="260"></canvas><h2 id="shT"></h2><div class="sub" id="shS"></div><p id="shP"></p><div class="acts" id="shA"></div></div></div>
 <div id="toast"></div>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-compat.js"></script>
 <script src="firebase-config.js"></script>
 <script>
 // GENERATO da tools/extract_art.py dal gioco Super Capone: non modificare a mano (modifica lo script)
@@ -1383,7 +1412,7 @@ function scDrawFavaraSign(c, x, T, name, sub) {
   }
 }
 // ===================== SUPER CAPONE WORLD · arte (avatar, negozi, terreno) =====================
-const WORLD_VERSION = "v1.12";
+const WORLD_VERSION = "v1.14";
 const T0 = 1; // unità: tutto è disegnato in "caselle" (come in Super Capone), i piedi sono in (0,0)
 
 // ---------- 11 avatar: il Capone + 10 personaggi ----------
@@ -2532,6 +2561,7 @@ function netStart() {
   Net.ref("dm/" + ME.uid).on("child_added", (s) => {
     const m = s.val(); s.ref.remove();
     if (!m || !m.f || Date.now() - (m.t || 0) > 86400000 || ignored.has(m.f)) return;
+    if (m.k === "ring") return onRing(m);
     const th = thread(m.f, m.n, m.a); th.msgs.push({ me: false, m: clean(m.m, 160), t: m.t }); 
     if (!(chat.open && chat.tab === "dm" && chat.dm === m.f)) th.unread++;
     badges(); chatRefresh(); if (!chat.open) toast("✉ " + clean(m.n, 14) + ": " + clean(m.m, 40));
@@ -2565,18 +2595,52 @@ function sendPos(force) {
   posRef.set({ x: +ME.x.toFixed(2), y: +ME.y.toFixed(2), f: ME.f, m: moving ? 1 : 0, t: now });
 }
 function sendPublic(text) {
+  if (ME.blocked) return toast("🚫 Sei stato bloccato dalla regia");
   const now = Date.now(); if (now - lastChatAt < 1200) return toast("Un attimo… scrivi più piano 🙂");
   lastChatAt = now; text = clean(text, 140); if (!text) return;
   const base = { u: ME.uid, n: ME.name, a: ME.av, z: ME.zone, m: text, t: now };
   if (!Net.ok) { const m = { ...base, s: ++chatSeqSeen }; addPublic(m); return; }
+  Net.db.ref("archive/chat").push({ u: base.u, n: base.n, z: base.z, m: base.m, t: base.t }).catch(() => {});
   Net.ref("chatSeq").transaction((v) => (v || 0) + 1).then((r) => { const seq = r.snapshot.val(); Net.ref("chat/" + (seq % 200)).set({ ...base, s: seq }); }).catch(() => toast("Messaggio non inviato"));
 }
 function sendDM(to, text) {
+  if (ME.blocked) return toast("🚫 Sei stato bloccato dalla regia");
   text = clean(text, 160); if (!text) return;
   const now = Date.now(); if (now - lastChatAt < 800) return toast("Un attimo… scrivi più piano 🙂"); lastChatAt = now;
   const r = roster.get(to); const th = thread(to, r ? r.n : "?", r ? r.a : 0);
   th.msgs.push({ me: true, m: text, t: now }); chatRefresh();
   if (Net.ok) Net.ref("dm/" + to).push({ f: ME.uid, n: ME.name, a: ME.av, m: text, t: now }).catch(() => toast("Messaggio non inviato"));
+}
+// ---------- campanello 🔔 ----------
+const lastRing = {};
+function sendRing(to) {
+  if (ME.blocked) return toast("🚫 Sei stato bloccato dalla regia");
+  const now = Date.now(), r = roster.get(to), nm = r ? clean(r.n, 14) : "?";
+  if (now - (lastRing[to] || 0) < 15000) return toast("Hai già suonato da poco: aspetta qualche secondo 🔔");
+  if (!Net.ok) return toast("Il campanello funziona solo online");
+  lastRing[to] = now;
+  Net.ref("dm/" + to).push({ f: ME.uid, n: ME.name, a: ME.av, k: "ring", m: "🔔 ti sta chiamando!", t: now }).then(() => toast("🔔 Campanello suonato a " + nm)).catch(() => toast("Campanello non inviato"));
+}
+let audioCtx = null;
+function ringSound() {
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)(); if (audioCtx.state === "suspended") audioCtx.resume();
+    [[880, 0], [660, 0.35], [880, 0.7], [660, 1.05]].forEach(([f, d]) => { const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.type = "sine"; o.frequency.value = f; o.connect(g); g.connect(audioCtx.destination); const t = audioCtx.currentTime + d; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.35, t + 0.03); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5); o.start(t); o.stop(t + 0.55); });
+  } catch (e) {}
+  try { if (navigator.vibrate) navigator.vibrate([300, 150, 300, 150, 300]); } catch (e) {}
+}
+let ringTitle = document.title;
+function onRing(m) {
+  const late = Date.now() - (m.t || 0) > 120000, nm = clean(m.n, 14);
+  const th = thread(m.f, m.n, m.a); th.msgs.push({ me: false, m: "🔔 ti ha " + (late ? "chiamato (chiamata persa)" : "suonato il campanello"), t: m.t }); th.unread++; badges(); chatRefresh();
+  if (late) return toast("🔔 Chiamata persa da " + nm, 5000);
+  ringSound();
+  const box = $("ringBox"); box.textContent = ""; box.style.display = "flex"; box.appendChild(avThumb(m.a != null ? m.a : 0, 48));
+  const w = document.createElement("div"); const b = document.createElement("b"); b.textContent = "🔔 " + nm + " ti chiama!"; const sm = document.createElement("small"); sm.textContent = "Tocca per rispondere"; w.append(b, sm); box.appendChild(w);
+  const ok = document.createElement("button"); ok.textContent = "Rispondi"; ok.onclick = () => { box.style.display = "none"; openDM(m.f); };
+  const no = document.createElement("button"); no.className = "n"; no.textContent = "✕"; no.onclick = () => (box.style.display = "none"); box.append(ok, no);
+  clearTimeout(onRing.h); onRing.h = setTimeout(() => (box.style.display = "none"), 15000);
+  if (document.hidden) { document.title = "🔔 " + nm + " ti chiama!"; const back = () => { document.title = ringTitle; document.removeEventListener("visibilitychange", back); }; document.addEventListener("visibilitychange", back); }
 }
 function thread(uid, n, a) { let t = threads.get(uid); if (!t) { t = { n: clean(n, 14) || "?", a: a || 0, msgs: [], unread: 0 }; threads.set(uid, t); } else { if (n) t.n = clean(n, 14); } return t; }
 function addPublic(m) {
@@ -2636,6 +2700,107 @@ function avbSave() { const code = avEncode(AVB.v); lsSet("scw_avc", code); ME.av
 $("avbRnd").onclick = avbRandom; $("avbWalk").onclick = () => { AVB.walking = !AVB.walking; $("avbWalk").classList.toggle("on", AVB.walking); };
 $("avbOk").onclick = avbSave; $("avbNo").onclick = avbClose;
 
+// ===================== SUPER CAPONE WORLD · account, nick unici, blocco, notifiche, gruppo WhatsApp =====================
+const AC = { mode: "guest", user: null, cfg: {} };
+const NICK_TTL = 30 * 86400000;
+function nickKey(n) { return String(n || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 14); }
+const jst = (m) => { $("jst").textContent = m || ""; return null; };
+const AC_ERR = (e) => { const c = (e && e.code) || ""; return /email-already/.test(c) ? "Questa email è già registrata: usa «Accedi»." : /weak-password/.test(c) ? "Password troppo corta (almeno 6 caratteri)." : /invalid-email/.test(c) ? "Email non valida." : /wrong-password|invalid-credential|user-not-found/.test(c) ? "Email o password non corretti." : /operation-not-allowed/.test(c) ? "Su Firebase manca l'accesso «Email/Password» (Authentication > Metodo di accesso)." : /too-many/.test(c) ? "Troppi tentativi: riprova fra qualche minuto." : /network/.test(c) ? "Connessione assente." : "Errore: " + (c || e); };
+
+// ---- schermata d'ingresso: Ospite / Accedi / Registrati ----
+function acMode(m) {
+  AC.mode = m; document.querySelectorAll("#jtabs button").forEach((b) => b.classList.toggle("on", b.dataset.m === m));
+  const logged = m === "logged", emailMode = m === "login" || m === "reg";
+  $("jacc").style.display = emailMode ? "flex" : "none"; $("jforgot").style.display = m === "login" ? "block" : "none"; $("jout").style.display = logged ? "block" : "none";
+  $("jtabs").style.display = logged ? "none" : "flex";
+  $("jname").style.display = "block"; $("jname").placeholder = m === "login" ? "Nick (solo la prima volta)" : "Il tuo nick (unico)"; $("jname").disabled = false;
+  $("jhelp").textContent = m === "guest" ? "Entra subito con un nick tutto tuo: nessun altro potrà usarlo." : m === "login" ? "Entra con la tua email: ritrovi nick, prenotazioni e premi." : m === "reg" ? "Con l'account email il nick è tuo per sempre e puoi prenotare e dimostrare di aver vinto un premio. Nick ed email sono visibili alla regia." : "";
+  if (logged) { $("jhelp").textContent = "Connesso come " + (AC.user && AC.user.email || "") + (AC.user && !AC.user.emailVerified ? " · email da verificare (controlla la posta)" : ""); }
+  $("jpass").autocomplete = m === "reg" ? "new-password" : "current-password"; jst("");
+}
+function acBoot() {
+  document.querySelectorAll("#jtabs button").forEach((b) => (b.onclick = () => acMode(b.dataset.m)));
+  $("jforgot").onclick = () => { const em = $("jmail").value.trim(); if (!em) return jst("Scrivi la tua email qui sopra, poi tocca di nuovo."); firebase.auth().sendPasswordResetEmail(em).then(() => jst("Ti ho mandato un'email per reimpostare la password ✉")).catch((e) => jst(AC_ERR(e))); };
+  $("jout").onclick = () => { try { firebase.auth().signOut(); } catch (e) {} AC.user = null; $("jname").value = ""; acMode("guest"); };
+  acMode("guest");
+  if (!Net.ok) { $("jtabs").style.display = "none"; return; }
+  firebase.auth().onAuthStateChanged((u) => {
+    if (started) return;
+    if (u && !u.isAnonymous) { AC.user = u; if (AC.mode === "logged") return; Net.db.ref("users/" + u.uid + "/nick").once("value").then((s) => { if (s.val()) $("jname").value = s.val(); if (AC.mode !== "logged") acMode("logged"); }).catch(() => acMode("logged")); }
+    else if (AC.mode === "logged") { AC.user = null; acMode("guest"); }
+  });
+  Net.db.ref("config").once("value").then((s) => { AC.cfg = s.val() || {}; acConfig(); }).catch(() => {});
+}
+// ---- configurazione pubblica (gruppo WhatsApp, chiave notifiche) ----
+function acConfig() {
+  const wa = AC.cfg.wa; const b = $("jwa"); if (b) { b.style.display = wa ? "inline-block" : "none"; if (wa) b.href = wa; }
+  const cb = $("cwa"); if (cb && wa) cb.href = wa;
+}
+// ---- entrata: autenticazione + nick unico + controllo blocco. Restituisce il nick oppure null ----
+function reserveNick(name, uid, reg) {
+  return Net.db.ref("nicks/" + nickKey(name)).transaction((cur) => {
+    const now = Date.now();
+    if (!cur || cur.u === uid || (!cur.r && now - (cur.t || 0) > NICK_TTL)) { const v = { u: uid, n: name, t: now }; if (reg || (cur && cur.r && cur.u === uid)) v.r = 1; return v; }
+    return undefined;
+  }).then((r) => r.committed).catch(() => false);
+}
+function acEnter() {
+  const raw = clean($("jname").value, 14), key = nickKey(raw), em = $("jmail").value.trim(), pw = $("jpass").value, auth = firebase.auth();
+  const needNick = AC.mode !== "login" && AC.mode !== "logged";
+  if (needNick && key.length < 2) return Promise.resolve(jst("Scrivi il tuo nick (almeno 2 lettere o numeri)"));
+  if ((AC.mode === "login" || AC.mode === "reg") && (!em || pw.length < 1)) return Promise.resolve(jst("Scrivi email e password"));
+  if (AC.mode === "reg" && pw.length < 6) return Promise.resolve(jst("La password deve avere almeno 6 caratteri"));
+  jst("Accesso in corso…");
+  let p;
+  if (AC.mode === "guest") p = (auth.currentUser && !auth.currentUser.isAnonymous ? auth.signOut() : Promise.resolve()).then(() => auth.signInAnonymously()).then((r) => r.user);
+  else if (AC.mode === "login") p = auth.signInWithEmailAndPassword(em, pw).then((r) => r.user);
+  else if (AC.mode === "reg") p = auth.createUserWithEmailAndPassword(em, pw).then((r) => { try { r.user.sendEmailVerification(); } catch (e) {} return r.user; });
+  else p = Promise.resolve(auth.currentUser);
+  return p.then((u) => {
+    if (!u) return jst("Accesso non riuscito");
+    ME.uid = u.uid;
+    return Net.db.ref("blocked/" + u.uid).once("value").then((b) => {
+      if (b.exists()) { const v = b.val() || {}; return jst("🚫 Accesso bloccato dalla regia" + (v.why ? ": " + v.why : "")); }
+      const registered = !u.isAnonymous;
+      const nickP = registered && AC.mode !== "reg" ? Net.db.ref("users/" + u.uid + "/nick").once("value").then((s) => s.val() || raw) : Promise.resolve(raw);
+      return nickP.then((nick) => {
+        if (nickKey(nick).length < 2) { AC.user = u; acMode("logged"); return jst("Scegli un nick (almeno 2 lettere) e premi ENTRA"); }
+        return reserveNick(nick, u.uid, registered).then((ok) => {
+          if (!ok) { if (registered) { AC.user = u; acMode("logged"); } return jst("Il nick «" + nick + "» è già usato da un altro: scegline uno diverso."); }
+          const old = lsGet("scw_nk", ""); if (old && old !== nickKey(nick)) Net.db.ref("nicks/" + old).remove().catch(() => {}); lsSet("scw_nk", nickKey(nick));
+          if (registered) { Net.db.ref("users/" + u.uid).update({ nick, em: u.email || "", t: Date.now() }).catch(() => {}); AC.user = u; }
+          $("jname").value = nick; return nick;
+        });
+      });
+    });
+  }).catch((e) => jst(/operation-not-allowed|admin-restricted/.test((e && e.code) || "") && AC.mode === "guest" ? "Accesso anonimo NON attivo su Firebase (Authentication > Metodo di accesso > Anonimo)" : AC_ERR(e)));
+}
+
+// ---- utente bloccato dalla regia: ascolta in tempo reale ----
+function acWatchBlocked() {
+  if (!Net.ok) return;
+  Net.db.ref("blocked/" + ME.uid).on("value", (s) => {
+    const was = ME.blocked; ME.blocked = s.exists(); const v = s.val() || {};
+    if (ME.blocked) { const b = $("blockBox"); b.style.display = "flex"; $("blockWhy").textContent = v.why ? "Motivo: " + v.why : "Contatta la regia per informazioni."; }
+    else { $("blockBox").style.display = "none"; if (was) { toast("Sei stato sbloccato ✓"); sendPos(true); } }
+  }, () => {});
+}
+
+// ---- notifiche push (anche ad app chiusa) ----
+const pushOk = () => !!(AC.cfg.vapid && "Notification" in window && "serviceWorker" in navigator && window.firebase && firebase.messaging);
+function pushEnable() {
+  if (!pushOk()) return toast("Notifiche non disponibili su questo dispositivo (su iPhone: prima aggiungi il gioco alla schermata Home)", 5000);
+  Notification.requestPermission().then((perm) => {
+    if (perm !== "granted") return toast("Notifiche non permesse dal telefono");
+    return navigator.serviceWorker.register("/firebase-messaging-sw.js").then((reg) => firebase.messaging().getToken({ vapidKey: AC.cfg.vapid, serviceWorkerRegistration: reg })).then((tok) => {
+      if (!tok) return toast("Non sono riuscito ad attivare le notifiche");
+      return Net.db.ref("fcm/" + ME.uid + "/" + tok).set(Date.now()).then(() => { lsSet("scw_push", "1"); toast("🔔 Notifiche attivate: ti avviso anche ad app chiusa"); chatRefresh(); });
+    });
+  }).catch((e) => toast("Notifiche: " + String((e && e.code) || e).slice(0, 60), 4000));
+}
+function pushRefresh() { if (pushOk() && lsGet("scw_push", "") && Notification.permission === "granted") pushEnable(); }
+$("blockOk").onclick = () => { $("blockBox").style.display = "none"; };
+
 // ===================== SUPER CAPONE WORLD · chat, comandi, ciclo di gioco =====================
 function badges() {
   const dm = [...threads.values()].reduce((a, t) => a + t.unread, 0), all = chat.unreadAll, tot = dm + all;
@@ -2665,8 +2830,9 @@ function chatRefresh() {
   const inp = $("cin");
   if (chat.tab === "all") {
     inp.placeholder = "Scrivi a tutti…";
-    if (!chatLog.length) body.appendChild(msgEl("sys", "", "Benvenuto in Super Capone World! Scrivi qualcosa a tutti 👋"));
-    chatLog.forEach((m) => body.appendChild(msgEl(m.u === ME.uid ? "me" : "", m.n, m.m, zoneLabel(m.z))));
+    const vis = chatVisible();
+    if (!vis.length) body.appendChild(msgEl("sys", "", "Benvenuto in Super Capone World! Scrivi qualcosa a tutti 👋"));
+    vis.forEach((m) => body.appendChild(msgEl(m.u === ME.uid ? "me" : "", m.n, m.m, zoneLabel(m.z))));
   } else if (chat.tab === "dm" && chat.dm) {
     const th = threads.get(chat.dm); $("dmwho").textContent = "✉ Privato con " + (th ? th.n : "?"); inp.placeholder = "Messaggio privato a " + (th ? th.n : "?") + "…";
     th && th.msgs.forEach((m) => body.appendChild(msgEl(m.me ? "me" : "dm", m.me ? "Tu" : th.n, m.m)));
@@ -2679,12 +2845,43 @@ function chatRefresh() {
   } else {
     inp.placeholder = "Tocca una persona per scriverle in privato";
     const l = onlineList().filter(([u]) => u !== ME.uid);
+    if (AC.cfg.wa) { const w = document.createElement("a"); w.id = "cwa"; w.className = "wabtn"; w.target = "_blank"; w.rel = "noopener"; w.href = AC.cfg.wa; w.textContent = "💬 Entra nel gruppo WhatsApp"; body.appendChild(w); }
+    if (pushOk()) { const pb = document.createElement("button"); pb.className = "wabtn"; pb.style.cssText += ";width:calc(100% - 16px);background:#3b2377;border-color:#7e57c2;cursor:pointer"; const on = Notification.permission === "granted" && lsGet("scw_push", ""); pb.textContent = on ? "🔔 Notifiche attive (tocca per aggiornare)" : "📲 Attiva le notifiche: ti chiamo anche ad app chiusa"; pb.onclick = pushEnable; body.appendChild(pb); }
     body.appendChild(plistRow(ME.uid, ME.name + " (tu)", ME.av, zoneLabel(ME.zone), "", () => {}));
     if (!l.length) body.appendChild(msgEl("sys", "", "Per ora sei da solo qui: aspetta che entri qualcuno 🙂"));
-    l.forEach(([u, r]) => body.appendChild(plistRow(u, clean(r.n, 14), r.a || 0, "📍 " + zoneLabel(r.z) + (ignored.has(u) ? " · ignorato" : ""), "", () => openDM(u))));
+    l.forEach(([u, r]) => { const row = plistRow(u, clean(r.n, 14), r.a || 0, "📍 " + zoneLabel(r.z) + (ignored.has(u) ? " · ignorato" : ""), "", () => openDM(u)); const bl = document.createElement("button"); bl.className = "bellb"; bl.textContent = "🔔"; bl.title = "Suona il campanello"; bl.onclick = (e) => { e.stopPropagation(); sendRing(u); }; row.appendChild(bl); body.appendChild(row); });
   }
+  chatToolsUpdate();
   if (stick || chat.tab !== "all") body.scrollTop = chat.tab === "all" ? body.scrollHeight : body.scrollTop; if (stick) body.scrollTop = body.scrollHeight;
 }
+// ---------- salva / azzera la chat ----------
+let clrAt = parseInt(lsGet("scw_clr_all", "0")) || 0;
+const chatVisible = () => chatLog.filter((m) => (m.t || 0) > clrAt);
+const hhmm = (t) => { const d = new Date(t || Date.now()); return String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + " " + String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); };
+function saveText(name, text) { const b = new Blob(["\ufeff" + text], { type: "text/plain;charset=utf-8" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+const dayStr = () => new Date().toISOString().slice(0, 10);
+function chatSave() {
+  let txt = "", name = "";
+  if (chat.tab === "all") { const v = chatVisible(); if (!v.length) return toast("Non c'è niente da salvare"); name = "chat-pubblica-" + dayStr() + ".txt"; txt = "SUPER CAPONE WORLD - chat pubblica\n\n" + v.map((m) => "[" + hhmm(m.t) + "] " + clean(m.n, 14) + " (" + zoneLabel(m.z) + "): " + m.m).join("\n"); }
+  else if (chat.tab === "dm" && chat.dm) { const th = threads.get(chat.dm); if (!th || !th.msgs.length) return toast("Non c'è niente da salvare"); name = "chat-privata-" + th.n.replace(/[^\w-]+/g, "_") + "-" + dayStr() + ".txt"; txt = "SUPER CAPONE WORLD - conversazione privata con " + th.n + "\n\n" + th.msgs.map((m) => "[" + hhmm(m.t) + "] " + (m.me ? ME.name || "Tu" : th.n) + ": " + m.m).join("\n"); }
+  else if (chat.tab === "dm") { const all = [...threads.values()].filter((t) => t.msgs.length); if (!all.length) return toast("Non c'è niente da salvare"); name = "chat-private-" + dayStr() + ".txt"; txt = "SUPER CAPONE WORLD - conversazioni private\n\n" + all.map((th) => "=== " + th.n + " ===\n" + th.msgs.map((m) => "[" + hhmm(m.t) + "] " + (m.me ? ME.name || "Tu" : th.n) + ": " + m.m).join("\n")).join("\n\n"); }
+  else return;
+  saveText(name, txt + "\n"); toast("💾 Chat salvata in un file di testo");
+}
+function chatClear() {
+  if (chat.tab === "all") { clrAt = Date.now(); lsSet("scw_clr_all", String(clrAt)); chatLog.length = 0; chat.unreadAll = 0; }
+  else if (chat.tab === "dm" && chat.dm) { const th = threads.get(chat.dm); if (th) th.msgs = []; }
+  else if (chat.tab === "dm") { threads.forEach((th) => (th.msgs = [])); }
+  badges(); chatRefresh(); toast("🧹 Chat azzerata");
+}
+function chatToolsUpdate() {
+  const t = $("ctools"), show = chat.tab === "all" || chat.tab === "dm" && (chat.dm || threads.size);
+  t.style.display = show ? "flex" : "none"; if (!show) return;
+  const many = chat.tab === "dm" && !chat.dm; $("cSave").textContent = many ? "💾 Salva tutte" : "💾 Salva"; if (!$("cClr").classList.contains("warn")) $("cClr").textContent = many ? "🧹 Azzera tutte" : "🧹 Azzera";
+}
+$("cSave").onclick = chatSave;
+$("cClr").onclick = () => { const b = $("cClr"); if (b.classList.contains("warn")) { clearTimeout(b.h); b.classList.remove("warn"); chatClear(); return; } b.classList.add("warn"); b.textContent = "Sicuro? Tocca ancora"; b.h = setTimeout(() => { b.classList.remove("warn"); chatToolsUpdate(); }, 3000); };
+$("dmring").onclick = () => { if (chat.dm) sendRing(chat.dm); };
 function openChat(tab) {
   chat.open = true; if (tab) chat.tab = tab; $("chat").classList.add("open");
   if (chat.tab === "all") chat.unreadAll = 0; badges(); chatRefresh();
@@ -2709,6 +2906,7 @@ function showPMenu(uid, px, py) {
   const r = roster.get(uid); if (!r) return; const m = $("pmenu"); m.textContent = "";
   const t = document.createElement("div"); t.textContent = clean(r.n, 14); m.appendChild(t);
   const b1 = document.createElement("button"); b1.textContent = "✉ Scrivi in privato"; b1.onclick = () => { m.style.display = "none"; openDM(uid); }; m.appendChild(b1);
+  const b0 = document.createElement("button"); b0.textContent = "🔔 Suona il campanello"; b0.onclick = () => { m.style.display = "none"; sendRing(uid); }; m.appendChild(b0);
   const b2 = document.createElement("button"); const ig = ignored.has(uid); b2.textContent = ig ? "🔔 Smetti di ignorare" : "🚫 Ignora"; b2.onclick = () => { ig ? ignored.delete(uid) : ignored.add(uid); lsSet("scw_ign", JSON.stringify([...ignored])); m.style.display = "none"; toast(ig ? "Non lo ignori più" : "Ignorato: non vedrai più i suoi messaggi"); }; m.appendChild(b2);
   m.style.display = "block"; const st = $("stage").getBoundingClientRect();
   m.style.left = Math.max(6, Math.min(st.width - 190, px - 80)) + "px"; m.style.top = Math.max(50, py - 40) + "px";
@@ -2861,17 +3059,21 @@ cv.addEventListener("pointerdown", (e) => {
 
 // ---------- avvio ----------
 function start() {
-  const name = clean($("jname").value, 14); if (name.length < 2) { $("jst").textContent = "Scrivi il tuo nome (almeno 2 lettere)"; return; }
+  if (!Net.ok) { const name = clean($("jname").value, 14); if (name.length < 2) return void ($("jst").textContent = "Scrivi il tuo nome (almeno 2 lettere)"); return enterWorld(name); }
+  if (start.busy) return; start.busy = true;
+  acEnter().then((nick) => { start.busy = false; if (nick) enterWorld(nick); }, () => (start.busy = false));
+}
+function enterWorld(name) {
   ME.name = name; lsSet("scw_name", name); lsSet("scw_av", String(ME.av)); ME.zone = "agrigento"; ME.x = ZONES.agrigento.spawn;
   $("join").style.display = "none"; started = true; resize(); cam = Math.max(0, ME.x - 10);
   $("zoneChip").textContent = zoneLabel(ME.zone); buildShortcuts(); updateOnline();
-  if (!Net.ok) toast("Modalità offline: nessun altro giocatore collegato"); else Net.signin().then((okAuth) => { if (!okAuth) netProblem("Accesso anonimo NON attivo su Firebase (Authentication > Metodo di accesso > Anonimo)"); netStart(); });
+  if (!Net.ok) toast("Modalità offline: nessun altro giocatore collegato"); else { acWatchBlocked(); netStart(); pushRefresh(); }
 }
 $("jgo").onclick = start;
 $("jname").addEventListener("keydown", (e) => { if (e.key === "Enter") start(); });
 (function boot() {
   $("jname").value = lsGet("scw_name", ""); ME.av = avLoad(lsGet("scw_av", "0"));
-  buildJoin(); Net.init(); $("jst").textContent = Net.ok ? "" : "Connessione online non disponibile: potrai girare da solo.";
+  buildJoin(); Net.init(); acBoot(); if (!Net.ok) $("jst").textContent = "Connessione online non disponibile: potrai girare da solo.";
   requestAnimationFrame(frame);
   window.__world = { ME, others, roster, threads, chatLog, K, Net, enterTunnel, nearTunnel, openChat, goTo, SHOPS, TUNNELS, QUARTIERI, jumpQuartiere, BILLBOARDS, ZONES, shopHW, CANTIERE_X: () => CANTIERE_X };
 })();
@@ -2890,7 +3092,7 @@ function zonaOf(s) { return s.zone === "agrigento" ? quartiereAt(s.x).name : (ZO
 const PERIODI = { mensile: 1, trimestrale: 3, semestrale: 6, annuale: 12, unatantum: 0 };
 const PERIODI_LABEL = { mensile: "Mensile", trimestrale: "Trimestrale", semestrale: "Semestrale", annuale: "Annuale", unatantum: "Una tantum" };
 
-const RG = { data: {}, admin: false, local: false, off: null, ui: { q: "", tipo: [], zona: [], stato: [], ord: "scad", grp: "tipo" } };
+const RG = { data: {}, admin: false, local: false, off: null, tab: "shops", chatN: 500, arch: {}, blk: {}, usr: {}, offs: [], ui: { q: "", tipo: [], zona: [], stato: [], ord: "scad", grp: "tipo" } };
 const rgEl = (tag, attrs, ...kids) => { const e = document.createElement(tag); if (attrs) for (const k in attrs) { if (k === "class") e.className = attrs[k]; else if (k.startsWith("on")) e[k] = attrs[k]; else if (k === "value") e.value = attrs[k]; else e.setAttribute(k, attrs[k]); } kids.flat().forEach((c) => { if (c != null) e.appendChild(typeof c === "string" || typeof c === "number" ? document.createTextNode(String(c)) : c); }); return e; };
 const rgToday = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
 const rgIso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
@@ -2923,7 +3125,8 @@ function rgOpen() {
   const cu = Net.ok && window.firebase && firebase.auth().currentUser;
   if (cu && !cu.isAnonymous) rgStartLive(); else rgShowLogin();
 }
-function rgClose() { try { if (RG.off) RG.off(); } catch (e) {} location.reload(); }
+function rgClose() { try { if (RG.off) RG.off(); } catch (e) {} rgOffAll(); location.reload(); }
+function rgOffAll() { RG.offs.forEach((f) => { try { f(); } catch (e) {} }); RG.offs = []; }
 function rgShowLogin(msg) {
   const root = $("regia"); [...root.children].forEach((c) => { if (c.id !== "rgToast") c.remove(); });
   const mail = rgEl("input", { type: "email", placeholder: "Email amministratore", autocomplete: "username", value: lsGet("scw_regia_mail", "") });
@@ -2949,6 +3152,7 @@ function rgStartLive() {
 // ---------- interfaccia ----------
 function rgBuild() {
   const root = $("regia"); [...root.children].forEach((c) => { if (c.id !== "rgToast") c.remove(); });
+  if (RG.local) RG.tab = "shops";
   const sel = (key, opts, first) => { const s = rgEl("select", { onchange: (e) => { RG.ui[key] = e.target.value; rgRender(); } }); if (first != null) s.appendChild(rgEl("option", { value: "" }, first)); opts.forEach(([v, l]) => s.appendChild(rgEl("option", { value: v }, l))); s.value = RG.ui[key]; return s; };
   const multi = (key, label, opts) => { // menu a scelta multipla: spunti quanti vuoi
     const wrap = rgEl("div", { class: "rg-ms" }), btn = rgEl("button", { class: "rg-msb", type: "button" }), panel = rgEl("div", { class: "rg-msp" });
@@ -2971,10 +3175,13 @@ function rgBuild() {
     sel("ord", [["scad", "Scadenza: più vicina prima"], ["scadDesc", "Scadenza: più lontana prima"], ["az", "Nome A → Z"], ["za", "Nome Z → A"], ["fee", "Canone più alto"]]),
     sel("grp", [["tipo", "Raggruppa per tipologia"], ["zona", "Raggruppa per zona"], ["none", "Nessun gruppo"]]),
     rgEl("button", { class: "rg-b ghost", onclick: () => { RG.ui = { q: "", tipo: [], zona: [], stato: [], ord: "scad", grp: "tipo" }; rgBuild(); } }, "Azzera filtri"));
-  root.appendChild(rgEl("div", { class: "rg-wrap" }, top, rgEl("div", { id: "rgCards", class: "rg-cards" }), filt, rgEl("div", { id: "rgList" }), file));
-  rgRender();
+  const nav = RG.local ? null : rgEl("div", { class: "rg-nav" }, ...[["shops", "🏪 Punti vendita"], ["chat", "💬 Chat e utenti"], ["set", "⚙ Impostazioni"]].map(([id, lab]) => rgEl("button", { class: "rg-tab" + (RG.tab === id ? " on" : ""), onclick: () => { RG.tab = id; rgBuild(); } }, lab)));
+  const shopsView = rgEl("div", { id: "rgShops" }, rgEl("div", { id: "rgCards", class: "rg-cards" }), filt, rgEl("div", { id: "rgList" }));
+  root.appendChild(rgEl("div", { class: "rg-wrap" }, top, nav, RG.tab === "shops" ? shopsView : rgEl("div", { id: "rgPane" }), file));
+  rgOffAll(); if (RG.tab === "shops") rgRender(); else if (RG.tab === "chat") rgChatBuild(); else rgSetBuild();
 }
 function rgRender() {
+  if (RG.tab !== "shops" || !$("rgList")) return;
   const cat = rgCatalog(), u = RG.ui, q = u.q.trim().toLowerCase();
   const act = cat.filter((c) => c.stato !== "sospeso");
   const sum = (a) => a.reduce((t, c) => t + c.r.fee, 0);
@@ -3059,6 +3266,58 @@ function rgRestore(e) {
     if (!n) return rgToast("Il file non contiene dati validi"); if (!confirm("Ripristinare " + n + " punti vendita dal backup? I dati attuali di quei punti vendita verranno sostituiti.")) return;
     Promise.all(Object.keys(sh).filter((id) => SHOPS[id]).map((id) => rgSave(id))).then(() => { rgRender(); rgToast("Ripristinati " + n + " punti vendita ✓"); }); } catch (x) { rgToast("File non valido"); } e.target.value = ""; };
   rd.readAsText(f);
+}
+// ---------- CHAT E UTENTI: archivio completo, blocco utenti ----------
+const rgWhen = (t) => { const d = new Date(t || 0); return String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + " " + String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); };
+function rgListen(ref, ev, cb) { const f = (s) => cb(s); ref.on(ev, f, () => rgToast("Permesso negato: controlla le regole (nodo admin/uid)")); RG.offs.push(() => ref.off(ev, f)); }
+function rgChatBuild() {
+  const pane = $("rgPane"); pane.textContent = "";
+  const q = rgEl("input", { id: "rgCq", type: "search", placeholder: "🔎 Cerca per nick o testo…", oninput: rgChatRender });
+  const only = rgEl("select", { id: "rgCf", onchange: rgChatRender }, rgEl("option", { value: "" }, "Tutti i messaggi"), rgEl("option", { value: "blk" }, "Solo utenti bloccati"));
+  pane.append(rgEl("div", { class: "rg-filt" }, q, only, rgEl("button", { class: "rg-b", onclick: rgChatTxt }, "💾 Scarica archivio (.txt)"), rgEl("button", { class: "rg-b", onclick: () => { RG.chatN += 500; rgChatBuild(); } }, "⏪ Carica 500 più vecchi")),
+    rgEl("div", { class: "rg-gh" }, rgEl("b", null, "🚫 Utenti bloccati"), rgEl("span", { id: "rgBlkN" }, "")), rgEl("div", { id: "rgBlk" }),
+    rgEl("div", { class: "rg-gh" }, rgEl("b", null, "💬 Archivio chat pubblica"), rgEl("span", { id: "rgArN" }, "")), rgEl("div", { id: "rgArc" }),
+    rgEl("div", { class: "rg-gh" }, rgEl("b", null, "👥 Utenti registrati con email"), rgEl("span", { id: "rgUsN" }, "")), rgEl("div", { id: "rgUsr" }));
+  rgListen(Net.db.ref("archive/chat").orderByKey().limitToLast(RG.chatN), "value", (s) => { RG.arch = s.val() || {}; rgChatRender(); });
+  rgListen(Net.db.ref("blocked"), "value", (s) => { RG.blk = s.val() || {}; rgChatRender(); });
+  rgListen(Net.db.ref("users"), "value", (s) => { RG.usr = s.val() || {}; rgChatRender(); });
+}
+function rgChatList() { return Object.values(RG.arch).sort((a, b) => (a.t || 0) - (b.t || 0)); }
+function rgChatRender() {
+  if (RG.tab !== "chat" || !$("rgArc")) return;
+  const q = ($("rgCq").value || "").trim().toLowerCase(), f = $("rgCf").value;
+  const bl = Object.entries(RG.blk), B = $("rgBlk"); B.textContent = ""; $("rgBlkN").textContent = bl.length + " bloccati";
+  if (!bl.length) B.appendChild(rgEl("div", { class: "rg-empty" }, "Nessun utente bloccato."));
+  bl.forEach(([uid, b]) => B.appendChild(rgEl("div", { class: "rg-row st-scaduto", style: "grid-template-columns:1fr auto" }, rgEl("div", { class: "rg-nm" }, rgEl("b", null, "🚫 " + (b.n || uid)), rgEl("small", null, rgWhen(b.t) + (b.why ? " · " + b.why : ""))), rgEl("button", { class: "rg-b green", onclick: () => { if (confirm("Sbloccare " + (b.n || "questo utente") + "?")) Net.db.ref("blocked/" + uid).remove().then(() => rgToast("Sbloccato ✓")); } }, "Sblocca"))));
+  const msgs = rgChatList().filter((m) => (!q || (String(m.n) + " " + String(m.m)).toLowerCase().includes(q)) && (f !== "blk" || RG.blk[m.u])).reverse();
+  const A = $("rgArc"); A.textContent = ""; $("rgArN").textContent = msgs.length + " messaggi";
+  if (!msgs.length) A.appendChild(rgEl("div", { class: "rg-empty" }, "Nessun messaggio."));
+  msgs.slice(0, 400).forEach((m) => A.appendChild(rgEl("div", { class: "rg-msg" + (RG.blk[m.u] ? " blk" : "") },
+    rgEl("div", { class: "rg-mt" }, rgEl("b", null, m.n || "?"), rgEl("small", null, rgWhen(m.t) + " · " + ((ZONES[m.z] || {}).name || m.z || ""))), rgEl("div", { class: "rg-mx" }, m.m),
+    RG.blk[m.u] ? rgEl("small", null, "bloccato") : rgEl("button", { class: "rg-b red", onclick: () => rgBlock(m.u, m.n) }, "🚫 Blocca"))));
+  const us = Object.entries(RG.usr).filter(([, u]) => !q || ((u.nick || "") + " " + (u.em || "")).toLowerCase().includes(q)).sort((a, b) => (a[1].nick || "").localeCompare(b[1].nick || "", "it")), U = $("rgUsr"); U.textContent = ""; $("rgUsN").textContent = us.length + " utenti";
+  if (!us.length) U.appendChild(rgEl("div", { class: "rg-empty" }, "Nessun utente registrato."));
+  us.forEach(([uid, u]) => U.appendChild(rgEl("div", { class: "rg-row", style: "grid-template-columns:1fr auto" }, rgEl("div", { class: "rg-nm" }, rgEl("b", null, u.nick || "?"), rgEl("small", null, (u.em || "") + (u.t ? " · dal " + rgFmt(rgIso(new Date(u.t))) : ""))), RG.blk[uid] ? rgEl("small", null, "bloccato") : rgEl("button", { class: "rg-b red", onclick: () => rgBlock(uid, u.nick) }, "🚫 Blocca"))));
+}
+function rgBlock(uid, nick) {
+  const why = rgEl("input", { placeholder: "Motivo (es. linguaggio offensivo)" });
+  const m = rgModal("Blocca " + (nick || "utente"), rgEl("div", { class: "rg-form" }, rgEl("p", { style: "margin:0;color:#cdbfff;font-size:14px" }, "L'utente non potrà più scrivere né comparire nel gioco. Potrai sbloccarlo in qualsiasi momento."), rgField("Motivo (lo vedrà l'utente)", why)),
+    [rgEl("button", { class: "rg-b red", onclick: () => { const rec = { n: nick || "", t: Date.now(), why: why.value.trim().slice(0, 120) };
+      Net.db.ref("blocked/" + uid).set(rec).then(() => { m.remove(); rgToast("🚫 " + (nick || "Utente") + " bloccato"); Net.db.ref("world/players/" + uid).remove().catch(() => {}); }).catch(() => rgToast("Blocco non riuscito: controlla le regole")); } }, "BLOCCA"), rgEl("button", { class: "rg-b ghost", onclick: () => m.remove() }, "Annulla")]);
+}
+function rgChatTxt() {
+  const l = rgChatList(); if (!l.length) return rgToast("Archivio vuoto");
+  rgDownload("archivio-chat-" + rgIso(rgToday()) + ".txt", "\ufeff" + "SUPER CAPONE WORLD - archivio chat pubblica\n\n" + l.map((m) => "[" + rgWhen(m.t) + "] " + m.n + " (" + ((ZONES[m.z] || {}).name || m.z || "") + "): " + m.m).join("\n") + "\n", "text/plain;charset=utf-8"); rgToast("Archivio scaricato");
+}
+// ---------- IMPOSTAZIONI ----------
+function rgSetBuild() {
+  const pane = $("rgPane"); pane.textContent = "";
+  const wa = rgEl("input", { placeholder: "https://chat.whatsapp.com/…" }), urlI = rgEl("input", { placeholder: "https://il-tuo-sito.vercel.app" }), vp = rgEl("input", { placeholder: "Chiave pubblica (inizia con B…)" });
+  rgListen(Net.db.ref("config"), "value", (s) => { const c = s.val() || {}; if (document.activeElement !== wa) wa.value = c.wa || ""; if (document.activeElement !== vp) vp.value = c.vapid || ""; if (document.activeElement !== urlI) urlI.value = c.url || ""; });
+  pane.append(rgEl("div", { class: "rg-form", style: "max-width:640px" },
+    rgEl("div", { class: "rg-sh" }, "💬 Gruppo WhatsApp", rgEl("small", null, "WhatsApp > il tuo gruppo > Info gruppo > Invita tramite link > Copia link. Il pulsante «Entra nel gruppo» compare subito nel gioco, senza ricaricare file.")), rgField("Link di invito al gruppo", wa),
+    rgEl("div", { class: "rg-sh" }, "📲 Notifiche push (app chiusa)", rgEl("small", null, "Firebase > Impostazioni progetto > Cloud Messaging > Certificati push web > Genera coppia di chiavi: incolla qui la «Chiave pubblica».")), rgField("Chiave web push (VAPID)", vp), rgField("Indirizzo del sito (si apre toccando la notifica)", urlI),
+    rgEl("button", { class: "rg-b gold", onclick: () => { const w = wa.value.trim(), v = vp.value.trim(), u = urlI.value.trim(); if (u && !/^https:\/\//.test(u)) return rgToast("L'indirizzo del sito deve iniziare con https://"); if (w && !/^https:\/\/(chat\.whatsapp\.com|wa\.me|whatsapp\.com)\//.test(w)) return rgToast("Il link WhatsApp non sembra corretto"); Net.db.ref("config").update({ wa: w || null, vapid: v || null, url: u || null }).then(() => rgToast("Impostazioni salvate ✓")).catch(() => rgToast("Salvataggio non riuscito")); } }, "SALVA IMPOSTAZIONI")));
 }
 // ---------- ingresso nella Regia: lucchetto discreto nella schermata iniziale, oppure indirizzo con #regia ----------
 $("rgLock").onclick = rgOpen; if (/regia/i.test(location.hash)) rgOpen();
