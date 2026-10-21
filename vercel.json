@@ -1,0 +1,32 @@
+{
+ "headers": [
+  {
+   "source": "/fonts/(.*)",
+   "headers": [
+    {
+     "key": "Cache-Control",
+     "value": "public, max-age=31536000, immutable"
+    }
+   ]
+  },
+  {
+   "source": "/secretpage(.html)?",
+   "headers": [
+    {
+     "key": "X-Robots-Tag",
+     "value": "noindex, nofollow"
+    },
+    {
+     "key": "Cache-Control",
+     "value": "no-cache"
+    }
+   ]
+  }
+ ],
+ "rewrites": [
+  {
+   "source": "/secretpage",
+   "destination": "/secretpage.html"
+  }
+ ]
+}
