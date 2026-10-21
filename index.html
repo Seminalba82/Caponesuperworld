@@ -1412,7 +1412,7 @@ function scDrawFavaraSign(c, x, T, name, sub) {
   }
 }
 // ===================== SUPER CAPONE WORLD · arte (avatar, negozi, terreno) =====================
-const WORLD_VERSION = "v1.24";
+const WORLD_VERSION = "v1.25";
 const T0 = 1; // unità: tutto è disegnato in "caselle" (come in Super Capone), i piedi sono in (0,0)
 
 // ---------- 11 avatar: il Capone + 10 personaggi ----------
@@ -2728,7 +2728,8 @@ const BLD = 0.5, BLD_SIGN = 0.75;
 const SHOP_FIT = { denise: 0.8, cose: 0.9, doimos: 0.9, fuori: 0.85 }; // le strutture più alte degli altri esercizi vengono riportate alla stessa taglia
 const shopScale = (id) => BLD * (id === "oceanomare" ? 1.5 : 1) * (SHOP_FIT[id] || 1);
 const HW = { oceanomare: 9, municipio: 8.2, capotavola: 6.6, posta: 5.9, animazione: 5.8, quiz: 4.9, frank: 5.5, centesimo: 6.5, manulab: 5, mary: 5.2, denise: 5.4, gabbia: 5, cose: 5.8, doimos: 5.4, palacongressi: 11.2, carta: 6.8, fuori: 5.5, rifugio: 9.4, cantiere: 6.5 };
-const shopHW = (id) => (HW[id] || 5.3) * shopScale(id);
+const SHOP_FITX = { palacongressi: 0.9 }; // restringe solo la larghezza
+const shopHW = (id) => (HW[id] || 5.3) * shopScale(id) * (SHOP_FITX[id] || 1);
 const shopRadius = (id) => shopHW(id) + 0.9;
 // ---- piano di Agrigento: l'ordine dei quartieri e dei locali. Basta aggiungere l'id nel quartiere giusto: le posizioni si calcolano da sole,
 // così i locali dello stesso quartiere restano sempre vicini ----
@@ -2752,38 +2753,33 @@ const AUTO = ["v_contino", "v_gfcars", "o_terrana", "o_costa", "o_vullo", "o_zg"
 const NEGOZI = ["c_extreme", "c_mega", "c_angels", "c_ovs", "c_upim", "c_blukids", "c_sciascia", "c_vincent", "c_peplos", "c_citymose"];
 
 // ---- SETTORI di Villaggio Mosè: ogni palazzo-ingresso porta in una passeggiata con solo quei negozi (sotto-zona) ----
-const GATE_S = 0.62, GATE_HW = 6.4;
+const GATE_S = 0.62, GATE_HW = 3.2; // palazzi stretti: larghezza dimezzata, altezza invariata
+const MANGIARE = [...RISTORANTI, ...BAR, ...PANIFICI], CASATECH = [...CASA, ...FERRAMENTA, ...ELETTRONICA], BELLEZZA = [...PERSONA, ...GIOIELLERIE], OSPITALITA = [...HOTEL, ...FESTE];
 const SECTORS = [
   { id: "pizzerie", name: "PIZZERIE", ids: PIZZERIE, theme: "mose", icon: icoPizza, fl: { flag: true }, wall: "#fff1e0", trim: "#bf360c", signBg: "#bf360c", signFg: "#fff", subFg: "#ffe0b2", awn: ["#bf360c", "#fff3e0"] },
-  { id: "ristoranti", name: "RISTORANTI", ids: RISTORANTI, theme: "centro", icon: icoPlate, fl: { rflag: true }, wall: "#fff1ee", trim: "#880e4f", signBg: "#880e4f", signFg: "#ffd6e0", subFg: "#ffd6e0", awn: ["#c2185b", "#fff"] },
-  { id: "bar", name: "BAR", ids: BAR, theme: "mose", icon: icoCup, fl: { bflag: true }, wall: "#efe6dc", trim: "#3e2723", signBg: "#4e2a1a", signFg: "#ffcc80", subFg: "#ffe0b2", awn: ["#4e2a1a", "#ffcc80"] },
-  { id: "panifici", name: "PANIFICI", ids: PANIFICI, theme: "centro", icon: icoBread, fl: { pflag: true }, wall: "#fff8e1", trim: "#8d5a1b", signBg: "#b8741a", signFg: "#fff", subFg: "#fff3d6", awn: ["#b8741a", "#fff3d6"] },
+  { id: "mangiare", name: "MANGIARE E BERE", ids: MANGIARE, theme: "centro", icon: icoPlate, fl: { bflag: true }, wall: "#fff1ee", trim: "#880e4f", signBg: "#880e4f", signFg: "#ffd6e0", subFg: "#ffd6e0", awn: ["#c2185b", "#fff"] },
   { id: "supermercati", name: "SUPERMERCATI", ids: SUPERMERCATI, theme: "monserrato", icon: icoCart, fl: { xflag: "super" }, wall: "#e8f5e9", trim: "#1b5e20", signBg: "#2e7d32", signFg: "#ffeb3b", subFg: "#fff", awn: ["#2e7d32", "#ffeb3b"] },
-  { id: "casa", name: "CASA E ARREDO", ids: CASA, theme: "quadrivio", icon: icoHome, fl: { xflag: "casa" }, wall: "#efebe9", trim: "#4e342e", signBg: "#6d4c41", signFg: "#ffe0b2", subFg: "#ffe0b2", awn: ["#6d4c41", "#ffe0b2"] },
-  { id: "ferramenta", name: "FERRAMENTA", ids: FERRAMENTA, theme: "montaperto", icon: icoHammer, fl: { xflag: "ferr" }, wall: "#eceff1", trim: "#455a64", signBg: "#455a64", signFg: "#ffb74d", subFg: "#cfd8dc", awn: ["#455a64", "#ffb74d"] },
-  { id: "elettronica", name: "ELETTRONICA", ids: ELETTRONICA, theme: "monserrato", icon: icoTv, fl: { xflag: "tv" }, wall: "#e3f2fd", trim: "#0d47a1", signBg: "#0d47a1", signFg: "#fff", subFg: "#bbdefb", awn: ["#0d47a1", "#ffd600"] },
-  { id: "farmacie", name: "FARMACIE E SALUTE", ids: FARMACIE, theme: "fontanelle", icon: icoCross, fl: { xflag: "farma" }, wall: "#e8f5e9", trim: "#1b5e20", signBg: "#2e7d32", signFg: "#fff", subFg: "#c8e6c9", awn: ["#2e7d32", "#fff"] },
-  { id: "gioiellerie", name: "GIOIELLERIE", ids: GIOIELLERIE, theme: "centro", icon: icoGem, fl: { xflag: "gem" }, wall: "#fffde7", trim: "#b8860b", signBg: "#212121", signFg: "#ffd54f", subFg: "#ffe082", awn: ["#212121", "#ffd54f"] },
-  { id: "hotel", name: "HOTEL", ids: HOTEL, theme: "fontanelle", icon: icoBed, fl: { xflag: "hotel" }, wall: "#e8eaf6", trim: "#1a237e", signBg: "#1a237e", signFg: "#ffd54f", subFg: "#c5cae9", awn: ["#1a237e", "#ffd54f"] },
-  { id: "feste", name: "GIOCHI E FESTE", ids: FESTE, theme: "mose", icon: icoBalloon, fl: { xflag: "feste" }, wall: "#f3e5f5", trim: "#7b1fa2", signBg: "#7b1fa2", signFg: "#fff59d", subFg: "#e1bee7", awn: ["#7b1fa2", "#fff59d"] },
-  { id: "persona", name: "PERSONA E OTTICA", ids: PERSONA, theme: "fontanelle", icon: icoHeart, fl: { xflag: "cura" }, wall: "#f3e5f5", trim: "#6a1b9a", signBg: "#8e24aa", signFg: "#fff", subFg: "#f8bbd0", awn: ["#8e24aa", "#f8bbd0"] },
-  { id: "banche", name: "BANCHE E POSTE", ids: BANCHE, theme: "fontanelle", icon: icoBank, fl: { xflag: "banca" }, wall: "#e3f2fd", trim: "#0d47a1", signBg: "#0d47a1", signFg: "#ffd54f", subFg: "#bbdefb", awn: ["#0d47a1", "#ffd54f"] },
+  { id: "casatech", name: "CASA E TECNOLOGIA", ids: CASATECH, theme: "quadrivio", icon: icoHome, fl: { xflag: "casa" }, wall: "#e3f2fd", trim: "#0d47a1", signBg: "#6d4c41", signFg: "#ffe0b2", subFg: "#ffe0b2", awn: ["#6d4c41", "#ffe0b2"] },
   { id: "abbigliamento", name: "ABBIGLIAMENTO", ids: NEGOZI, theme: "mose", icon: icoShirt, fl: { cflag: true }, wall: "#f3e5f5", trim: "#7b1fa2", signBg: "#6a1b9a", signFg: "#ffee58", subFg: "#e1bee7", awn: ["#6a1b9a", "#ffee58"] },
+  { id: "bellezza", name: "BELLEZZA E GIOIELLI", ids: BELLEZZA, theme: "fontanelle", icon: icoHeart, fl: { xflag: "gem" }, wall: "#fce4ec", trim: "#8e24aa", signBg: "#8e24aa", signFg: "#fff", subFg: "#f8bbd0", awn: ["#8e24aa", "#ffd54f"] },
+  { id: "ospitalita", name: "HOTEL E FESTE", ids: OSPITALITA, theme: "mose", icon: icoBed, fl: { xflag: "hotel" }, wall: "#e8eaf6", trim: "#1a237e", signBg: "#1a237e", signFg: "#ffd54f", subFg: "#c5cae9", awn: ["#1a237e", "#ffd54f"] },
   { id: "auto", name: "AUTO E MOTO", ids: AUTO, theme: "quadrivio", icon: icoCar, fl: { xflag: "auto" }, wall: "#eceff1", trim: "#b71c1c", signBg: "#b71c1c", signFg: "#fff", subFg: "#ffcdd2", awn: ["#b71c1c", "#fff"] },
+  { id: "farmacie", name: "FARMACIE", ids: FARMACIE, theme: "fontanelle", icon: icoCross, fl: { xflag: "farma" }, wall: "#e8f5e9", trim: "#1b5e20", signBg: "#2e7d32", signFg: "#fff", subFg: "#c8e6c9", awn: ["#2e7d32", "#fff"] },
+  { id: "banche", name: "BANCHE E POSTE", ids: BANCHE, theme: "fontanelle", icon: icoBank, fl: { xflag: "banca" }, wall: "#e3f2fd", trim: "#0d47a1", signBg: "#0d47a1", signFg: "#ffd54f", subFg: "#bbdefb", awn: ["#0d47a1", "#ffd54f"] },
 ];
 SECTORS.forEach((sec) => {
   sec.zone = "mose_" + sec.id; sec.x = 0;
-  sec.art = { name: sec.name, sub: sec.ids.length + " LOCALI · ENTRA", hw: GATE_HW, h: 9.4, sh: 2.2, wall: sec.wall, trim: sec.trim, signBg: sec.signBg, signFg: sec.signFg, subFg: sec.subFg, awn: sec.awn, glow: ["#fff0c0", "#ffb74d"], icon: sec.icon, iconW: 1.3, base: "rgba(40,30,30,.4)", q: "SETTORE · " + sec.ids.length + " LOCALI", ...sec.fl };
+  sec.art = { name: sec.name, sub: sec.ids.length + " LOCALI · ENTRA", hw: GATE_HW, h: 9.4, sh: 2.2, win: 1.7, door: 1.5, wall: sec.wall, trim: sec.trim, signBg: sec.signBg, signFg: sec.signFg, subFg: sec.subFg, awn: sec.awn, glow: ["#fff0c0", "#ffb74d"], icon: sec.icon, iconW: 1.3, base: "rgba(40,30,30,.4)", q: sec.ids.length + " LOCALI", ...sec.fl };
   ZONES[sec.zone] = { name: sec.name + " · VILLAGGIO MOSÈ", W: 200, spawn: 11, sector: true, theme: sec.theme };
   sec.ids.forEach((id) => { SHOPS[id].zone = sec.zone; });
-  TUNNELS.push({ id: "g_" + sec.id, hide: true, gate: true, zone: "agrigento", to: sec.zone, label: sec.name, x: 0, stand: 0, rad: GATE_HW * GATE_S });
+  TUNNELS.push({ id: "g_" + sec.id, hide: true, gate: true, zone: "agrigento", to: sec.zone, label: sec.name, x: 0, stand: 0, rad: GATE_HW * GATE_S + 0.7 });
   TUNNELS.push({ id: "g_" + sec.id + "_b", exit: true, zone: sec.zone, to: "agrigento", label: "VILLAGGIO MOSÈ", x: 8, stand: 11, back: "g_" + sec.id });
 });
 const SECTOR_PLAN = SECTORS.map((s) => "gate:" + s.id);
 const PLAN = [
   { q: "sanleone", items: ["oceanomare", "denise"] },
   { q: "peruzzo", items: ["cantiere"] },
-  { q: "mose", items: ["doimos", "manulab", "palacongressi", ...SECTOR_PLAN, "bb:quiz"] },
+  { q: "mose", items: ["palacongressi", "bb:quiz", "gate:pizzerie", "gate:mangiare", "gate:supermercati", "gate:casatech", "gate:abbigliamento", "gate:bellezza", "gate:ospitalita", "gate:auto", "manulab", "gate:farmacie", "gate:banche", "doimos"] },
   { q: "campo", items: ["sp:14"] },
   { q: "centro", items: ["municipio", "capotavola", "posta", "animazione", "quiz", "mary"] },
   { q: "monserrato", items: ["rifugio", "bb:quiz"] },
@@ -2924,7 +2920,7 @@ function drawWorldObjects(c, zone, x0, x1, T, t) {
   Object.entries(SHOPS).forEach(([id, s]) => {
     if (s.zone !== zone || s.x < x0 - 12 || s.x > x1 + 12) return;
     c.save();
-    c.translate(s.x * T, g); c.scale(T * shopScale(id), T * shopScale(id)); drawShopArt(c, id, t, s.q);
+    c.translate(s.x * T, g); c.scale(T * shopScale(id) * (SHOP_FITX[id] || 1), T * shopScale(id)); drawShopArt(c, id, t, s.q);
     c.restore();
   });
   BILLBOARDS.forEach((b) => { if (b.zone !== zone || b.x < x0 - 6 || b.x > x1 + 6) return; c.save(); c.translate(b.x * T, g); if (b.img === "arcade") { c.scale(T, T); drawArcade(c, t); } else { c.scale(T * BLD, T * BLD); drawBillboard(c, t, WIMG[b.img], b.w); } c.restore(); });
